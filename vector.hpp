@@ -1,14 +1,24 @@
+/*
+**  
+**
+*/
+
+#ifndef VECTOR_HPP
+# define VECTOR_HPP
+
 #include "header.hpp"
+#include <iostream>
 
 namespace ft
 {
-    // A Class in a namespace
     class vector
     {
     public:
-        void display()
+        static void display()
         {
             std::cout << "ft::vector::display()\n";
         }
     };
 }
+
+#endif

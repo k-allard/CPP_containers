@@ -1,4 +1,5 @@
 # CPP_containers
+## General information
 • List
 • Vector
 • Map
@@ -17,3 +18,8 @@
 - for non-member overloads, the keyword friend is allowed
 - iterator system YES
 - no more public functions than the ones offered in the standard containers (everything else must be private or protected)
+
+## Vectors
+-  template < class T, class Alloc = allocator<T> > class vector; // generic template
+- vectors use a dynamically allocated array to store their elements
+- 

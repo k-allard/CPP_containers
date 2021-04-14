@@ -1,10 +1,8 @@
-#include "header.hpp"
+#include "vector.hpp"
 
 int main()
 {
-    ft::vector obj;
-  
-    obj.display();
+    ft::vector::display();
   
     return 0;
 }
