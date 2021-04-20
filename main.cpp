@@ -2,7 +2,7 @@
 
 int main()
 {
-    ft::vector::display();
+    ft::Vector<int>::display();
   
     return 0;
 }

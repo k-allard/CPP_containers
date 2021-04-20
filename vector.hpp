@@ -1,5 +1,5 @@
 /*
-**  
+**  Class vector
 **
 */
 
@@ -11,13 +11,16 @@
 
 namespace ft
 {
-    class vector
+    template <typename T>
+    class Vector
     {
-    public:
-        static void display()
-        {
-            std::cout << "ft::vector::display()\n";
-        }
+        private:
+
+        public:
+            static void display()
+            {
+                std::cout << "ft::Vector is displaying\n";
+            }
     };
 }
 

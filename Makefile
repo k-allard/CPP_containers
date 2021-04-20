@@ -21,7 +21,8 @@ fclean: clean
 
 re: fclean all
 
-test:
+test: re
+	@./my_containers
 
 %.o: %.cpp
 	@clang++ $(FLAGS) -c $< -o $@
