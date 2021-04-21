@@ -1,5 +1,5 @@
 /*
-**  Class vector
+**  Vector class
 **
 */
 
