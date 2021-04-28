@@ -1,23 +1,32 @@
 # CPP_containers
-## General information
-• List
-• Vector
-• Map
-• Stack 
-• Queue
+## Задание
+Имплементировать контейнеры:
+#### последовательные:
+* List
+* Vector
+* Deque (бонус)
+#### ассоциативные:
+* Map
+* Set (бонус)
+* Muliset (бонус)
+* Multimap (бонус)
+#### адаптеры:
+* Stack 
+* Queue
 
-- only C++98 features, even deprecated
-- use https://www.cplusplus.com/ and cppreference.com (better)
-- allowed to use the STD library
-- namespace will always be ft and your containers will be tested using ft::< container >
-- respect the structure of the reference container. If it’s missing a part of the Coplien form, do not implement it
-- <container>.hpp for each container
-- main.cpp which tests everything
-- the member function get_allocator NO
-- all other member functions and non-member overloads YES
-- for non-member overloads, the keyword friend is allowed
-- iterator system YES
-- no more public functions than the ones offered in the standard containers (everything else must be private or protected)
 
-## Useful links
-https://stackoverflow.com/questions/7758580/writing-your-own-stl-container/7759622#7759622
+- только функции C++98, даже устаревшие
+- использовать https://www.cplusplus.com/ и cppreference.com 
+- разрешено использовать библиотеку STD
+- пространство имен всегда ft, контейнеры будут тестироваться с помощью ft::< container >
+- соблюдайте структуру эталонного контейнера. Если в нем отсутствует часть формы Coplien, не реализуйте его
+- <container>.hpp для каждого контейнера
+- main.cpp который все затестит
+- метод get_allocator реализовывать НЕ надо
+- все остальные методы и перегрузки, не являющиеся членами класса, - надо
+- для перегрузок, не являющихся членами класса, допускается использование ключевого слова friend
+- система итераторов - надо
+- публичными должны быть только функции, которые есть в стандартных контейнерах (все остальные должно быть private или protected)
+
+## Полезные ссылки
+- https://stackoverflow.com/questions/7758580/writing-your-own-stl-container/7759622#7759622

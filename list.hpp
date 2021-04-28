@@ -1,7 +1,8 @@
 /*
-**  List class
+**  List class - doubly-linked list
 **
 */
+// #include <list>
 
 #ifndef LIST_HPP
 # define LIST_HPP

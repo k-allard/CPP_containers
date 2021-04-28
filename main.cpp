@@ -3,7 +3,7 @@
 
 int main()
 {
-    ft::Vector<int>::display();
+    ft::vector<int, std::allocator<int> >::display();
     ft::List<int>::display();
     return 0;
 }
