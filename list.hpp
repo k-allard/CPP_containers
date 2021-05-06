@@ -20,7 +20,7 @@ class	Node {
 
 namespace ft
 {
-    // template < class T, class Alloc = allocator<T> > class list;
+    template < class T, class Alloc = allocator<T> > class list;
     class List
     {
         public:
