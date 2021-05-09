@@ -1,5 +1,5 @@
 #include "vector.hpp"
-// #include "list.hpp"
+#include "ring.hpp"
 
 #include <vector>
 #include <iostream>
@@ -16,5 +16,19 @@ int main()
 
     ft::vector<int> vecMy;
 
+
+    Ring<string> rs;
+    rs.push_back("one");
+    rs.push_back("two");
+    rs.push_back("three");
+    rs.push_back("four");
+    rs.push_back("five");
+    Ring<string>::iterator it = rs.begin();
+    ++it; ++it;
+    it.insert("six");
+    it = rs.begin();
+    // Twice around the ring:
+    for(int i = 0; i < rs.size() * 2; i++)
+    cout << *it++ << endl;
     return 0;
 }
