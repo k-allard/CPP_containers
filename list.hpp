@@ -54,6 +54,18 @@ namespace ft
         void assign (InputIterator first, InputIterator last);    // range
         void assign (size_type n, const value_type& val);   // fill
 
+        // 
+        //  I T E R A T O R S
+        //
+
+        reference back();
+        const_reference back() const;
+        iterator begin();
+        const_iterator begin() const;
+        reverse_iterator rbegin();
+        const_reverse_iterator rbegin() const;
+        reverse_iterator rend();
+        const_reverse_iterator rend() const;
 
     };
     
