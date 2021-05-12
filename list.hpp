@@ -47,6 +47,26 @@ namespace ft
 
             
     };
+    
+    // 
+	//  non-member overloads
+	//
+
+    template <class T, class Alloc>
+    void swap (list<T,Alloc>& x, list<T,Alloc>& y);
+
+    template <class T, class Alloc>
+    bool operator== (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs);
+    template <class T, class Alloc>
+    bool operator!= (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs);
+    template <class T, class Alloc>
+    bool operator<  (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs);
+    template <class T, class Alloc>
+    bool operator<= (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs);
+    template <class T, class Alloc>
+    bool operator>  (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs);
+    template <class T, class Alloc>
+    bool operator>= (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs);
 }
 
 #endif
