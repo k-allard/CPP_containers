@@ -16,6 +16,12 @@ namespace ft
     template <class T, class Allocator = std::allocator<T> >
     class vector
     {
+	private: 
+		Allocator							_allocator;
+		Allocator::pointer					_ptr;
+		Allocator::size_type				_size;
+		Allocator::size_type				_capacity;
+
     public:
         typedef T											value_type;               
         typedef Allocator									allocator_type;      
@@ -46,7 +52,7 @@ namespace ft
         //  A S S I G N A T I O N
         //
 
-        vector& operator=(const vector& x); // assign
+        vector& operator=(const vector& x);
         template <class InputIterator> void assign(InputIterator first, InputIterator last);    // range
         void assign (size_type n, const value_type& val);   // fill
 
@@ -62,7 +68,6 @@ namespace ft
         const_reverse_iterator rbegin() const;
         reverse_iterator rend();
         const_reverse_iterator rend() const;
-
 
         // 
         //  C A P A C I T Y
@@ -100,8 +105,30 @@ namespace ft
         iterator erase (iterator position);
 		iterator erase (iterator first, iterator last);
         void clear();
+		void swap (vector& x);
 
     };
+
+	// 
+	//  non-member overloads
+	//
+
+	template <class T, class Alloc> 
+	void swap (vector<T,Alloc>& x, vector<T,Alloc>& y);
+
+
+	template <class T, class Alloc>
+	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+	template <class T, class Alloc>
+	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+	template <class T, class Alloc>
+	bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+	template <class T, class Alloc>
+	bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+	template <class T, class Alloc>
+	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+	template <class T, class Alloc>
+	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
 }
 
 #endif
