@@ -45,7 +45,16 @@ namespace ft
         list (const list& x);   // copy
         ~list();
 
-            
+        // 
+        //  A S S I G N A T I O N
+        //
+
+        list& operator= (const list& x);
+        template <class InputIterator>
+        void assign (InputIterator first, InputIterator last);    // range
+        void assign (size_type n, const value_type& val);   // fill
+
+
     };
     
     // 
