@@ -24,18 +24,27 @@ struct node
 
 namespace ft
 {
-    template < class T, class Alloc = allocator<T> > class list;
-    class List
+    template < class T, class Alloc = std::allocator<T> > 
+    class list
     {
-        public:
+    private:
+
+
+    public:
             typedef T			  value_type;
 			typedef Alloc       allocator_type;
-            static void display()
-            {
-                std::cout << "ft::List is displaying\n";
-            }
 
-        private:
+        // 
+        //  C O N S T R U C T O R S  &  D E S T R U C T O R
+        //
+
+        explicit list (const allocator_type& alloc = allocator_type());   // default
+        explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());    // fill
+        template <class InputIterator>
+        list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());    // range
+        list (const list& x);   // copy
+        ~list();
+
             
     };
 }
