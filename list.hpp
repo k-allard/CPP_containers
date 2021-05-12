@@ -76,14 +76,14 @@ namespace ft
 		bool empty() const;
 		void resize (size_type n, value_type val = value_type());
 
-        // 
-        //  E L E M E N T   A C C E S S
-        //
+		// 
+		//  E L E M E N T   A C C E S S
+		//
 
 
 		//
-        //  M O D I F I C A T I O N
-        //
+		//  M O D I F I C A T I O N
+		//
 
 		
 	};
