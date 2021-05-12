@@ -11,11 +11,15 @@
 #include <iostream>
 
 // A DLL node
-class	Node {
-	public:
-		int		data;
-		Node*   next;
-		Node*	prev;
+template <typename T>
+struct node
+{
+    T data;
+	struct node *prev;
+	struct node *next;
+
+	node() : data(T()) {}
+	node(const T &value) : data(value) {}
 };
 
 namespace ft
