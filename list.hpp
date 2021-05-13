@@ -31,8 +31,9 @@ namespace ft
 
 
 	public:
-			typedef T			  value_type;
-			typedef Alloc       allocator_type;
+
+		typedef T			  value_type;
+		typedef Alloc       allocator_type;
 
 		// 
 		//  C O N S T R U C T O R S  &  D E S T R U C T O R
@@ -80,16 +81,48 @@ namespace ft
 		//  E L E M E N T   A C C E S S
 		//
 
+		reference front();
+		const_reference front() const;
+		reference back();
+		const_reference back() const;
 
 		//
 		//  M O D I F I C A T I O N
 		//
 
-		
+		void push_back (const value_type& val);
+		void pop_back();
+		void push_front (const value_type& val);
+		void pop_front();
+		iterator insert (iterator position, const value_type& val); // single element
+		void insert (iterator position, size_type n, const value_type& val); // fill
+		template <class InputIterator>
+		void insert (iterator position, InputIterator first, InputIterator last); // range	
+		void merge (list& x);
+		template <class Compare>
+		void merge (list& x, Compare comp);
+
+		bool empty() const;
+		void reverse();
+		void sort();
+		template <class Compare>
+		void sort (Compare comp);
+		void splice (iterator position, list& x); //   entire list
+		void splice (iterator position, list& x, iterator i); // single element
+		void splice (iterator position, list& x, iterator first, iterator last); // element range
+		void swap (list& x);
+		void unique();
+		template <class BinaryPredicate>
+		void unique (BinaryPredicate binary_pred);
+		iterator erase (iterator position);
+		iterator erase (iterator first, iterator last);
+		void clear();
+		void swap (list& x);
+
 	};
 	
 	// 
-	//  non-member overloads
+	//  N O N - M E M B E R S
 	//
 
 	template <class T, class Alloc>

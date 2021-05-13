@@ -110,7 +110,7 @@ namespace ft
     };
 
 	// 
-	//  non-member overloads
+	//  N O N - M E M B E R S
 	//
 
 	template <class T, class Alloc> 
