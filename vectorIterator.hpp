@@ -141,7 +141,5 @@ namespace ft
 	size_t vectorIterator<T1>::operator-(vectorIterator & iter2) const { 
 		return (this.node - iter2.node); 
 	}
-	
-
 }
 #endif

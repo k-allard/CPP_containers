@@ -9,6 +9,7 @@
 # define VECTOR_HPP
 
 #include "header.hpp"
+#include "vectorIterator.hpp"
 
 namespace ft
 {
@@ -32,9 +33,9 @@ namespace ft
         typedef typename allocator_type::const_pointer		const_pointer;
 
 		typedef vectorIterator<T>							iterator;
-		// typedef constVectorIterator<T>						const_iterator;
-		// typedef revVectorIterator<T>						reverse_iterator;
-		// typedef constRevVectorIterator<T>					const_reverse_iterator;
+		typedef constVectorIterator<T>						const_iterator;
+		typedef revVectorIterator<T>						reverse_iterator;
+		typedef constRevVectorIterator<T>					const_reverse_iterator;
 
         // 
         //  C O N S T R U C T O R S  &  D E S T R U C T O R
@@ -107,6 +108,43 @@ namespace ft
 		void swap (vector& x);
 
     };
+
+	// 
+	//  I T E R A T O R S
+	//
+
+	template <typename T, typename Allocator>
+	iterator vector<T, Allocator>::begin() {
+		return (iterator(_ptr));
+	}
+
+	const_iterator begin() const {
+		return (const_iterator(_ptr));
+	}
+
+	iterator end() {
+		return (iterator(&(_ptr[_size])));
+	}
+
+	const_iterator end() const {
+		return (const_iterator(&(_ptr[_size])));
+	}
+	
+	reverse_iterator rbegin() {
+		return (reverse_iterator(&(_ptr[_size - 1])));
+	}
+
+	const_reverse_iterator rbegin() const {
+		return (const_reverse_iterator(&(_ptr[_size - 1])));
+	}
+
+	reverse_iterator rend() {
+		return (reverse_iterator(_ptr - 1));
+	}
+	
+	const_reverse_iterator rend() const {
+		return (const_reverse_iterator(_ptr - 1));
+	}
 
 	// 
 	//  N O N - M E M B E R S
