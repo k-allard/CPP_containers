@@ -9,7 +9,6 @@
 # define VECTOR_HPP
 
 #include "header.hpp"
-#include <iostream>
 
 namespace ft
 {
@@ -33,9 +32,9 @@ namespace ft
         typedef typename allocator_type::const_pointer		const_pointer;
 
 		typedef vectorIterator<T>							iterator;
-		typedef constVectorIterator<T>						const_iterator;
-		typedef revVectorIterator<T>						reverse_iterator;
-		typedef constRevVectorIterator<T>					const_reverse_iterator;
+		// typedef constVectorIterator<T>						const_iterator;
+		// typedef revVectorIterator<T>						reverse_iterator;
+		// typedef constRevVectorIterator<T>					const_reverse_iterator;
 
         // 
         //  C O N S T R U C T O R S  &  D E S T R U C T O R
