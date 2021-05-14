@@ -1,6 +1,7 @@
 #include <iostream>
+#include <stdexcept>
 
-// A DLL node
+// A DLL 
 template <typename T>
 struct node
 {

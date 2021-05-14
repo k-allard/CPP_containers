@@ -154,6 +154,54 @@ namespace ft
 	}
 
 	// 
+	//  E L E M E N T   A C C E S S
+	//
+
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::reference vector<T, Allocator>::operator[] (size_type n) {
+		return (_ptr[n]);
+	}
+
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::const_reference vector<T, Allocator>::operator[] (size_type n) const {
+		return (_ptr[n]);
+	}
+
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::reference vector<T, Allocator>::at (size_type n) {
+		if (n >= _size)
+			throw std::out_of_range("vector");
+		return (_ptr[n]);
+	}
+
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::const_reference vector<T, Allocator>::at (size_type n) const {
+		if (n >= _size)
+			throw std::out_of_range("vector");
+		return (_ptr[n]);
+	}
+
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::reference vector<T, Allocator>::front() {
+		return (_ptr[0]);
+	}
+
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::const_reference vector<T, Allocator>::front() const {
+		return (_ptr[0]);
+	}
+
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::reference vector<T, Allocator>::back() {
+		return (_ptr[_size - 1]);
+	}
+
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::const_reference vector<T, Allocator>::back() const {
+		return (_ptr[_size - 1]);
+	}
+
+	// 
 	//  N O N - M E M B E R S
 	//
 
