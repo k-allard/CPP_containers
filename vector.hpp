@@ -113,36 +113,43 @@ namespace ft
 	//  I T E R A T O R S
 	//
 
-	template <typename T, typename Allocator>
-	iterator vector<T, Allocator>::begin() {
+	template <class T, class Allocator> 
+	typename vector<T, Allocator>::iterator vector<T, Allocator>::begin() {
 		return (iterator(_ptr));
 	}
 
-	const_iterator begin() const {
+	template <class T, class Allocator> 
+	typename vector<T, Allocator>::const_iterator vector<T, Allocator>::begin() const {
 		return (const_iterator(_ptr));
 	}
 
-	iterator end() {
+	template <class T, class Allocator> 
+	typename vector<T, Allocator>::iterator vector<T, Allocator>::end() {
 		return (iterator(&(_ptr[_size])));
 	}
 
-	const_iterator end() const {
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::const_iterator vector<T, Allocator>::end() const {
 		return (const_iterator(&(_ptr[_size])));
 	}
 	
-	reverse_iterator rbegin() {
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::reverse_iterator vector<T, Allocator>::rbegin() {
 		return (reverse_iterator(&(_ptr[_size - 1])));
 	}
 
-	const_reverse_iterator rbegin() const {
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::const_reverse_iterator vector<T, Allocator>::rbegin() const {
 		return (const_reverse_iterator(&(_ptr[_size - 1])));
 	}
 
-	reverse_iterator rend() {
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::reverse_iterator vector<T, Allocator>::rend() {
 		return (reverse_iterator(_ptr - 1));
 	}
 	
-	const_reverse_iterator rend() const {
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::const_reverse_iterator vector<T, Allocator>::rend() const {
 		return (const_reverse_iterator(_ptr - 1));
 	}
 
