@@ -42,20 +42,20 @@ namespace ft
 	// перегрузка оператора присваиванияа
 	template <typename T1> 
 	vectorIterator<T1> &vectorIterator<T1>::operator=(const vectorIterator &src) {
-		this.node = src.node; 
+		node = src.node; 
 		return (*this); 
 	}
 
 	// dereference iterator returns a reference to the element pointed to by the iterator
 	template <typename T1> 
-	vectorIterator<T1>::reference vectorIterator<T1>::operator*() { 
-		return (*this.node);
+	typename vectorIterator<T1>::reference vectorIterator<T1>::operator*() { 
+		return (*node);
 	}
 
 	// dereference iterator returns a pointer to the element pointed to by the iterator (in order to access one of its members)
 	template <typename T1> 
-	vectorIterator<T1>::pointer vectorIterator<T1>::operator->() { 
-		return (this.node); 
+	typename vectorIterator<T1>::pointer vectorIterator<T1>::operator->() { 
+		return (node); 
 	}
 
 	// pre-increment - перемещение итератора вперед для обращения к следующему элементу
@@ -132,14 +132,14 @@ namespace ft
 
 	// dereference iterator with offset accesses the element located n positions away from the element currently pointed to
 	template <typename T1> 
-	vectorIterator<T1>::reference vectorIterator<T1>::operator[](size_t n) { 
-		return (*(this.node + n)); 
+	typename vectorIterator<T1>::reference vectorIterator<T1>::operator[](size_t n) { 
+		return (*(node + n)); 
 	}
 
 	// возвращает количество позиций между итераторами iter1 и iter2
 	template <typename T1> 
 	size_t vectorIterator<T1>::operator-(vectorIterator & iter2) const { 
-		return (this.node - iter2.node); 
+		return (node - iter2.node); 
 	}
 }
 #endif

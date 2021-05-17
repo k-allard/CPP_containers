@@ -18,9 +18,9 @@ namespace ft
     {
 	private:
 		Allocator							_allocator;
-		Allocator::pointer					_ptr;
-		Allocator::size_type				_size;
-		Allocator::size_type				_capacity;
+		typename Allocator::pointer					_ptr;
+		typename Allocator::size_type				_size;
+		typename Allocator::size_type				_capacity;
 
     public:
         typedef T											value_type;
@@ -33,9 +33,9 @@ namespace ft
         typedef typename allocator_type::const_pointer		const_pointer;
 
 		typedef vectorIterator<T>							iterator;
-		typedef constVectorIterator<T>						const_iterator;
-		typedef revVectorIterator<T>						reverse_iterator;
-		typedef constRevVectorIterator<T>					const_reverse_iterator;
+		// typedef constVectorIterator<T>						const_iterator;
+		// typedef revVectorIterator<T>						reverse_iterator;
+		// typedef constRevVectorIterator<T>					const_reverse_iterator;
 
         //
         //  C O N S T R U C T O R S  &  D E S T R U C T O R
@@ -61,13 +61,13 @@ namespace ft
         //
 
         iterator begin();
-        const_iterator begin() const;
+        // const_iterator begin() const;
         iterator end();
-        const_iterator end() const;
-        reverse_iterator rbegin();
-        const_reverse_iterator rbegin() const;
-        reverse_iterator rend();
-        const_reverse_iterator rend() const;
+        // const_iterator end() const;
+        // reverse_iterator rbegin();
+        // const_reverse_iterator rbegin() const;
+        // reverse_iterator rend();
+        // const_reverse_iterator rend() const;
 
         //
         //  C A P A C I T Y
@@ -118,40 +118,40 @@ namespace ft
 		return (iterator(_ptr));
 	}
 
-	template <class T, class Allocator>
-	typename vector<T, Allocator>::const_iterator vector<T, Allocator>::begin() const {
-		return (const_iterator(_ptr));
-	}
+	// template <class T, class Allocator>
+	// typename vector<T, Allocator>::const_iterator vector<T, Allocator>::begin() const {
+	// 	return (const_iterator(_ptr));
+	// }
 
 	template <class T, class Allocator>
 	typename vector<T, Allocator>::iterator vector<T, Allocator>::end() {
 		return (iterator(&(_ptr[_size])));
 	}
 
-	template <class T, class Allocator>
-	typename vector<T, Allocator>::const_iterator vector<T, Allocator>::end() const {
-		return (const_iterator(&(_ptr[_size])));
-	}
+	// template <class T, class Allocator>
+	// typename vector<T, Allocator>::const_iterator vector<T, Allocator>::end() const {
+	// 	return (const_iterator(&(_ptr[_size])));
+	// }
 
-	template <class T, class Allocator>
-	typename vector<T, Allocator>::reverse_iterator vector<T, Allocator>::rbegin() {
-		return (reverse_iterator(&(_ptr[_size - 1])));
-	}
+	// template <class T, class Allocator>
+	// typename vector<T, Allocator>::reverse_iterator vector<T, Allocator>::rbegin() {
+	// 	return (reverse_iterator(&(_ptr[_size - 1])));
+	// }
 
-	template <class T, class Allocator>
-	typename vector<T, Allocator>::const_reverse_iterator vector<T, Allocator>::rbegin() const {
-		return (const_reverse_iterator(&(_ptr[_size - 1])));
-	}
+	// template <class T, class Allocator>
+	// typename vector<T, Allocator>::const_reverse_iterator vector<T, Allocator>::rbegin() const {
+	// 	return (const_reverse_iterator(&(_ptr[_size - 1])));
+	// }
 
-	template <class T, class Allocator>
-	typename vector<T, Allocator>::reverse_iterator vector<T, Allocator>::rend() {
-		return (reverse_iterator(_ptr - 1));
-	}
+	// template <class T, class Allocator>
+	// typename vector<T, Allocator>::reverse_iterator vector<T, Allocator>::rend() {
+	// 	return (reverse_iterator(_ptr - 1));
+	// }
 
-	template <class T, class Allocator>
-	typename vector<T, Allocator>::const_reverse_iterator vector<T, Allocator>::rend() const {
-		return (const_reverse_iterator(_ptr - 1));
-	}
+	// template <class T, class Allocator>
+	// typename vector<T, Allocator>::const_reverse_iterator vector<T, Allocator>::rend() const {
+	// 	return (const_reverse_iterator(_ptr - 1));
+	// }
 
 	//
 	//  C A P A C I T Y
@@ -174,7 +174,7 @@ namespace ft
 
 	template <class T, class Allocator>
 	bool vector<T, Allocator>::empty() const {
-		return (_size_ == 0);
+		return (_size == 0);
 	}
 
 	template <class T, class Allocator>
@@ -185,15 +185,18 @@ namespace ft
 				_allocator.construct(temp + i, _ptr[i]);
 				_allocator.destroy(_ptr + i);
 			}
-			_alloc.deallocate(_ptr, _capacity);
+			_allocator.deallocate(_ptr, _capacity);
 			_capacity = n;
 			_ptr = temp;
 		}
 	}
 
 	template <class T, class Allocator>
-	void vector<T, Allocator>::resize (size_type n, value_type val = value_type()) {
-
+	void vector<T, Allocator>::resize (size_type n, value_type val) {
+		while (_size < n)
+			push_back(val);
+		while (_size > n)
+			pop_back();
 	}
 
 	//
