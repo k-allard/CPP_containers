@@ -248,6 +248,28 @@ namespace ft
 	}
 
 	//
+	//  M O D I F I C A T I O N
+	//
+
+	template <typename T, typename Allocator>
+	void vector<T, Allocator>::push_back(const value_type &value)
+	{
+		if (_capacity == _size)
+			reserve(_capacity + 1);
+		new(&_ptr[_size]) value_type(value);
+		_size++;
+	}
+
+	// void pop_back();
+	// iterator insert (iterator position, const value_type& val);	// single element
+	// void insert (iterator position, size_type n, const value_type& val);	// fill
+	// template <class InputIterator> void insert (iterator position, InputIterator first, InputIterator last);	// range
+	// iterator erase (iterator position);
+	// iterator erase (iterator first, iterator last);
+	// void clear();
+	// void swap (vector& x);
+
+	//
 	//  N O N - M E M B E R S
 	//
 

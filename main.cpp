@@ -1,5 +1,4 @@
 #include "vector.hpp"
-#include "ring.hpp"
 
 #include <vector>
 #include <iostream>
