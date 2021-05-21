@@ -39,7 +39,7 @@ namespace ft
 
 	};
 
-	// перегрузка оператора присваиванияа
+	// перегрузка оператора присваивания
 	template <typename T1> 
 	vectorIterator<T1> &vectorIterator<T1>::operator=(const vectorIterator &src) {
 		node = src.node; 

@@ -37,7 +37,10 @@ namespace ft
 		pointer								_ptr;
 		size_type							_size;
 		size_type							_capacity;
-		const static size_type 				_growthRate = 1,5;
+		const static size_type 				_growthRate = 2;
+
+	public:
+
         //
         //  C O N S T R U C T O R S  &  D E S T R U C T O R
         //
@@ -110,85 +113,61 @@ namespace ft
 
     };
 
-//			 /*
-// 			** Constructors and destructor
-// 			*/
-// 			explicit vector (const allocator_type& alloc = allocator_type()):_alloc(alloc) {
-// 				_array = _alloc.allocate(_initCapacity);
-// 				_capacity = _initCapacity;
-// 				_size = 0;
-// 			}
-
-// 			explicit vector (size_type n, const value_type& val = value_type(),
-// 						 	const allocator_type& alloc = allocator_type()):_alloc(alloc) {
-// 				fill_initialize(n, val);
-// 			}
-
-// 			template <class InputIterator>
-// 			vector (InputIterator first, InputIterator last,
-// 					const allocator_type& alloc = allocator_type()):_alloc(alloc) {
-// 				typedef typename ft::is_integer<InputIterator>::type Integral;
-// 				initialize_dispatch(first, last, Integral());
-// 			}
-
-// 			vector (const vector& x) {
-// 				_alloc = x._alloc;
-// 				_size = x._size;
-// 				_capacity = x._capacity;
-// 				if (x._capacity > 0) {
-// 					_array = _alloc.allocate(_capacity);
-// 					for (size_type i = 0; i < x._size; i++)
-// 						_alloc.construct(_array + i, x._array[i]);
-// 				}
-// 				else
-// 					_array = NULL;
-// 			}
-
-// 			~vector() {
-// 				clear();
-// 				if (_capacity > 0)
-// 					_alloc.deallocate(_array, _capacity);
-// 			}
-
-
 	//
 	//  C O N S T R U C T O R S  &  D E S T R U C T O R
 	//
 
 	template <typename T, typename Allocator>
-	explicit vector<T, Allocator>::vector (const allocator_type& alloc = allocator_type()) {
+	vector<T, Allocator>::vector (const allocator_type& alloc) {
 		_allocator = alloc;
 		_ptr = nullptr;
 		_capacity = 0;
 		_size = 0;
 	}
 
+  	// fill
 	// Создаёт вектор с n объектами. Если val объявлена, то каждый из этих объектов будет инициализирован её значением; 
 	// в противном случае объекты получат значение конструктора по умолчанию типа T.	
 	template <typename T, typename Allocator>
-	explicit vector<T, Allocator>::vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) {    // fill
+	vector<T, Allocator>::vector (size_type n, const value_type& val, const allocator_type& alloc) {  
 		_allocator = alloc;
 		_capacity 	= 0;
 		_ptr		= nullptr;
 		_size 		= n;
 		reserve(n);
 		for (size_type i = 0; i < n; i++)
-			_allocator.construct(_array + i, val);
+			_allocator.construct(_ptr + i, val);
 	}
 
+	// range
+	// Constructs a container with as many elements as the range [first,last), 
+	// with each element constructed from its corresponding element in that range, in the same order.
 	// template <typename T, typename Alloc>
 	// template <typename InputIterator>
-	// vector<T, Alloc>::vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {    // range
+	// vector<T, Alloc>::vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {    
 
 	// }
 
-	// vector (const vector& x);   // copy
-	
-	~vector() { 
-		while (_size)
-			_alloc.destroy(_array + --_size);
+	template <typename T, typename Allocator>
+	vector<T, Allocator>::vector (const vector& x) {
+		_allocator = x._allocator;
+		_size = x._size;
+		_capacity = x._capacity;
+		if (x._capacity > 0) {
+			_ptr = _allocator.allocate(_capacity);
+		for (size_type i = 0; i < x._size; i++)
+			_allocator.construct(_ptr + i, x._ptr[i]);
+		}
+		else
+			_ptr = nullptr;
+	}  
+
+	template <typename T, typename Allocator>
+	vector<T, Allocator>::~vector() { 
+		for (size_type i = 0; i < _size; i++)
+			_allocator.destroy(_ptr + i);			// destructs an object in allocated storage
 		if (_capacity > 0)
-			_alloc.deallocate(_array, _capacity);
+			_allocator.deallocate(_ptr, _capacity);	// deallocates storage
 	}
 
 	//
@@ -336,9 +315,10 @@ namespace ft
 	template <typename T, typename Allocator>
 	void vector<T, Allocator>::push_back(const value_type &value)
 	{
-		if (_size >= _capacity)
-			reserve(_size * _growthRate);
-		_allocator.construct(_array + _size++, value);
+if (_capacity == _size)
+			reserve(_capacity + 1);
+		new(&_ptr[_size]) value_type(value);
+		_size++;
 	}
 
 	// void pop_back();

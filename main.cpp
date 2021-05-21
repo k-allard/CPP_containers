@@ -5,6 +5,7 @@
 
 int main()
 {
+    std::cout << "heloo";
     std::vector<int> vec;
     for (int i = 1; i <= 5; i++) {
         vec.push_back(i);
