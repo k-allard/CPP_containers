@@ -3,13 +3,10 @@
 //  dynamically allocated array
 //
 
-#include <vector>
-
+#include "header.hpp"
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-#include "header.hpp"
-#include "vectorIterator.hpp"
 
 namespace ft
 {

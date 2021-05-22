@@ -3,6 +3,12 @@
 #include <iostream>
 #include <stdexcept>
 #include <limits>
+#include <sstream>
+
+#include <vector>
+#include "vectorIterator.hpp"
+#include "vector.hpp"
+#include "vectorTester.hpp"
 
 // A DLL 
 template <typename T>
