@@ -69,9 +69,38 @@ namespace ft
 		size_t operator-(vectorRevIterator & rhs) const { return (node - rhs.node); }
 		bool operator==(const vectorRevIterator & rhs) const { return (node == rhs.node); }
 		bool operator!=(const vectorRevIterator & rhs) const { return (node != rhs.node); }
-
 	};
 
+	template<typename T1>
+	class vectorConstRevIterator {
+	public:
+		typedef const T1						value_type;
+		typedef const T1&						reference;
+		typedef const T1*						pointer;
+		pointer									node;
+		
+		vectorConstRevIterator(): node(nullptr) {}
+		vectorConstRevIterator(pointer p) : node(p) {}
+		vectorConstRevIterator(const vectorConstRevIterator& rhs): node(rhs.node) {}
+		vectorConstRevIterator& operator=(const vectorConstRevIterator& rhs);
+		vectorConstRevIterator& operator=(const ft::vectorRevIterator<T1>& rhs);
+		~vectorConstRevIterator() {}
+
+		reference operator*() { return (*(node - 1)); }
+		pointer operator->() { return (node); }
+		reference operator[](size_t n) { return (*(node + n - 1)); }
+		vectorConstRevIterator &operator++();
+		vectorConstRevIterator &operator--();
+		vectorConstRevIterator operator++(int);
+		vectorConstRevIterator operator--(int);
+		vectorConstRevIterator &operator+=(int n);
+		vectorConstRevIterator &operator-=(int n);
+		vectorConstRevIterator operator+(int n) const;
+		vectorConstRevIterator operator-(int n) const;
+		size_t operator-(vectorConstRevIterator & rhs) const { return (node - rhs.node); }
+		bool operator==(const vectorConstRevIterator & rhs) const { return (node == rhs.node); }
+		bool operator!=(const vectorConstRevIterator & rhs) const { return (node != rhs.node); }
+	};
 
 
 // vectorIterator
@@ -232,6 +261,69 @@ namespace ft
 	template <typename T1>
 			vectorRevIterator<T1>	vectorRevIterator<T1>::operator-(int n) const {
 				vectorRevIterator<T1> it(*this);
+				return (it += n);
+			}
+
+// vectorConstRevIterator
+	template <typename T1>
+	vectorConstRevIterator<T1> &vectorConstRevIterator<T1>::operator=(const vectorConstRevIterator<T1>& rhs) {
+		node = rhs.node;
+		return (*this);
+	}
+
+	template <typename T1>
+		vectorConstRevIterator<T1>& vectorConstRevIterator<T1>::operator=(const vectorRevIterator<T1>& rhs) {
+		node = rhs.node;
+		return (*this);
+	}
+
+	template <typename T1>
+	vectorConstRevIterator<T1>& vectorConstRevIterator<T1>::operator++() {
+		--node;
+		return (*this);
+	}
+
+	template <typename T1>
+		vectorConstRevIterator<T1> vectorConstRevIterator<T1>::operator++(int) {
+			vectorConstRevIterator<T1> tmp(*this);
+			operator++();
+			return (tmp);
+		}
+
+	template <typename T1>
+			vectorConstRevIterator<T1>&	vectorConstRevIterator<T1>::operator--() {
+				++node;
+				return (*this);
+			}
+
+	template <typename T1>
+			vectorConstRevIterator<T1>	vectorConstRevIterator<T1>::operator--(int) {
+				vectorConstRevIterator<T1> tmp(*this);
+				operator--();
+				return (tmp);
+			}
+
+	template <typename T1>
+			vectorConstRevIterator<T1>& vectorConstRevIterator<T1>::operator+=(int n) {
+				node -= n;
+				return (*this);
+			}
+
+	template <typename T1>
+			vectorConstRevIterator<T1>& vectorConstRevIterator<T1>::operator-=(int n) {
+				node += n;
+				return (*this);
+			}
+
+	template <typename T1>
+			vectorConstRevIterator<T1>	vectorConstRevIterator<T1>::operator+(int n) const {
+				vectorConstRevIterator<T1> it(*this);
+				return (it -= n);
+			}
+
+	template <typename T1>
+			vectorConstRevIterator<T1>	vectorConstRevIterator<T1>::operator-(int n) const {
+				vectorConstRevIterator<T1> it(*this);
 				return (it += n);
 			}
 
