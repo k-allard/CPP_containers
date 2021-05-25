@@ -41,7 +41,7 @@ namespace ft
 
 	};
 
-	template<typename T>
+	template<typename T1>
 	class vectorRevIterator {
 	public:
 		typedef T1						value_type;
@@ -50,7 +50,7 @@ namespace ft
 		pointer							node;
 		
 		vectorRevIterator(): node(nullptr) {}
-		vectorIterator(pointer p) : node(p) {}
+		vectorRevIterator(pointer p) : node(p) {}
 		vectorRevIterator(const vectorRevIterator& rhs): node(rhs.node) {}
 		vectorRevIterator& operator=(const vectorRevIterator& rhs);
 		~vectorRevIterator() {}
@@ -58,17 +58,17 @@ namespace ft
 		reference operator*() { return (*(node - 1)); }
 		pointer operator->() { return (node); }
 		reference operator[](size_t n) { return (*(node + n - 1)); }
-		vectorIterator &operator++();
-		vectorIterator &operator--();
-		vectorIterator operator++(int);
-		vectorIterator operator--(int);
-		vectorIterator &operator+=(int n);
-		vectorIterator &operator-=(int n);
-		vectorIterator operator+(int n) const;
-		vectorIterator operator-(int n) const {	return (node - rhs.node); }
-		size_t operator-(vectorIterator & rhs) const;
-		bool operator==(const vectorIterator & second) const { return (node == rhs.node); }
-		bool operator!=(const vectorIterator & second) const { return (node != rhs.node); }
+		vectorRevIterator &operator++();
+		vectorRevIterator &operator--();
+		vectorRevIterator operator++(int);
+		vectorRevIterator operator--(int);
+		vectorRevIterator &operator+=(int n);
+		vectorRevIterator &operator-=(int n);
+		vectorRevIterator operator+(int n) const;
+		vectorRevIterator operator-(int n) const;
+		size_t operator-(vectorRevIterator & rhs) const { return (node - rhs.node); }
+		bool operator==(const vectorRevIterator & rhs) const { return (node == rhs.node); }
+		bool operator!=(const vectorRevIterator & rhs) const { return (node != rhs.node); }
 
 	};
 
@@ -228,8 +228,6 @@ namespace ft
 				vectorRevIterator<T1> it(*this);
 				return (it -= n);
 			}
-
-
 
 	template <typename T1>
 			vectorRevIterator<T1>	vectorRevIterator<T1>::operator-(int n) const {
