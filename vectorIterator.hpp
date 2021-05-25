@@ -55,13 +55,20 @@ namespace ft
 		vectorRevIterator& operator=(const vectorRevIterator& rhs);
 		~vectorRevIterator() {}
 
-		pointer			getPtr() const { return (_ptr); }
-		pointer 		operator->() const {	return (_ptr);		}
-		reference		operator*() const {	return (*(_ptr - 1));	}
-		reference		operator[](int n) const {	return (*(_ptr + n - 1));	}
-		difference_type operator-(const vectorRevIterator& rhs) const {		return (_ptr - rhs._ptr);		}
-		bool 			operator==(const vectorRevIterator& rhs) const {		return (_ptr == rhs._ptr);		}
-		bool 			operator!=(const vectorRevIterator& rhs) const {		return (_ptr != rhs._ptr);		}
+		reference operator*() { return (*(node - 1)); }
+		pointer operator->() { return (node); }
+		reference operator[](size_t n) { return (*(node + n - 1)); }
+		vectorIterator &operator++();
+		vectorIterator &operator--();
+		vectorIterator operator++(int);
+		vectorIterator operator--(int);
+		vectorIterator &operator+=(int n);
+		vectorIterator &operator-=(int n);
+		vectorIterator operator+(int n) const;
+		vectorIterator operator-(int n) const {	return (node - rhs.node); }
+		size_t operator-(vectorIterator & rhs) const;
+		bool operator==(const vectorIterator & second) const { return (node == rhs.node); }
+		bool operator!=(const vectorIterator & second) const { return (node != rhs.node); }
 
 	};
 
@@ -179,21 +186,21 @@ namespace ft
 	}
 
 	template <typename T1>
-				vectorRevIterator<T1>&	vectorRevIterator<T1>::operator++() {
-				--_ptr;
-				return (*this);
-			}
+	vectorRevIterator<T1>& vectorRevIterator<T1>::operator++() {
+		--node;
+		return (*this);
+	}
 
 	template <typename T1>
-			vectorRevIterator<T1>	vectorRevIterator<T1>::operator++(int) {
-				vectorRevIterator<T1> tmp(*this);
-				operator++();
-				return (tmp);
-			}
+		vectorRevIterator<T1> vectorRevIterator<T1>::operator++(int) {
+			vectorRevIterator<T1> tmp(*this);
+			operator++();
+			return (tmp);
+		}
 
 	template <typename T1>
 			vectorRevIterator<T1>&	vectorRevIterator<T1>::operator--() {
-				++_ptr;
+				++node;
 				return (*this);
 			}
 
@@ -205,33 +212,29 @@ namespace ft
 			}
 
 	template <typename T1>
-			vectorRevIterator<T1>	vectorRevIterator<T1>::operator+(int n) const {
-				vectorRevIterator<T1> it(*this);
-				return (it -= n);
-			}
-
-	template <typename T1>
-			friend vectorRevIterator<T1> vectorRevIterator<T1>::operator+(int n, vectorRevIterator<T1> rhs) {
-				vectorRevIterator<T1> it(rhs);
-				return (it += n);
-			}
-
-	template <typename T1>
-			vectorRevIterator<T1>	vectorRevIterator<T1>::operator-(int n) const {
-				vectorRevIterator<T1> it(*this);
-				return (it += n);
-			}
-
-	template <typename T1>
 			vectorRevIterator<T1>& vectorRevIterator<T1>::operator+=(int n) {
-				_ptr -= n;
+				node -= n;
 				return (*this);
 			}
 
 	template <typename T1>
 			vectorRevIterator<T1>& vectorRevIterator<T1>::operator-=(int n) {
-				_ptr += n;
+				node += n;
 				return (*this);
+			}
+
+	template <typename T1>
+			vectorRevIterator<T1>	vectorRevIterator<T1>::operator+(int n) const {
+				vectorRevIterator<T1> it(*this);
+				return (it -= n);
+			}
+
+
+
+	template <typename T1>
+			vectorRevIterator<T1>	vectorRevIterator<T1>::operator-(int n) const {
+				vectorRevIterator<T1> it(*this);
+				return (it += n);
 			}
 
 }
