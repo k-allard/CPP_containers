@@ -24,10 +24,10 @@ namespace ft
         typedef typename allocator_type::pointer			pointer;
         typedef typename allocator_type::const_pointer		const_pointer;
 
-		typedef ft::vectorIterator<T>						iterator;
-		// typedef ft::vectorConstIterator<T>				const_iterator;
-		typedef ft::vectorRevIterator<T>					reverse_iterator;
-		typedef ft::vectorConstRevIterator<T>			const_reverse_iterator;
+		typedef vectorIterator<T>						iterator;
+		typedef vectorConstIterator<T>				const_iterator;
+		typedef vectorRevIterator<T>					reverse_iterator;
+		typedef vectorConstRevIterator<T>			const_reverse_iterator;
 
 	private:
 		allocator_type						_allocator;
@@ -62,9 +62,9 @@ namespace ft
         //
 
         iterator begin();
-        // const_iterator begin() const;
+        const_iterator begin() const;
         iterator end();
-        // const_iterator end() const;
+        const_iterator end() const;
         reverse_iterator rbegin();
         const_reverse_iterator rbegin() const;
         reverse_iterator rend();
@@ -186,20 +186,20 @@ namespace ft
 		return (iterator(&(_ptr[_size])));
 	}
 
-	// template <class T, class Allocator>
-	// typename vector<T, Allocator>::const_iterator vector<T, Allocator>::end() const {
-	// 	return (const_iterator(&(_ptr[_size])));
-	// }
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::const_iterator vector<T, Allocator>::end() const {
+		return (const_iterator(&(_ptr[_size])));
+	}
 
 	template <class T, class Allocator>
 	typename vector<T, Allocator>::reverse_iterator vector<T, Allocator>::rbegin() {
 		return (reverse_iterator(&(_ptr[_size - 1])));
 	}
 
-	// template <class T, class Allocator>
-	// typename vector<T, Allocator>::const_reverse_iterator vector<T, Allocator>::rbegin() const {
-	// 	return (const_reverse_iterator(&(_ptr[_size - 1])));
-	// }
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::const_reverse_iterator vector<T, Allocator>::rbegin() const {
+		return (const_reverse_iterator(&(_ptr[_size - 1])));
+	}
 
 	template <class T, class Allocator>
 	typename vector<T, Allocator>::reverse_iterator vector<T, Allocator>::rend() {

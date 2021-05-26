@@ -41,6 +41,39 @@ namespace ft
 
 	};
 
+	template <typename T1>
+	class vectorConstIterator
+	{
+	public:
+		typedef const T1				value_type;
+		typedef const T1&				reference;
+		typedef const T1*				pointer;
+		pointer							node;
+
+		vectorConstIterator() : node(nullptr) {}
+		vectorConstIterator(pointer p) : node(p) {}
+		vectorConstIterator(const vectorConstIterator& rhs): node(rhs.node) {}
+		vectorConstIterator & operator=(const vectorConstIterator &src);
+		vectorConstIterator & operator=(const vectorIterator<T1> &src);
+		~vectorConstIterator() {}
+
+		reference operator*();
+		pointer operator->();
+		reference operator[](size_t n);
+		vectorConstIterator &operator++();
+		vectorConstIterator &operator--();
+		vectorConstIterator operator++(int);
+		vectorConstIterator operator--(int);
+		vectorConstIterator &operator+=(int n);
+		vectorConstIterator &operator-=(int n);
+		vectorConstIterator operator+(int n) const;
+		vectorConstIterator operator-(int n) const;
+		size_t operator-(vectorConstIterator & rhs) const;
+		bool operator==(const vectorConstIterator & second) const;
+		bool operator!=(const vectorConstIterator & second) const;
+
+	};
+
 	template<typename T1>
 	class vectorRevIterator {
 	public:
@@ -204,6 +237,110 @@ namespace ft
 	// возвращает количество позиций между итераторами iter1 и iter2
 	template <typename T1> 
 	size_t vectorIterator<T1>::operator-(vectorIterator & iter2) const { 
+		return (node - iter2.node); 
+	}
+
+// vectorConstIterator
+	// перегрузка оператора присваивания
+	template <typename T1> 
+	vectorConstIterator<T1> &vectorConstIterator<T1>::operator=(const vectorConstIterator &src) {
+		node = src.node; 
+		return (*this); 
+	}
+
+	// dereference iterator returns a reference to the element pointed to by the iterator
+	template <typename T1> 
+	typename vectorConstIterator<T1>::reference vectorConstIterator<T1>::operator*() { 
+		return (*node);
+	}
+
+	// dereference iterator returns a pointer to the element pointed to by the iterator (in order to access one of its members)
+	template <typename T1> 
+	typename vectorConstIterator<T1>::pointer vectorConstIterator<T1>::operator->() { 
+		return (node); 
+	}
+
+	// pre-increment - перемещение итератора вперед для обращения к следующему элементу
+	template <typename T1> 
+	vectorConstIterator<T1> &vectorConstIterator<T1>::operator++() { 
+		node++; 
+		return (*this); 
+	}
+
+	// post-increment - returns the value *this had before the call
+	template <typename T1> 
+	vectorConstIterator<T1> vectorConstIterator<T1>::operator++(int)	{ 
+		vectorConstIterator temp = *this;
+		node++;
+		return (temp);
+	}
+
+	// pre-decrement - перемещение итератора назад для обращения к предыдущему элементу
+	template <typename T1> 
+	vectorConstIterator<T1> &vectorConstIterator<T1>::operator--() { 
+		node--; 
+		return (*this); 
+	}
+
+	// post-decrement
+	template <typename T1> 
+	vectorConstIterator<T1>	vectorConstIterator<T1>::operator--(int) {
+		vectorConstIterator temp = *this;
+		node--;
+		return (temp);
+	}
+
+	// два итератора равны, если они указывают на один и тот же элемент
+	template <typename T1> 
+	bool vectorConstIterator<T1>::operator==(const vectorConstIterator & second) const { 
+		return (node == second.node); 
+	}
+
+	// два итератора не равны, если они указывают на разные элементы
+	template <typename T1> 
+	bool vectorConstIterator<T1>::operator!=(const vectorConstIterator & second) const { 
+		return (node != second.node); 
+	}
+
+	// возвращает итератор, который смещен от итератора iter на n позиций вперед
+	template <typename T1> 
+	vectorConstIterator<T1> vectorConstIterator<T1>::operator+(int n) const {
+		vectorConstIterator temp = *this;
+		temp.node += n;
+		return temp;
+	}
+
+	// возвращает итератор, который смещен от итератора iter на n позиций назад
+	template <typename T1> 
+	vectorConstIterator<T1>	vectorConstIterator<T1>::operator-(int n) const {
+		vectorConstIterator temp = *this;
+		temp.node -= n;
+		return temp;
+	}
+
+	// перемещает итератор на n позиций вперед
+	template <typename T1> 
+	vectorConstIterator<T1> &vectorConstIterator<T1>::operator+=(int n) { 
+		node += n; 
+		return (*this); 
+	}
+
+	// перемещает итератор на n позиций назад
+	template <typename T1> 
+	vectorConstIterator<T1> &vectorConstIterator<T1>::operator-=(int n) { 
+		node -= n; 
+		return (*this); 
+	}
+
+	// dereference iterator with offset accesses the element located n positions away from the element currently pointed to
+	template <typename T1> 
+	typename vectorConstIterator<T1>::reference vectorConstIterator<T1>::operator[](size_t n) { 
+		return (*(node + n)); 
+	}
+
+	// возвращает количество позиций между итераторами iter1 и iter2
+	template <typename T1> 
+	size_t vectorConstIterator<T1>::operator-(vectorConstIterator & iter2) const { 
 		return (node - iter2.node); 
 	}
 
