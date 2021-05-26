@@ -173,6 +173,27 @@ private:
 	}
 
 	//
+	//  A S S I G N A T I O N
+	//
+
+	template <typename T, typename Allocator>
+	vector<T, Allocator> & vector<T, Allocator>::operator=(const vector& rhs) {
+		if (this != &rhs) {
+			while (_size)
+				_allocator.destroy(_ptr + --_size);
+			reserve(rhs._capacity);
+			_allocator = rhs._allocator;
+			_size = rhs._size;
+			_capacity = rhs._capacity;
+			for (size_type i = 0; i < rhs._size; i++)
+				_allocator.construct(_ptr + i, rhs._ptr[i]);
+		}
+		return (*this);
+	}
+	// template <class InputIterator> void assign(InputIterator first, InputIterator last);    // range
+	// void assign (size_type n, const value_type& val);   // fill
+
+	//
 	//  I T E R A T O R S
 	//
 
