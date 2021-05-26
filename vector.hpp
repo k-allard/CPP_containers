@@ -109,8 +109,8 @@ namespace ft
 		void swap (vector& x);
 
 private:
-		// void _assign(size_type count, const T &value, ft::is_int);
-		// template <typename InputIt> void _assign(InputIt first, InputIt last, ft::not_int);
+		void _assign(size_type count, const T &value, ft::is_int);
+		template <typename InputIt> void _assign(InputIt first, InputIt last, ft::not_int);
 		void _insert(iterator pos, size_type count, const T &value, ft::is_int);
 	 	template <typename InputIt> void _insert(iterator pos, InputIt first, InputIt last, ft::not_int);
     };
@@ -190,8 +190,43 @@ private:
 		}
 		return (*this);
 	}
-	// template <class InputIterator> void assign(InputIterator first, InputIterator last);    // range
-	// void assign (size_type n, const value_type& val);   // fill
+
+ // assign - fill 
+	template <typename T, typename Alloc>
+	void vector<T, Alloc>::assign (size_type n, const value_type& val) {
+		clear();
+		reserve(n);
+		while (_size < n)
+			push_back(val);
+	}
+
+// assign - range
+
+	template <typename T, typename Alloc>
+	void vector<T, Alloc>::_assign(size_type count, const T &value, ft::is_int) {
+		while (_size)
+			_allocator.destroy(_ptr + --_size);
+		reserve(count);
+		while (_size < count)
+			push_back(value);
+	}
+
+	template <typename T, typename Alloc>
+	template <typename InputIt> 
+	void vector<T, Alloc>::_assign(InputIt first, InputIt last, ft::not_int) {
+		clear();
+		while (first != last) {
+			push_back(*first);
+			first++;
+		}
+	}
+
+	template <typename T, typename Alloc>
+	template <class InputIterator> 
+	void vector<T, Alloc>::assign(InputIterator first, InputIterator last) {
+		typedef typename ft::is_integer<InputIterator>::type res;
+		_assign(first, last, res());
+	}
 
 	//
 	//  I T E R A T O R S
@@ -445,7 +480,13 @@ template <typename T, typename Alloc>
 
 	// iterator erase (iterator position);
 	// iterator erase (iterator first, iterator last);
-	// void clear();
+
+	template <class T, class Alloc>
+	void vector<T, Alloc>::clear() {
+		while (_size)
+			_ptr.destroy(_ptr + --_size);
+	}
+
 	// void swap (vector& x);
 
 	//
