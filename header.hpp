@@ -6,6 +6,7 @@
 #include <sstream>
 
 #include <vector>
+#include "ifInteger.hpp"
 #include "vectorIterator.hpp"
 #include "vector.hpp"
 #include "vectorTester.hpp"

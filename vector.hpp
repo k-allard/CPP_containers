@@ -108,6 +108,11 @@ namespace ft
         void clear();
 		void swap (vector& x);
 
+private:
+		// void _assign(size_type count, const T &value, ft::is_int);
+		// template <typename InputIt> void _assign(InputIt first, InputIt last, ft::not_int);
+		void _insert(iterator pos, size_type count, const T &value, ft::is_int);
+	 	template <typename InputIt> void _insert(iterator pos, InputIt first, InputIt last, ft::not_int);
     };
 
 	//
@@ -136,14 +141,14 @@ namespace ft
 			_allocator.construct(_ptr + i, val);
 	}
 
-	// range
+	// 		range
 	// Constructs a container with as many elements as the range [first,last), 
-	// with each element constructed from its corresponding element in that range, in the same order.
-	// template <typename T, typename Alloc>
-	// template <typename InputIterator>
-	// vector<T, Alloc>::vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {    
+	// 		with each element constructed from its corresponding element in that range, in the same order.
+	template <typename T, typename Alloc>
+	template <typename InputIterator>
+	vector<T, Alloc>::vector (InputIterator first, InputIterator last, const allocator_type& alloc) {    
 
-	// }
+	}
 
 	template <typename T, typename Allocator>
 	vector<T, Allocator>::vector (const vector& x) {
@@ -176,10 +181,10 @@ namespace ft
 		return (iterator(_ptr));
 	}
 
-	// template <class T, class Allocator>
-	// typename vector<T, Allocator>::const_iterator vector<T, Allocator>::begin() const {
-	// 	return (const_iterator(_ptr));
-	// }
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::const_iterator vector<T, Allocator>::begin() const {
+		return (const_iterator(_ptr));
+	}
 
 	template <class T, class Allocator>
 	typename vector<T, Allocator>::iterator vector<T, Allocator>::end() {
@@ -206,10 +211,10 @@ namespace ft
 		return (reverse_iterator(_ptr - 1));
 	}
 
-	// template <class T, class Allocator>
-	// typename vector<T, Allocator>::const_reverse_iterator vector<T, Allocator>::rend() const {
-	// 	return (const_reverse_iterator(_ptr - 1));
-	// }
+	template <class T, class Allocator>
+	typename vector<T, Allocator>::const_reverse_iterator vector<T, Allocator>::rend() const {
+		return (const_reverse_iterator(_ptr - 1));
+	}
 
 	//
 	//  C A P A C I T Y
@@ -310,18 +315,113 @@ namespace ft
 	//
 
 	template <typename T, typename Allocator>
-	void vector<T, Allocator>::push_back(const value_type &value)
-	{
-if (_capacity == _size)
+	void vector<T, Allocator>::push_back(const value_type &value) {
+	if (_capacity == _size)
 			reserve(_capacity + 1);
 		new(&_ptr[_size]) value_type(value);
 		_size++;
 	}
 
 	// void pop_back();
-	// iterator insert (iterator position, const value_type& val);	// single element
-	// void insert (iterator position, size_type n, const value_type& val);	// fill
-	// template <class InputIterator> void insert (iterator position, InputIterator first, InputIterator last);	// range
+
+
+// single element
+// - inserts value before pos
+template <typename T, typename Alloc>
+	typename vector<T, Alloc>::iterator vector<T, Alloc>::insert(iterator pos, const T &value) {
+		size_t i = 0;
+		for (iterator it = begin(); it != pos; it++)
+			i++;
+		insert(pos, 1, value);
+		return (iterator(&(_ptr[i])));
+	}
+
+// fill
+// - inserts count copies of the value before pos
+template <typename T, typename Alloc>
+	void vector<T, Alloc>::insert(iterator position, size_type n, const T &val)
+	{
+		size_t i = 0;
+		iterator it = begin();
+		reserve(_size + n);
+		while (it++ != position)
+			i++;
+		for (size_t j = _size - 1; j != i - 1; j--) {
+			if (j + n < _size)
+				_ptr[j + n] = _ptr[j];
+			else
+				new(&_ptr[j + n]) value_type(_ptr[j]);
+		}
+
+		for (size_t j = 0; j < n; j++) {
+			if (i < _size)
+				_ptr[i++] = val;
+			else
+				new(&_ptr[i++]) value_type(val);
+		}
+		_size += n;
+	}
+
+// range
+// - has the same effect as overload (3) if InputIt is an integral type.
+	template <typename T, typename Alloc>
+	template <typename InputIt>
+	void vector<T, Alloc>::insert(iterator pos, InputIt first, InputIt last) {
+		typedef typename ft::is_integer<InputIt>::type res;
+		_insert(pos, first, last, res());
+	}
+
+	template <typename T, typename Alloc>
+	void vector<T, Alloc>::_insert(iterator pos, size_type count, const T &value, ft::is_int)
+	{
+		size_t i = 0;
+		iterator it = begin();
+		reserve(_size + count);
+		while (it++ != pos)
+			i++;
+		for (size_t j = _size - 1; j != i - 1; j--) {
+			if (j + count < _size)
+				_ptr[j + count] = _ptr[j];
+			else
+				new(&_ptr[j + count]) value_type(_ptr[j]);
+		}
+		for (size_t j = 0; j < count; j++) {
+			if (i < _size)
+				_ptr[i++] = value;
+			else
+				new(&_ptr[i++]) value_type(value);
+		}
+		_size += count;
+	}
+
+	template <typename T, typename Alloc>
+	template <typename InputIt>
+	void vector<T, Alloc>::_insert(iterator pos, InputIt first, InputIt last, ft::not_int)
+	{
+		size_t i = 0;
+		size_t count = 0;
+		iterator it = begin();
+		InputIt tmp = first;
+		while (it++ != pos)
+			i++;
+		while (tmp++ != last)
+			count++;
+		reserve(_size + count);
+		for (size_t j = _size - 1; j != i - 1; j--) {
+			if (j + count < _size)
+				_ptr[j + count] = _ptr[j];
+			else
+				new(&_ptr[j + count]) value_type(_ptr[j]);
+		}
+		for (size_t j = 0; j < count; j++) {
+			if (i < _size)
+				_ptr[i++] = *first++;
+			else
+				new(&_ptr[i++]) value_type(*first++);
+		}
+		_size += count;
+	}
+
 	// iterator erase (iterator position);
 	// iterator erase (iterator first, iterator last);
 	// void clear();
