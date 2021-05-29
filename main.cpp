@@ -6,6 +6,7 @@ int main()
 
 	VectorTester *vectorTester = new VectorTester;
     vectorTester->testConstructors();
+	vectorTester->testAssignations();
 
 
     // for (int i = 1; i <= 5; i++) {
@@ -47,7 +48,6 @@ int main()
 }
 
 // (destructor)
-// operator=
 
 // Iterators:
 // begin 
