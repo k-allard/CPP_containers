@@ -147,7 +147,11 @@ private:
 	template <typename T, typename Alloc>
 	template <typename InputIterator>
 	vector<T, Alloc>::vector (InputIterator first, InputIterator last, const allocator_type& alloc) {    
-
+		_allocator = alloc;
+		_capacity 	= 0;
+		_ptr		= nullptr;
+		_size 		= 0;
+		assign(first, last);
 	}
 
 	template <typename T, typename Allocator>
@@ -300,9 +304,11 @@ private:
 	void vector<T, Allocator>::reserve (size_type n) {
 		if (n > _capacity) {
 			T* temp = _allocator.allocate(n);
-			for (size_type i = 0; i < _size; i++) {
-				_allocator.construct(temp + i, _ptr[i]);
-				_allocator.destroy(_ptr + i);
+			if (_ptr) {
+				for (size_type i = 0; i < _size; i++) {
+					_allocator.construct(temp + i, _ptr[i]);
+					_allocator.destroy(_ptr + i);
+				}
 			}
 			_allocator.deallocate(_ptr, _capacity);
 			_capacity = n;
@@ -478,35 +484,68 @@ template <typename T, typename Alloc>
 		_size += count;
 	}
 
-	// iterator erase (iterator position);
-	// iterator erase (iterator first, iterator last);
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::iterator vector<T, Alloc>::erase (iterator position) {
+		difference_type to_erase = position - this->begin();
+		difference_type size = this->size();
+		_allocator.destroy(_ptr + to_erase);
+		for (difference_type i = to_erase; i < size - 1; i++)
+			_ptr[i] = _ptr[i + 1];
+		_size--;
+		return (iterator(_ptr + to_erase));
+	}
+
+	template <class T, class Alloc>
+	typename vector<T, Alloc>::iterator vector<T, Alloc>::erase (iterator first, iterator last) {
+		difference_type begin = first - this->begin();
+		difference_type len = last - first;
+
+		_size -= len;
+		for (difference_type i = begin; i < len; i++)
+			_allocator.destroy(_ptr + i);
+		for (size_type i = begin; i < _size; i++)
+			_ptr[i] = _ptr[i + len];
+		return (iterator(_ptr + begin));
+	}
 
 	template <class T, class Alloc>
 	void vector<T, Alloc>::clear() {
 		while (_size)
-			_ptr.destroy(_ptr + --_size);
+			_allocator.destroy(_ptr + --_size);
 	}
 
-	// void swap (vector& x);
+	template <class T, class Alloc>
+	void vector<T, Alloc>::swap (vector& x){
+		std::swap(_allocator, x._allocator);
+		std::swap(_ptr, x._ptr);
+		std::swap(_size, x._size);
+		std::swap(_capacity, x._capacity);
+	}
 
 	//
 	//  N O N - M E M B E R S
 	//
 
 	template <class T, class Alloc>
-	void swap (vector<T,Alloc>& x, vector<T,Alloc>& y);
-
+	void swap(vector<T, Alloc> &x, vector<T, Alloc> &y) {
+		x.swap(y);
+	}
 
 	template <class T, class Alloc>
 	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+
 	template <class T, class Alloc>
 	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+
 	template <class T, class Alloc>
 	bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+
 	template <class T, class Alloc>
 	bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+
 	template <class T, class Alloc>
 	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+
 	template <class T, class Alloc>
 	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
 }

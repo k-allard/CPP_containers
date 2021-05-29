@@ -3,6 +3,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <limits>
+#include <algorithm>
 #include <sstream>
 
 #include <vector>
