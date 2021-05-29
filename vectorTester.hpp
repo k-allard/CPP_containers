@@ -57,12 +57,19 @@ public:
 		std::cout << "operator= - ";
 		if (!compareCustomVectors(first, ft_first))
 			passed();
-		// std::cout << "Range assignation - ";
-		// if (!compareCustomVectors(second, ft_second))
-		// 	passed();
-		// std::cout << "Fill assignation - ";
-		// if (!compareCustomVectors(third, ft_third))
-		// 	passed();
+
+		std::cout << "Fill assignation - ";
+		first.assign(2, 99);
+		ft_first.assign(2, 99);
+		if (!compareCustomVectors(first, ft_first))
+			passed();
+		
+		std::cout << "Range assignation - ";
+		int myints[] = {1776,7,4};
+  		third.assign (myints, myints + 3);
+		ft_third.assign (myints, myints + 3);
+		if (!compareCustomVectors(third, ft_third))
+			passed();
 	}
 
 	void passed() {
