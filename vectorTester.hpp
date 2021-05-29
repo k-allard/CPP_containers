@@ -129,7 +129,6 @@ public:
 
 	}
 
-// at 
 // front 
 // back 
 	void testElementAccess() {
@@ -142,31 +141,40 @@ public:
   for (unsigned i=0; i<sz; i++) first[i]=i;
 for (unsigned i=0; i<ft_sz; i++) ft_first[i]=i;
 
+  	if (!compareCustomVectors(first, ft_first))
+	passed();
 
-  // reverse std vector using operator[]:
+	std::cout << "at() - ";
+
+  // reverse std vector using function at:
   for (unsigned i=0; i<sz/2; i++)
   {
     int temp;
-    temp = first[sz-1-i];
-    first[sz-1-i]=first[i];
-    first[i]=temp;
+    temp = first.at(sz-1-i);
+    first.at(sz-1-i)=first.at(i);
+    first.at(i)=temp;
   }
   // reverse ft vector using operator[]:
   for (unsigned i=0; i<ft_sz/2; i++)
   {
 	 int temp;
-    temp = ft_first[sz-1-i];
-    ft_first[sz-1-i]=ft_first[i];
-    ft_first[i]=temp;
+    temp = ft_first.at(ft_sz-1-i);
+    ft_first.at(ft_sz-1-i)=ft_first.at(i);
+    ft_first.at(i)=temp;
   }
-
-  if (!compareCustomVectors(first, ft_first))
+	if (!compareCustomVectors(first, ft_first))
 	passed();
-
-	std::cout << "at - ";
 	
-
-
+	std::cout << "front() - ";
+	if (first.front() == ft_first.front())
+			passed();
+		else
+			std::cout << RED << "FAIL\n" << NC;
+	std::cout << "back() - ";
+	if (first.back() == ft_first.back())
+			passed();
+		else
+			std::cout << RED << "FAIL\n" << NC;
 
 
 	}
