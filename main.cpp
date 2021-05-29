@@ -7,7 +7,7 @@ int main()
 	VectorTester *vectorTester = new VectorTester;
     vectorTester->testConstructors();
 	vectorTester->testAssignations();
-
+	vectorTester->testCapacity();
 
     // for (int i = 1; i <= 5; i++) {
     //     vectorTester->stdVector.push_back(i);
@@ -47,13 +47,7 @@ int main()
 
 }
 
-// (destructor)
 
-// Iterators:
-// begin 
-// end 
-// rbegin 
-// rend 
 
 // Capacity:
 // size 
@@ -68,6 +62,14 @@ int main()
 // at 
 // front 
 // back 
+
+// (destructor)
+
+// Iterators:
+// begin 
+// end 
+// rbegin 
+// rend 
 
 // Modifiers:
 // range assign 

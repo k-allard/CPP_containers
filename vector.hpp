@@ -384,7 +384,11 @@ private:
 		_size++;
 	}
 
-	// void pop_back();
+	template <typename T, typename Allocator>
+	void vector<T, Allocator>::pop_back() {
+		if (!empty())
+			_allocator.destroy(_ptr + --_size);
+	}
 
 
 // single element

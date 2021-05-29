@@ -13,7 +13,7 @@ public:
 	ft::vector<int> ftVector2;
 
 	VectorTester() {
-		std::cout << "V E C T O R" << "\n";
+		std::cout << "\n" << " - - - - - - - - V E C T O R - - - - - - - - " << "\n";
 	}
 
 	void testConstructors() {
@@ -72,6 +72,63 @@ public:
 			passed();
 	}
 
+	void testCapacity() {
+		int flag = 0;
+
+		std::cout << "size() - ";
+		std::vector<int> first;
+		ft::vector<int> ft_first;
+		int myints[] = { 12, 10, 8, 6, 4, 2, 1 };
+  		first.assign (myints, myints + 7);
+		ft_first.assign (myints, myints + 7);
+		if (first.size() == ft_first.size())
+			passed();
+		else
+			std::cout << RED << "FAIL\n" << "Ft vector size: " << ft_first.size() << "\nStd vector size: " << first.size() << NC << "\n";
+
+		std::cout << "max_size() - ";
+		if (first.max_size() == ft_first.max_size())
+			passed();
+		else
+			std::cout << RED << "FAIL\n" << "Ft vector size: " << ft_first.size() << "\nStd vector size: " << first.size() << NC << "\n";
+
+		std::cout << "capacity() - ";
+		if (first.capacity() == ft_first.capacity())
+			passed();
+		else
+			std::cout << RED << "FAIL\n" << "Ft vector capacity: " << ft_first.capacity() << "\nStd vector capacity: " << first.capacity() << NC << "\n";
+		
+		std::cout << "empty() - ";
+		std::vector<int> second;
+		ft::vector<int> ft_second;
+		if (first.empty() == ft_first.empty() && second.empty() == ft_second.empty())
+			passed();
+		else
+			std::cout << RED << "FAIL\n" << NC;
+
+		std::cout << "reserve() - ";
+		first.reserve(100);
+		ft_first.reserve(100);
+		if (first.capacity() == ft_first.capacity())
+			passed();
+		else
+			std::cout << RED << "FAIL\n" << NC;
+		
+		std::cout << "resize() - ";
+		first.resize(3);
+		ft_first.resize(3);
+		flag = 0;
+		if (compareCustomVectors(first, ft_first))
+			flag = 1;
+		first.resize(10);
+		ft_first.resize(10);
+		if (compareCustomVectors(first, ft_first))
+			flag = 1;
+		if (!flag)
+			passed();
+
+	}
+
 	void passed() {
 		std::cout << GREEN << "PASSED" << NC << "\n";
 	}
@@ -111,7 +168,7 @@ public:
 	}
 
 	void printCustomVectors(std::vector<int> &std_vetor, ft::vector<int> &ft_vector) {
-		std::cout << "Ft vector : ";
+		std::cout << "\nFt vector : ";
 		for (int i = 0; i < std_vetor.size(); i++) {
 			std::cout << std_vetor.at(i) << " ";
 		}
@@ -119,6 +176,7 @@ public:
 		for (int i = 0; i < ft_vector.size(); i++) {
 			std::cout << ft_vector.at(i) << " ";
 		}
+		std::cout << "\n";
 	}
 
 	void printVectors()
