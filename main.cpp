@@ -8,7 +8,7 @@ int main()
 	vectorTester->testAssignations();
 	vectorTester->testCapacity();
 	vectorTester->testElementAccess();
-
+	vectorTester->testIterators();
     // for (int i = 1; i <= 5; i++) {
     //     vectorTester->stdVector.push_back(i);
     // }

@@ -129,8 +129,6 @@ public:
 
 	}
 
-// front 
-// back 
 	void testElementAccess() {
 				std::cout << "operator[] - ";
 		std::vector<int> first (10);   // 10 zero-initialized elements
@@ -175,9 +173,45 @@ for (unsigned i=0; i<ft_sz; i++) ft_first[i]=i;
 			passed();
 		else
 			std::cout << RED << "FAIL\n" << NC;
+	}
+
+// begin 
+// end 
+// rbegin 
+// rend 
+	void testIterators() {
+std::vector<int> first (5);  // 5 default-constructed ints
+ft::vector<int> ft_first (5);  // 5 default-constructed ints
+
+	std::cout << "rbegin() and rend() - ";
+
+  std::vector<int>::reverse_iterator rit = first.rbegin();
+    ft::vector<int>::reverse_iterator ft_rit = ft_first.rbegin();
+
+  int i=0;
+  for (; rit!= first.rend(); ++rit)
+    *rit = ++i;
+
+    int k=0;
+	for (; ft_rit!= ft_first.rend(); ++ft_rit)
+    	*ft_rit = ++k;
+
+	if (!compareCustomVectors(first, ft_first))
+		passed();
+	
+		std::cout << "begin() and end() - ";
+  for (std::vector<int>::iterator it = first.begin(); it != first.end(); ++it)
+    *(it) += 1;
+
+  for (ft::vector<int>::iterator ft_it = ft_first.begin(); ft_it != ft_first.end(); ++ft_it)
+    *(ft_it) += 1;
+	
+	if (!compareCustomVectors(first, ft_first))
+		passed();
 
 
 	}
+
 
 	void passed() {
 		std::cout << GREEN << "PASSED" << NC << "\n";
@@ -272,11 +306,7 @@ private:
 
 
 
-// Iterators:
-// begin 
-// end 
-// rbegin 
-// rend 
+
 
 // Modifiers:
 // range assign 
