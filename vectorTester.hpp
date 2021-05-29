@@ -25,7 +25,7 @@ public:
 		ft::vector<int> ft_first;
 		ft::vector<int> ft_second (4,100);
 		ft::vector<int> ft_third (ft_second.begin(),ft_second.end());
-		ft::vector<int> ft_fourth (ft_second);
+		ft::vector<int> ft_fourth (ft_third);
 
 		std::cout << "Default constructor - ";
 		if (!compareCustomVectors(first, ft_first))
@@ -129,6 +129,48 @@ public:
 
 	}
 
+// at 
+// front 
+// back 
+	void testElementAccess() {
+				std::cout << "operator[] - ";
+		std::vector<int> first (10);   // 10 zero-initialized elements
+		ft::vector<int> ft_first (10);   // 10 zero-initialized elements
+  std::vector<int>::size_type sz = first.size();
+    ft::vector<int>::size_type ft_sz = ft_first.size();
+  // assign values:
+  for (unsigned i=0; i<sz; i++) first[i]=i;
+for (unsigned i=0; i<ft_sz; i++) ft_first[i]=i;
+
+
+  // reverse std vector using operator[]:
+  for (unsigned i=0; i<sz/2; i++)
+  {
+    int temp;
+    temp = first[sz-1-i];
+    first[sz-1-i]=first[i];
+    first[i]=temp;
+  }
+  // reverse ft vector using operator[]:
+  for (unsigned i=0; i<ft_sz/2; i++)
+  {
+	 int temp;
+    temp = ft_first[sz-1-i];
+    ft_first[sz-1-i]=ft_first[i];
+    ft_first[i]=temp;
+  }
+
+  if (!compareCustomVectors(first, ft_first))
+	passed();
+
+	std::cout << "at - ";
+	
+
+
+
+
+	}
+
 	void passed() {
 		std::cout << GREEN << "PASSED" << NC << "\n";
 	}
@@ -219,3 +261,25 @@ private:
 	std::stringstream stdString;
 	std::stringstream ftString;
 };
+
+
+
+// Iterators:
+// begin 
+// end 
+// rbegin 
+// rend 
+
+// Modifiers:
+// range assign 
+// fill assign
+// push_back
+// pop_back
+// insert single element
+// insert fill
+// insert range
+
+// erase single element
+// erase range
+// swap 
+// clear 

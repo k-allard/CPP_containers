@@ -3,11 +3,11 @@
 
 int main()
 {
-
 	VectorTester *vectorTester = new VectorTester;
     vectorTester->testConstructors();
 	vectorTester->testAssignations();
 	vectorTester->testCapacity();
+	vectorTester->testElementAccess();
 
     // for (int i = 1; i <= 5; i++) {
     //     vectorTester->stdVector.push_back(i);
@@ -44,43 +44,4 @@ int main()
     // std::cout << std::endl;
 
     return 0;
-
 }
-
-
-
-// Capacity:
-// size 
-// max_size 
-// resize 
-// capacity 
-// empty 
-// reserve
-
-// Element access:
-// operator[] 
-// at 
-// front 
-// back 
-
-// (destructor)
-
-// Iterators:
-// begin 
-// end 
-// rbegin 
-// rend 
-
-// Modifiers:
-// range assign 
-// fill assign
-// push_back
-// pop_back
-// insert single element
-// insert fill
-// insert range
-
-// erase single element
-// erase range
-// swap 
-// clear 
