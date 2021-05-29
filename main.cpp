@@ -9,6 +9,8 @@ int main()
 	vectorTester->testCapacity();
 	vectorTester->testElementAccess();
 	vectorTester->testIterators();
+	vectorTester->testModifiers();
+	
     // for (int i = 1; i <= 5; i++) {
     //     vectorTester->stdVector.push_back(i);
     // }

@@ -175,10 +175,6 @@ for (unsigned i=0; i<ft_sz; i++) ft_first[i]=i;
 			std::cout << RED << "FAIL\n" << NC;
 	}
 
-// begin 
-// end 
-// rbegin 
-// rend 
 	void testIterators() {
 std::vector<int> first (5);  // 5 default-constructed ints
 ft::vector<int> ft_first (5);  // 5 default-constructed ints
@@ -209,12 +205,76 @@ ft::vector<int> ft_first (5);  // 5 default-constructed ints
 	if (!compareCustomVectors(first, ft_first))
 		passed();
 
+	}
+
+	void testModifiers() {
+		std::vector<int> first (5);  // 5 default-constructed ints
+		ft::vector<int> ft_first (5);  // 5 default-constructed ints
+
+		std::cout << "--- Range assign ---";
+		int myints[] = {1776,7,4};
+  		first.assign (myints,myints + 3);
+		ft_first.assign(myints,myints + 3);
+		printCustomVectors(first,ft_first);
+		if (!compareCustomVectors(first, ft_first))
+			passed();
+
+		std::cout << "--- Fill assign ---";
+		first.assign (2,99);
+		ft_first.assign(2,99);
+		printCustomVectors(first,ft_first);                                                     
+		if (!compareCustomVectors(first, ft_first))
+			passed();
+
+		std::cout << "--- push_back() ---";
+		first.push_back(7);
+		first.push_back(14);
+		ft_first.push_back(7);
+		ft_first.push_back(14);
+		printCustomVectors(first,ft_first);    
+		if (!compareCustomVectors(first, ft_first))
+		passed();
+
+		std::cout << "--- pop_back() ---";
+		first.pop_back();
+		ft_first.pop_back();
+		printCustomVectors(first,ft_first);    
+		if (!compareCustomVectors(first, ft_first))
+		passed();
+
+		std::cout << "--- Insert single element ---";
+		std::vector<int>::iterator it;
+  		ft::vector<int>::iterator ft_it;
+		it = first.begin();
+		ft_it = ft_first.begin();
+  		it = first.insert ( it + 1, 200 );
+  		ft_it = ft_first.insert ( ft_it + 1, 200 );
+		printCustomVectors(first,ft_first);
+		if (!compareCustomVectors(first, ft_first))
+		passed();
+
+		std::cout << "--- Insert fill ---";
+		it = first.begin();
+		ft_it = ft_first.begin();
+		first.insert (it,2,300);
+		ft_first.insert (ft_it,2,300);
+		printCustomVectors(first,ft_first);
+		if (!compareCustomVectors(first, ft_first))
+		passed();
+
+		std::cout << "--- Insert range ---";
+		int myarray [] = { 501,502,503 };
+		first.insert (first.begin() + 1, myarray, myarray + 3);
+		ft_first.insert (ft_first.begin() + 1, myarray, myarray + 3);
+
+		printCustomVectors(first,ft_first);
+		if (!compareCustomVectors(first, ft_first))
+		passed();
 
 	}
 
-
 	void passed() {
-		std::cout << GREEN << "PASSED" << NC << "\n";
+		std::cout << GREEN << "PASSED" << NC << "\n\n";
 	}
 
 	// void compareVectors() {
@@ -305,17 +365,6 @@ private:
 };
 
 
-
-
-
-// Modifiers:
-// range assign 
-// fill assign
-// push_back
-// pop_back
-// insert single element
-// insert fill
-// insert range
 
 // erase single element
 // erase range
