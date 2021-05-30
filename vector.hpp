@@ -490,32 +490,35 @@ template <typename T, typename Alloc>
 
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::iterator vector<T, Alloc>::erase (iterator position) {
-		difference_type to_erase = position - this->begin();
-		difference_type size = this->size();
-		_allocator.destroy(_ptr + to_erase);
-		for (difference_type i = to_erase; i < size - 1; i++)
-			_ptr[i] = _ptr[i + 1];
-		_size--;
-		return (iterator(_ptr + to_erase));
+		size_t i	= 0;
+		iterator it = begin();
+		while (it++ != position)
+			i++;
+		for (size_t j = i; j != _size - 1; j++)
+			_ptr[j] = _ptr[j + 1];
+		pop_back();
+		return (--it);
 	}
 
 	template <class T, class Alloc>
 	typename vector<T, Alloc>::iterator vector<T, Alloc>::erase (iterator first, iterator last) {
-		difference_type begin = first - this->begin();
-		difference_type len = last - first;
+		size_t count_first = 0;
+		size_t count = 0;
+		iterator it = begin();
 
-		_size -= len;
-		for (difference_type i = begin; i < len; i++)
-			_allocator.destroy(_ptr + i);
-		for (size_type i = begin; i < _size; i++)
-			_ptr[i] = _ptr[i + len];
-		return (iterator(_ptr + begin));
-	}
-
-	template <class T, class Alloc>
-	void vector<T, Alloc>::clear() {
-		while (_size)
-			_allocator.destroy(_ptr + --_size);
+		while (it++ != first)
+			count_first++;
+		while (first++ != last)
+			count++;
+		if (count) {
+			for (size_t j = count_first; j + count < _size; j++)
+				_ptr[j] = _ptr[j + count];
+		}
+		while (count--)
+			pop_back();
+		if (_size == 0)
+			return (begin());
+		return (--it);
 	}
 
 	template <class T, class Alloc>
@@ -524,6 +527,12 @@ template <typename T, typename Alloc>
 		std::swap(_ptr, x._ptr);
 		std::swap(_size, x._size);
 		std::swap(_capacity, x._capacity);
+	}
+	
+	template <class T, class Alloc>
+	void vector<T, Alloc>::clear () {
+	while (_size)
+		_allocator.destroy(_ptr + --_size);
 	}
 
 	//

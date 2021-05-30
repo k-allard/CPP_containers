@@ -264,9 +264,22 @@ ft::vector<int> ft_first (5);  // 5 default-constructed ints
 
 		std::cout << "--- Insert range ---";
 		int myarray [] = { 501,502,503 };
-		first.insert (first.begin() + 1, myarray, myarray + 3);
-		ft_first.insert (ft_first.begin() + 1, myarray, myarray + 3);
+		first.insert (first.end() - 1, myarray, myarray + 3);
+		ft_first.insert (ft_first.end() - 1, myarray, myarray + 3);
+		printCustomVectors(first,ft_first);
+		if (!compareCustomVectors(first, ft_first))
+		passed();
 
+		std::cout << "--- Erase single element ---";
+		first.erase(first.begin() + 3);
+		ft_first.erase(ft_first.begin() + 3);
+		printCustomVectors(first,ft_first);
+		if (!compareCustomVectors(first, ft_first))
+		passed();
+
+		std::cout << "--- Erase range ---";
+		first.erase(first.begin() + 3, first.end());
+		ft_first.erase(ft_first.begin() + 3, ft_first.end());
 		printCustomVectors(first,ft_first);
 		if (!compareCustomVectors(first, ft_first))
 		passed();
@@ -366,7 +379,6 @@ private:
 
 
 
-// erase single element
-// erase range
+
 // swap 
 // clear 
