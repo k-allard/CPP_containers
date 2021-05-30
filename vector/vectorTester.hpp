@@ -1,4 +1,4 @@
-#include "header.hpp"
+#include "../header.hpp"
 
 #define GREEN "\033[0;32m"
 #define RED "\033[0;31m"

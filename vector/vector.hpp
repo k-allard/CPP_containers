@@ -3,7 +3,7 @@
 //  dynamically allocated array
 //
 
-#include "header.hpp"
+#include "../header.hpp"
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 

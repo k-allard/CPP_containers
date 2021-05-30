@@ -10,9 +10,9 @@
 
 #include <vector>
 #include "ifInteger.hpp"
-#include "vectorIterator.hpp"
-#include "vector.hpp"
-#include "vectorTester.hpp"
+#include "vector/vectorIterator.hpp"
+#include "vector/vector.hpp"
+#include "vector/vectorTester.hpp"
 
 // A DLL 
 template <typename T>
