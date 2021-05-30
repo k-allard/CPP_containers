@@ -132,80 +132,80 @@ public:
 	}
 
 	void testElementAccess() {
-				std::cout << "operator[] -          ";
+		std::cout << "operator[] -          ";
 		std::vector<int> first (10);   // 10 zero-initialized elements
 		ft::vector<int> ft_first (10);   // 10 zero-initialized elements
-  std::vector<int>::size_type sz = first.size();
-    ft::vector<int>::size_type ft_sz = ft_first.size();
-  // assign values:
-  for (unsigned i=0; i<sz; i++) first[i]=i;
-for (unsigned i=0; i<ft_sz; i++) ft_first[i]=i;
+		std::vector<int>::size_type sz = first.size();
+		ft::vector<int>::size_type ft_sz = ft_first.size();
+		// assign values:
+		for (unsigned i=0; i<sz; i++) first[i]=i;
+		for (unsigned i=0; i<ft_sz; i++) ft_first[i]=i;
 
-  	if (!compareCustomVectors(first, ft_first))
-	passed();
-
-	std::cout << "at() -                ";
-
-  // reverse std vector using function at:
-  for (unsigned i=0; i<sz/2; i++)
-  {
-    int temp;
-    temp = first.at(sz-1-i);
-    first.at(sz-1-i)=first.at(i);
-    first.at(i)=temp;
-  }
-  // reverse ft vector using operator[]:
-  for (unsigned i=0; i<ft_sz/2; i++)
-  {
-	 int temp;
-    temp = ft_first.at(ft_sz-1-i);
-    ft_first.at(ft_sz-1-i)=ft_first.at(i);
-    ft_first.at(i)=temp;
-  }
-	if (!compareCustomVectors(first, ft_first))
-	passed();
-	
-	std::cout << "front() -             ";
-	if (first.front() == ft_first.front())
+		if (!compareCustomVectors(first, ft_first))
 			passed();
-		else
-			std::cout << RED << "FAIL ❌\n" << NC;
-	std::cout << "back() -              ";
-	if (first.back() == ft_first.back())
-			passed();
-		else
-			std::cout << RED << "FAIL ❌\n" << NC;
+
+		std::cout << "at() -                ";
+
+	// reverse std vector using function at:
+	for (unsigned i=0; i<sz/2; i++)
+	{
+		int temp;
+		temp = first.at(sz-1-i);
+		first.at(sz-1-i)=first.at(i);
+		first.at(i)=temp;
+	}
+	// reverse ft vector using operator[]:
+	for (unsigned i=0; i<ft_sz/2; i++)
+	{
+		int temp;
+		temp = ft_first.at(ft_sz-1-i);
+		ft_first.at(ft_sz-1-i)=ft_first.at(i);
+		ft_first.at(i)=temp;
+	}
+		if (!compareCustomVectors(first, ft_first))
+		passed();
+		
+		std::cout << "front() -             ";
+		if (first.front() == ft_first.front())
+				passed();
+			else
+				std::cout << RED << "FAIL ❌\n" << NC;
+		std::cout << "back() -              ";
+		if (first.back() == ft_first.back())
+				passed();
+			else
+				std::cout << RED << "FAIL ❌\n" << NC;
 	}
 
 	void testIterators() {
-std::vector<int> first (5);  // 5 default-constructed ints
-ft::vector<int> ft_first (5);  // 5 default-constructed ints
+		std::vector<int> first (5);  // 5 default-constructed ints
+		ft::vector<int> ft_first (5);  // 5 default-constructed ints
 
-	std::cout << "rbegin() and rend() - ";
+		std::cout << "rbegin() and rend() - ";
 
-  std::vector<int>::reverse_iterator rit = first.rbegin();
-    ft::vector<int>::reverse_iterator ft_rit = ft_first.rbegin();
+		std::vector<int>::reverse_iterator rit = first.rbegin();
+			ft::vector<int>::reverse_iterator ft_rit = ft_first.rbegin();
 
-  int i=0;
-  for (; rit!= first.rend(); ++rit)
-    *rit = ++i;
+		int i=0;
+		for (; rit!= first.rend(); ++rit)
+			*rit = ++i;
 
-    int k=0;
-	for (; ft_rit!= ft_first.rend(); ++ft_rit)
-    	*ft_rit = ++k;
+		int k=0;
+		for (; ft_rit!= ft_first.rend(); ++ft_rit)
+			*ft_rit = ++k;
 
-	if (!compareCustomVectors(first, ft_first))
-		passed();
-	
+		if (!compareCustomVectors(first, ft_first))
+			passed();
+		
 		std::cout << "begin() and end() -   ";
-  for (std::vector<int>::iterator it = first.begin(); it != first.end(); ++it)
-    *(it) += 1;
+		for (std::vector<int>::iterator it = first.begin(); it != first.end(); ++it)
+			*(it) += 1;
 
-  for (ft::vector<int>::iterator ft_it = ft_first.begin(); ft_it != ft_first.end(); ++ft_it)
-    *(ft_it) += 1;
-	
-	if (!compareCustomVectors(first, ft_first))
-		passed();
+		for (ft::vector<int>::iterator ft_it = ft_first.begin(); ft_it != ft_first.end(); ++ft_it)
+			*(ft_it) += 1;
+			
+		if (!compareCustomVectors(first, ft_first))
+			passed();
 
 	}
 
@@ -289,9 +289,9 @@ ft::vector<int> ft_first (5);  // 5 default-constructed ints
 	}
 
 	void testSwap() {
-				std::cout << "--- non-member swap() ---";
+		std::cout << "--- non-member swap() ---";
 
-		  unsigned int i;
+		unsigned int i;
 		std::vector<int> first (3,100);   // three ints with a value of 100
 		ft::vector<int> ft_first (3,100);   // three ints with a value of 100
 
@@ -328,30 +328,15 @@ ft::vector<int> ft_first (5);  // 5 default-constructed ints
 		 	passed();
 		else
 			std::cout << RED << "FAIL ❌\n" << NC;
-
-
 	}
+
+private:
+	std::stringstream stdString;
+	std::stringstream ftString;
 
 	void passed() {
 		std::cout << GREEN << "PASSED ✅" << NC << "\n\n";
 	}
-
-	// void compareVectors() {
-	// 	for (int i = 0; i < stdVector.size(); i++) {
-	// 		stdString << stdVector.at(i) << " ";
-	// 	}
-	// 	for (int i = 0; i < ftVector.size(); i++) {
-	// 		ftString << ftVector.at(i) << " ";
-	// 	}
-	// 	if (ftString.str().compare(stdString.str()) == 0)
-	// 		std::cout << "\n" << GREEN << "PASSED" << NC << "\n";
-	// 	else
-	// 		std::cout << RED << "FAIL ❌\n" << "Ft vector : " << ftString.str() << "\nStd vector: " << stdString.str() << NC << "\n";
-	// 	stdString.str(std::string());
-	// 	stdVector.clear();
-	// 	ftString.str(std::string());
-	// 	ftVector.clear();
-	// }
 
 	int compareCustomVectors(std::vector<int> &std_vetor, ft::vector<int> &ft_vector) {
 		int fail = 0;
@@ -381,44 +366,4 @@ ft::vector<int> ft_first (5);  // 5 default-constructed ints
 		}
 		std::cout << "\n";
 	}
-
-	void printVectors()
-	{
-		std::cout << "STD vector: ";
-		for (int i = 0; i < stdVector.size(); i++) {
-			std::cout << stdVector.at(i) << " ";
-		}
-		std::cout << "\nFT vector : ";
-		for (int i = 0; i < ftVector.size(); i++) {
-			std::cout << ftVector.at(i) << " ";
-		}
-		std::cout << std::endl;
-	}
-
-	void printVectors2()
-	{
-		std::cout << "STD vector 1: ";
-		for (int i = 0; i < stdVector.size(); i++) {
-			std::cout << stdVector.at(i) << " ";
-		}
-
-		std::cout << "STD vector 1: ";
-		for (int i = 0; i < stdVector2.size(); i++) {
-			std::cout << stdVector2.at(i)<< " ";
-		}
-
-		std::cout << "\nFT vector 1: ";
-		for (int i = 0; i < ftVector.size(); i++) {
-			std::cout << ftVector.at(i) << " ";
-		}
-		std::cout << "\nFT vector 2: ";
-		for (int i = 0; i < ftVector2.size(); i++) {
-			std::cout << ftVector2.at(i) << " ";
-		}
-		std::cout << std::endl;
-	}
-
-private:
-	std::stringstream stdString;
-	std::stringstream ftString;
 };
