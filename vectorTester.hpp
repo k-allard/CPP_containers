@@ -13,7 +13,10 @@ public:
 	ft::vector<int> ftVector2;
 
 	VectorTester() {
+		std::cout << " - - - - - - - - - - - - - - - - - - - - - -";
 		std::cout << "\n" << " - - - - - - - - V E C T O R - - - - - - - - " << "\n";
+		std::cout << " - - - - - - - - - - - - - - - - - - - - - -\n";
+
 	}
 
 	void testConstructors() {
@@ -26,17 +29,16 @@ public:
 		ft::vector<int> ft_second (4,100);
 		ft::vector<int> ft_third (ft_second.begin(),ft_second.end());
 		ft::vector<int> ft_fourth (ft_third);
-
 		std::cout << "Default constructor - ";
 		if (!compareCustomVectors(first, ft_first))
 			passed();
-		std::cout << "Fill constructor - ";
+		std::cout << "Fill constructor -    ";
 		if (!compareCustomVectors(second, ft_second))
 			passed();
-		std::cout << "Range constructor - ";
+		std::cout << "Range constructor -   ";
 		if (!compareCustomVectors(third, ft_third))
 			passed();
-		std::cout << "Copy constructor - ";
+		std::cout << "Copy constructor -    ";
 		if (!compareCustomVectors(fourth, ft_fourth))
 			passed();
 	}
@@ -54,17 +56,17 @@ public:
 		first = second;
 		ft_first = ft_second;
 
-		std::cout << "operator= - ";
+		std::cout << "operator= -           ";
 		if (!compareCustomVectors(first, ft_first))
 			passed();
 
-		std::cout << "Fill assignation - ";
+		std::cout << "Fill assignation -    ";
 		first.assign(2, 99);
 		ft_first.assign(2, 99);
 		if (!compareCustomVectors(first, ft_first))
 			passed();
 		
-		std::cout << "Range assignation - ";
+		std::cout << "Range assignation -   ";
 		int myints[] = {1776,7,4};
   		third.assign (myints, myints + 3);
 		ft_third.assign (myints, myints + 3);
@@ -75,7 +77,7 @@ public:
 	void testCapacity() {
 		int flag = 0;
 
-		std::cout << "size() - ";
+		std::cout << "size() -              ";
 		std::vector<int> first;
 		ft::vector<int> ft_first;
 		int myints[] = { 12, 10, 8, 6, 4, 2, 1 };
@@ -84,37 +86,37 @@ public:
 		if (first.size() == ft_first.size())
 			passed();
 		else
-			std::cout << RED << "FAIL\n" << "Ft vector size: " << ft_first.size() << "\nStd vector size: " << first.size() << NC << "\n";
+			std::cout << RED << "FAIL ❌\n" << "Ft vector size: " << ft_first.size() << "\nStd vector size: " << first.size() << NC << "\n";
 
-		std::cout << "max_size() - ";
+		std::cout << "max_size() -          ";
 		if (first.max_size() == ft_first.max_size())
 			passed();
 		else
-			std::cout << RED << "FAIL\n" << "Ft vector size: " << ft_first.size() << "\nStd vector size: " << first.size() << NC << "\n";
+			std::cout << RED << "FAIL ❌\n" << "Ft vector size: " << ft_first.size() << "\nStd vector size: " << first.size() << NC << "\n";
 
-		std::cout << "capacity() - ";
+		std::cout << "capacity() -          ";
 		if (first.capacity() == ft_first.capacity())
 			passed();
 		else
-			std::cout << RED << "FAIL\n" << "Ft vector capacity: " << ft_first.capacity() << "\nStd vector capacity: " << first.capacity() << NC << "\n";
+			std::cout << RED << "FAIL ❌\n" << "Ft vector capacity: " << ft_first.capacity() << "\nStd vector capacity: " << first.capacity() << NC << "\n";
 		
-		std::cout << "empty() - ";
+		std::cout << "empty() -             ";
 		std::vector<int> second;
 		ft::vector<int> ft_second;
 		if (first.empty() == ft_first.empty() && second.empty() == ft_second.empty())
 			passed();
 		else
-			std::cout << RED << "FAIL\n" << NC;
+			std::cout << RED << "FAIL ❌\n" << NC;
 
-		std::cout << "reserve() - ";
+		std::cout << "reserve() -           ";
 		first.reserve(100);
 		ft_first.reserve(100);
 		if (first.capacity() == ft_first.capacity())
 			passed();
 		else
-			std::cout << RED << "FAIL\n" << NC;
+			std::cout << RED << "FAIL ❌\n" << NC;
 		
-		std::cout << "resize() - ";
+		std::cout << "resize() -            ";
 		first.resize(3);
 		ft_first.resize(3);
 		flag = 0;
@@ -130,7 +132,7 @@ public:
 	}
 
 	void testElementAccess() {
-				std::cout << "operator[] - ";
+				std::cout << "operator[] -          ";
 		std::vector<int> first (10);   // 10 zero-initialized elements
 		ft::vector<int> ft_first (10);   // 10 zero-initialized elements
   std::vector<int>::size_type sz = first.size();
@@ -142,7 +144,7 @@ for (unsigned i=0; i<ft_sz; i++) ft_first[i]=i;
   	if (!compareCustomVectors(first, ft_first))
 	passed();
 
-	std::cout << "at() - ";
+	std::cout << "at() -                ";
 
   // reverse std vector using function at:
   for (unsigned i=0; i<sz/2; i++)
@@ -163,16 +165,16 @@ for (unsigned i=0; i<ft_sz; i++) ft_first[i]=i;
 	if (!compareCustomVectors(first, ft_first))
 	passed();
 	
-	std::cout << "front() - ";
+	std::cout << "front() -             ";
 	if (first.front() == ft_first.front())
 			passed();
 		else
-			std::cout << RED << "FAIL\n" << NC;
-	std::cout << "back() - ";
+			std::cout << RED << "FAIL ❌\n" << NC;
+	std::cout << "back() -              ";
 	if (first.back() == ft_first.back())
 			passed();
 		else
-			std::cout << RED << "FAIL\n" << NC;
+			std::cout << RED << "FAIL ❌\n" << NC;
 	}
 
 	void testIterators() {
@@ -195,7 +197,7 @@ ft::vector<int> ft_first (5);  // 5 default-constructed ints
 	if (!compareCustomVectors(first, ft_first))
 		passed();
 	
-		std::cout << "begin() and end() - ";
+		std::cout << "begin() and end() -   ";
   for (std::vector<int>::iterator it = first.begin(); it != first.end(); ++it)
     *(it) += 1;
 
@@ -286,7 +288,7 @@ ft::vector<int> ft_first (5);  // 5 default-constructed ints
 
 	}
 
-	void testNonMembers() {
+	void testSwap() {
 				std::cout << "--- non-member swap() ---";
 
 		  unsigned int i;
@@ -306,9 +308,32 @@ ft::vector<int> ft_first (5);  // 5 default-constructed ints
 
 		if (!compareCustomVectors(first, ft_first) && !compareCustomVectors(second, ft_second))
 			passed();
+
 	}
+
+	void testRelationalOperators() {
+		std::cout << "--- relational operators ---\n";
+
+		 std::vector<int> first (3,100);   // three ints with a value of 100
+  		std::vector<int> second (2,200);   // two ints with a value of 200
+		 ft::vector<int> ft_first (3,100);   // three ints with a value of 100
+  		ft::vector<int> ft_second (2,200);   // two ints with a value of 200
+
+		if ((first==second) == (ft_first==ft_second) && \
+		(first!=second) == (ft_first!=ft_second) && \
+		(first< second) == (ft_first< ft_second)  && \
+		 (first> second) == (ft_first> ft_second)  && \
+		 (first<=second) == (ft_first<=ft_second) && \
+		 (first>=second) == (ft_first>=ft_second))
+		 	passed();
+		else
+			std::cout << RED << "FAIL ❌\n" << NC;
+
+
+	}
+
 	void passed() {
-		std::cout << GREEN << "PASSED" << NC << "\n\n";
+		std::cout << GREEN << "PASSED ✅" << NC << "\n\n";
 	}
 
 	// void compareVectors() {
@@ -321,7 +346,7 @@ ft::vector<int> ft_first (5);  // 5 default-constructed ints
 	// 	if (ftString.str().compare(stdString.str()) == 0)
 	// 		std::cout << "\n" << GREEN << "PASSED" << NC << "\n";
 	// 	else
-	// 		std::cout << RED << "FAIL\n" << "Ft vector : " << ftString.str() << "\nStd vector: " << stdString.str() << NC << "\n";
+	// 		std::cout << RED << "FAIL ❌\n" << "Ft vector : " << ftString.str() << "\nStd vector: " << stdString.str() << NC << "\n";
 	// 	stdString.str(std::string());
 	// 	stdVector.clear();
 	// 	ftString.str(std::string());
@@ -337,7 +362,7 @@ ft::vector<int> ft_first (5);  // 5 default-constructed ints
 			ftString << ft_vector.at(i) << " ";
 		}
 		if (ftString.str().compare(stdString.str())) {
-			std::cout << RED << "FAIL\n" << "Ft vector : " << ftString.str() << "\nStd vector: " << stdString.str() << NC << "\n";
+			std::cout << RED << "FAIL ❌\n" << "Ft vector : " << ftString.str() << "\nStd vector: " << stdString.str() << NC << "\n";
 			fail = 1;
 		}
 		stdString.str(std::string());

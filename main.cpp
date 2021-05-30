@@ -10,7 +10,8 @@ int main()
 	vectorTester->testElementAccess();
 	vectorTester->testIterators();
 	vectorTester->testModifiers();
-	vectorTester->testNonMembers();
+	vectorTester->testSwap();
+	vectorTester->testRelationalOperators();
 
 
     // for (int i = 1; i <= 5; i++) {
