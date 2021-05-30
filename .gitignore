@@ -2,5 +2,5 @@ my_containers
 .vscode/
 main
 a.out
-a.out.dSYM/
+*.dSYM/
 result
