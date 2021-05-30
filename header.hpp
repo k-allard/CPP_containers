@@ -5,6 +5,8 @@
 #include <limits>
 #include <algorithm>
 #include <sstream>
+#include <unistd.h>
+
 
 #include <vector>
 #include "ifInteger.hpp"

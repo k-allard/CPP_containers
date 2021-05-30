@@ -29,7 +29,6 @@ private:
 	void printCustomVectors(std::vector<int> &std_vetor, ft::vector<int> &ft_vector);
 };
 
-
 void VectorTester::testConstructors() {
 	std::vector<int> first;
 	std::vector<int> second (4,100);
@@ -299,7 +298,6 @@ void VectorTester::testModifiers() {
 void VectorTester::testSwap() {
 	std::cout << "--- non-member swap() ---";
 
-	unsigned int i;
 	std::vector<int> first (3,100);   // three ints with a value of 100
 	ft::vector<int> ft_first (3,100);   // three ints with a value of 100
 
@@ -338,15 +336,17 @@ void VectorTester::testRelationalOperators() {
 }
 
 void VectorTester::passed() {
+	const unsigned int microseconds = 250000; //1000000 microseconds = 1 sec
 	std::cout << GREEN << "PASSED ✅" << NC << "\n\n";
+	usleep(microseconds);
 }
 
 int VectorTester::compareCustomVectors(std::vector<int> &std_vetor, ft::vector<int> &ft_vector) {
 	int fail = 0;
-	for (int i = 0; i < std_vetor.size(); i++) {
+	for (std::vector<int>::size_type i = 0; i < std_vetor.size(); i++) {
 		stdString << std_vetor.at(i) << " ";
 	}
-	for (int i = 0; i < ft_vector.size(); i++) {
+	for (ft::vector<int>::size_type i = 0; i < ft_vector.size(); i++) {
 		ftString << ft_vector.at(i) << " ";
 	}
 	if (ftString.str().compare(stdString.str())) {
@@ -361,11 +361,11 @@ int VectorTester::compareCustomVectors(std::vector<int> &std_vetor, ft::vector<i
 
 void VectorTester::printCustomVectors(std::vector<int> &std_vetor, ft::vector<int> &ft_vector) {
 	std::cout << "\nFt vector : ";
-	for (int i = 0; i < std_vetor.size(); i++) {
+	for (std::vector<int>::size_type i = 0; i < std_vetor.size(); i++) {
 		std::cout << std_vetor.at(i) << " ";
 	}
 	std::cout << "\nStd vector: ";
-	for (int i = 0; i < ft_vector.size(); i++) {
+	for (ft::vector<int>::size_type i = 0; i < ft_vector.size(); i++) {
 		std::cout << ft_vector.at(i) << " ";
 	}
 	std::cout << "\n";

@@ -4,7 +4,7 @@ SRCS = main.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
-FLAGS =-Wall -Wextra -Werror -O2
+FLAGS =-Wall -Wextra -Werror -g -fsanitize-address-poison-custom-array-cookie -fsanitize-address-use-after-scope -fsanitize-address-use-odr-indicator -fsanitize=address
 
 all: $(NAME)
 
