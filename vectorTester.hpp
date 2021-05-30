@@ -350,7 +350,8 @@ int VectorTester::compareCustomVectors(std::vector<int> &std_vetor, ft::vector<i
 		ftString << ft_vector.at(i) << " ";
 	}
 	if (ftString.str().compare(stdString.str())) {
-		std::cout << RED << "FAIL ❌\n" << "Ft vector : " << ftString.str() << "\nStd vector: " << stdString.str() << NC << "\n";
+		std::cout << RED << "FAIL ❌\n" << "Ft vector : " << ftString.str() \
+		<< "\nStd vector: " << stdString.str() << NC << "\n";
 		fail = 1;
 	}
 	stdString.str(std::string());
