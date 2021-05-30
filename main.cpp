@@ -10,7 +10,9 @@ int main()
 	vectorTester->testElementAccess();
 	vectorTester->testIterators();
 	vectorTester->testModifiers();
-	
+	vectorTester->testNonMembers();
+
+
     // for (int i = 1; i <= 5; i++) {
     //     vectorTester->stdVector.push_back(i);
     // }

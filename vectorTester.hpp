@@ -286,6 +286,27 @@ ft::vector<int> ft_first (5);  // 5 default-constructed ints
 
 	}
 
+	void testNonMembers() {
+				std::cout << "--- non-member swap() ---";
+
+		  unsigned int i;
+		std::vector<int> first (3,100);   // three ints with a value of 100
+		ft::vector<int> ft_first (3,100);   // three ints with a value of 100
+
+		std::vector<int> second (5,200);   // five ints with a value of 200
+		ft::vector<int> ft_second (5,200);   // five ints with a value of 200
+		printCustomVectors(first, ft_first);
+		printCustomVectors(second, ft_second);
+
+		first.swap(second);
+		ft_first.swap(ft_second);
+
+		printCustomVectors(first, ft_first);
+		printCustomVectors(second, ft_second);
+
+		if (!compareCustomVectors(first, ft_first) && !compareCustomVectors(second, ft_second))
+			passed();
+	}
 	void passed() {
 		std::cout << GREEN << "PASSED" << NC << "\n\n";
 	}
@@ -376,9 +397,3 @@ private:
 	std::stringstream stdString;
 	std::stringstream ftString;
 };
-
-
-
-
-// swap 
-// clear 
