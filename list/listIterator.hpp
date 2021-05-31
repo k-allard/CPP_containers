@@ -1,5 +1,5 @@
 //
-//  V E C T O R   I T E R A T O R S COPY OF VECTOR ITERATOR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+//  V E C T O R   I T E R A T O R S
 //
 
 #ifndef LISTITERATOR_HPP
@@ -15,29 +15,24 @@ namespace ft
 	public:
 		typedef T1						value_type;
 		typedef T1&						reference;
-		typedef T1*						pointer;
-		pointer							node;
+		typedef T1*						ptr;
+		typedef node<T1>*				node_ptr;
+		node_ptr						_node;
 
-		listIterator() : node(nullptr) {}
-		listIterator(pointer p) : node(p) {}
-		listIterator(const listIterator& rhs): node(rhs.node) {}
-		listIterator & operator=(const listIterator &src);
+		listIterator() : _node(nullptr) {}
+		listIterator(node_ptr p) : _node(p) {}
+		listIterator(const listIterator& rhs) : _node(rhs._node) {}
+		listIterator & operator=(const listIterator &src) { _node = src._node; return (*this); }
 		~listIterator() {}
 
-		reference operator*();
-		pointer operator->();
-		reference operator[](size_t n);
-		listIterator &operator++();
-		listIterator &operator--();
+		reference operator*() const { return (*_node->data); }
+		ptr operator->() { return (_node->data);}
+		listIterator &operator++() { _node = _node->next; return (*this); }
+		listIterator &operator--() { _node = _node->prev; return (*this); }
 		listIterator operator++(int);
 		listIterator operator--(int);
-		listIterator &operator+=(int n);
-		listIterator &operator-=(int n);
-		listIterator operator+(int n) const;
-		listIterator operator-(int n) const;
-		size_t operator-(listIterator & rhs) const;
-		bool operator==(const listIterator & second) const;
-		bool operator!=(const listIterator & second) const;
+		bool operator==(const listIterator & second) const { return (_node == second._node); }
+		bool operator!=(const listIterator & second) const { return (_node != second._node); }
 
 	};
 
@@ -47,422 +42,141 @@ namespace ft
 	public:
 		typedef const T1				value_type;
 		typedef const T1&				reference;
-		typedef const T1*				pointer;
-		pointer							node;
+		typedef const T1*				ptr;
+		typedef node<T1>*				node_ptr;
+		node_ptr						_node;
 
-		listConstIterator() : node(nullptr) {}
-		listConstIterator(pointer p) : node(p) {}
-		listConstIterator(const listConstIterator& rhs): node(rhs.node) {}
-		listConstIterator & operator=(const listConstIterator &src);
-		listConstIterator & operator=(const listIterator<T1> &src);
+		listConstIterator() : _node(nullptr) {}
+		listConstIterator(node_ptr p) : _node(p) {}
+		listConstIterator(const listConstIterator& rhs) : _node(rhs._node) {}
+		listConstIterator & operator=(const listConstIterator &src) { _node = src._node; return (*this); }
 		~listConstIterator() {}
 
-		reference operator*();
-		pointer operator->();
-		reference operator[](size_t n);
-		listConstIterator &operator++();
-		listConstIterator &operator--();
+		reference operator*() const { return (*_node->data); }
+		ptr operator->() {return (_node->data);}
+		listConstIterator &operator++() { _node = _node->next; return (*this); }
+		listConstIterator &operator--() { _node = _node->prev; return (*this); }
 		listConstIterator operator++(int);
 		listConstIterator operator--(int);
-		listConstIterator &operator+=(int n);
-		listConstIterator &operator-=(int n);
-		listConstIterator operator+(int n) const;
-		listConstIterator operator-(int n) const;
-		size_t operator-(listConstIterator & rhs) const;
-		bool operator==(const listConstIterator & second) const;
-		bool operator!=(const listConstIterator & second) const;
-
+		bool operator==(const listConstIterator & second) const { return (_node == second._node); }
+		bool operator!=(const listConstIterator & second) const { return (_node != second._node); }
 	};
 
 	template<typename T1>
 	class listRevIterator {
-	public:
+		public:
 		typedef T1						value_type;
 		typedef T1&						reference;
-		typedef T1*						pointer;
-		pointer							node;
-		
-		listRevIterator(): node(nullptr) {}
-		listRevIterator(pointer p) : node(p) {}
-		listRevIterator(const listRevIterator& rhs): node(rhs.node) {}
-		listRevIterator& operator=(const listRevIterator& rhs);
+		typedef T1*						ptr;
+		typedef node<T1>*				node_ptr;
+		node_ptr						_node;
+
+		listRevIterator() : _node(nullptr) {}
+		listRevIterator(node_ptr p) : _node(p) {}
+		listRevIterator(const listRevIterator& rhs) : _node(rhs._node) {}
+		listRevIterator & operator=(const listRevIterator &src) { _node = src._node; return (*this); }
 		~listRevIterator() {}
 
-		reference operator*() { return (*(node - 1)); }
-		pointer operator->() { return (node); }
-		reference operator[](size_t n) { return (*(node + n - 1)); }
-		listRevIterator &operator++();
-		listRevIterator &operator--();
+		reference operator*() const { return (*_node->data); }
+		ptr operator->() {return (_node->data); }
+		listRevIterator &operator++() { _node = _node->prev; return (*this); }
+		listRevIterator &operator--() { _node = _node->next; return (*this); }
 		listRevIterator operator++(int);
 		listRevIterator operator--(int);
-		listRevIterator &operator+=(int n);
-		listRevIterator &operator-=(int n);
-		listRevIterator operator+(int n) const;
-		listRevIterator operator-(int n) const;
-		size_t operator-(listRevIterator & rhs) const { return (node - rhs.node); }
-		bool operator==(const listRevIterator & rhs) const { return (node == rhs.node); }
-		bool operator!=(const listRevIterator & rhs) const { return (node != rhs.node); }
+		bool operator==(const listRevIterator & second) const { return (_node == second._node); }
+		bool operator!=(const listRevIterator & second) const { return (_node != second._node); }
 	};
 
 	template<typename T1>
 	class listConstRevIterator {
-	public:
+				public:
 		typedef const T1						value_type;
 		typedef const T1&						reference;
-		typedef const T1*						pointer;
-		pointer									node;
-		
-		listConstRevIterator(): node(nullptr) {}
-		listConstRevIterator(pointer p) : node(p) {}
-		listConstRevIterator(const listConstRevIterator& rhs): node(rhs.node) {}
-		listConstRevIterator& operator=(const listConstRevIterator& rhs);
-		listConstRevIterator& operator=(const ft::listRevIterator<T1>& rhs);
+		typedef const T1*						ptr;
+		typedef const node<T1>*				node_ptr;
+		node_ptr						_node;
+
+		listConstRevIterator() : _node(nullptr) {}
+		listConstRevIterator(node_ptr p) : _node(p) {}
+		listConstRevIterator(const listConstRevIterator& rhs) : _node(rhs._node) {}
+		listConstRevIterator & operator=(const listConstRevIterator &src) { _node = src._node; return (*this); }
 		~listConstRevIterator() {}
 
-		reference operator*() { return (*(node - 1)); }
-		pointer operator->() { return (node); }
-		reference operator[](size_t n) { return (*(node + n - 1)); }
-		listConstRevIterator &operator++();
-		listConstRevIterator &operator--();
+		reference operator*() const { return (*_node->data); }
+		ptr operator->() {return (_node->data); }
+		listConstRevIterator &operator++() { _node = _node->prev; return (*this); }
+		listConstRevIterator &operator--() { _node = _node->next; return (*this); }
 		listConstRevIterator operator++(int);
 		listConstRevIterator operator--(int);
-		listConstRevIterator &operator+=(int n);
-		listConstRevIterator &operator-=(int n);
-		listConstRevIterator operator+(int n) const;
-		listConstRevIterator operator-(int n) const;
-		size_t operator-(listConstRevIterator & rhs) const { return (node - rhs.node); }
-		bool operator==(const listConstRevIterator & rhs) const { return (node == rhs.node); }
-		bool operator!=(const listConstRevIterator & rhs) const { return (node != rhs.node); }
+		bool operator==(const listConstRevIterator & second) const { return (_node == second._node); }
+		bool operator!=(const listConstRevIterator & second) const { return (_node != second._node); }
 	};
 
 
 // listIterator
-	// перегрузка оператора присваивания
-	template <typename T1> 
-	listIterator<T1> &listIterator<T1>::operator=(const listIterator &src) {
-		node = src.node; 
-		return (*this); 
-	}
-
-	// dereference iterator returns a reference to the element pointed to by the iterator
-	template <typename T1> 
-	typename listIterator<T1>::reference listIterator<T1>::operator*() { 
-		return (*node);
-	}
-
-	// dereference iterator returns a pointer to the element pointed to by the iterator (in order to access one of its members)
-	template <typename T1> 
-	typename listIterator<T1>::pointer listIterator<T1>::operator->() { 
-		return (node); 
-	}
-
-	// pre-increment - перемещение итератора вперед для обращения к следующему элементу
-	template <typename T1> 
-	listIterator<T1> &listIterator<T1>::operator++() { 
-		node++; 
-		return (*this); 
-	}
-
 	// post-increment - returns the value *this had before the call
-	template <typename T1> 
-	listIterator<T1> listIterator<T1>::operator++(int)	{ 
+	template <typename T1>
+	listIterator<T1> listIterator<T1>::operator++(int) {
 		listIterator temp = *this;
-		node++;
+		_node = _node->next;
 		return (temp);
-	}
-
-	// pre-decrement - перемещение итератора назад для обращения к предыдущему элементу
-	template <typename T1> 
-	listIterator<T1> &listIterator<T1>::operator--() { 
-		node--; 
-		return (*this); 
 	}
 
 	// post-decrement
-	template <typename T1> 
-	listIterator<T1>	listIterator<T1>::operator--(int) {
+	template <typename T1>
+	listIterator<T1> listIterator<T1>::operator--(int) {
 		listIterator temp = *this;
-		node--;
+		_node = _node->prev;
 		return (temp);
 	}
 
-	// два итератора равны, если они указывают на один и тот же элемент
-	template <typename T1> 
-	bool listIterator<T1>::operator==(const listIterator & second) const { 
-		return (node == second.node); 
-	}
-
-	// два итератора не равны, если они указывают на разные элементы
-	template <typename T1> 
-	bool listIterator<T1>::operator!=(const listIterator & second) const { 
-		return (node != second.node); 
-	}
-
-	// возвращает итератор, который смещен от итератора iter на n позиций вперед
-	template <typename T1> 
-	listIterator<T1> listIterator<T1>::operator+(int n) const {
-		listIterator temp = *this;
-		temp.node += n;
-		return temp;
-	}
-
-	// возвращает итератор, который смещен от итератора iter на n позиций назад
-	template <typename T1> 
-	listIterator<T1>	listIterator<T1>::operator-(int n) const {
-		listIterator temp = *this;
-		temp.node -= n;
-		return temp;
-	}
-
-	// перемещает итератор на n позиций вперед
-	template <typename T1> 
-	listIterator<T1> &listIterator<T1>::operator+=(int n) { 
-		node += n; 
-		return (*this); 
-	}
-
-	// перемещает итератор на n позиций назад
-	template <typename T1> 
-	listIterator<T1> &listIterator<T1>::operator-=(int n) { 
-		node -= n; 
-		return (*this); 
-	}
-
-	// dereference iterator with offset accesses the element located n positions away from the element currently pointed to
-	template <typename T1> 
-	typename listIterator<T1>::reference listIterator<T1>::operator[](size_t n) { 
-		return (*(node + n)); 
-	}
-
-	// возвращает количество позиций между итераторами iter1 и iter2
-	template <typename T1> 
-	size_t listIterator<T1>::operator-(listIterator & iter2) const { 
-		return (node - iter2.node); 
-	}
 
 // listConstIterator
-	// перегрузка оператора присваивания
-	template <typename T1> 
-	listConstIterator<T1> &listConstIterator<T1>::operator=(const listConstIterator &src) {
-		node = src.node; 
-		return (*this); 
-	}
-
-	// dereference iterator returns a reference to the element pointed to by the iterator
-	template <typename T1> 
-	typename listConstIterator<T1>::reference listConstIterator<T1>::operator*() { 
-		return (*node);
-	}
-
-	// dereference iterator returns a pointer to the element pointed to by the iterator (in order to access one of its members)
-	template <typename T1> 
-	typename listConstIterator<T1>::pointer listConstIterator<T1>::operator->() { 
-		return (node); 
-	}
-
-	// pre-increment - перемещение итератора вперед для обращения к следующему элементу
-	template <typename T1> 
-	listConstIterator<T1> &listConstIterator<T1>::operator++() { 
-		node++; 
-		return (*this); 
-	}
-
 	// post-increment - returns the value *this had before the call
-	template <typename T1> 
-	listConstIterator<T1> listConstIterator<T1>::operator++(int)	{ 
+	template <typename T1>
+	listConstIterator<T1> listConstIterator<T1>::operator++(int)	{
 		listConstIterator temp = *this;
-		node++;
+		_node = _node->next;
 		return (temp);
-	}
-
-	// pre-decrement - перемещение итератора назад для обращения к предыдущему элементу
-	template <typename T1> 
-	listConstIterator<T1> &listConstIterator<T1>::operator--() { 
-		node--; 
-		return (*this); 
 	}
 
 	// post-decrement
-	template <typename T1> 
-	listConstIterator<T1>	listConstIterator<T1>::operator--(int) {
+	template <typename T1>
+	listConstIterator<T1> listConstIterator<T1>::operator--(int) {
 		listConstIterator temp = *this;
-		node--;
+		_node = _node->prev;
 		return (temp);
-	}
-
-	// два итератора равны, если они указывают на один и тот же элемент
-	template <typename T1> 
-	bool listConstIterator<T1>::operator==(const listConstIterator & second) const { 
-		return (node == second.node); 
-	}
-
-	// два итератора не равны, если они указывают на разные элементы
-	template <typename T1> 
-	bool listConstIterator<T1>::operator!=(const listConstIterator & second) const { 
-		return (node != second.node); 
-	}
-
-	// возвращает итератор, который смещен от итератора iter на n позиций вперед
-	template <typename T1> 
-	listConstIterator<T1> listConstIterator<T1>::operator+(int n) const {
-		listConstIterator temp = *this;
-		temp.node += n;
-		return temp;
-	}
-
-	// возвращает итератор, который смещен от итератора iter на n позиций назад
-	template <typename T1> 
-	listConstIterator<T1>	listConstIterator<T1>::operator-(int n) const {
-		listConstIterator temp = *this;
-		temp.node -= n;
-		return temp;
-	}
-
-	// перемещает итератор на n позиций вперед
-	template <typename T1> 
-	listConstIterator<T1> &listConstIterator<T1>::operator+=(int n) { 
-		node += n; 
-		return (*this); 
-	}
-
-	// перемещает итератор на n позиций назад
-	template <typename T1> 
-	listConstIterator<T1> &listConstIterator<T1>::operator-=(int n) { 
-		node -= n; 
-		return (*this); 
-	}
-
-	// dereference iterator with offset accesses the element located n positions away from the element currently pointed to
-	template <typename T1> 
-	typename listConstIterator<T1>::reference listConstIterator<T1>::operator[](size_t n) { 
-		return (*(node + n)); 
-	}
-
-	// возвращает количество позиций между итераторами iter1 и iter2
-	template <typename T1> 
-	size_t listConstIterator<T1>::operator-(listConstIterator & iter2) const { 
-		return (node - iter2.node); 
 	}
 
 // listRevIterator
 	template <typename T1>
-	listRevIterator<T1> &listRevIterator<T1>::operator=(const listRevIterator<T1>& rhs) {
-		node = rhs.node;
-		return (*this);
+	listRevIterator<T1> listRevIterator<T1>::operator++(int) {
+		listRevIterator temp = *this;
+		_node = _node->prev;
+		return (temp);
 	}
 
 	template <typename T1>
-	listRevIterator<T1>& listRevIterator<T1>::operator++() {
-		--node;
-		return (*this);
+	listRevIterator<T1>	listRevIterator<T1>::operator--(int) {
+		listRevIterator<T1> temp = *this;
+		_node = _node->next;
+		return (temp);
 	}
-
-	template <typename T1>
-		listRevIterator<T1> listRevIterator<T1>::operator++(int) {
-			listRevIterator<T1> tmp(*this);
-			operator++();
-			return (tmp);
-		}
-
-	template <typename T1>
-			listRevIterator<T1>&	listRevIterator<T1>::operator--() {
-				++node;
-				return (*this);
-			}
-
-	template <typename T1>
-			listRevIterator<T1>	listRevIterator<T1>::operator--(int) {
-				listRevIterator<T1> tmp(*this);
-				operator--();
-				return (tmp);
-			}
-
-	template <typename T1>
-			listRevIterator<T1>& listRevIterator<T1>::operator+=(int n) {
-				node -= n;
-				return (*this);
-			}
-
-	template <typename T1>
-			listRevIterator<T1>& listRevIterator<T1>::operator-=(int n) {
-				node += n;
-				return (*this);
-			}
-
-	template <typename T1>
-			listRevIterator<T1>	listRevIterator<T1>::operator+(int n) const {
-				listRevIterator<T1> it(*this);
-				return (it -= n);
-			}
-
-	template <typename T1>
-			listRevIterator<T1>	listRevIterator<T1>::operator-(int n) const {
-				listRevIterator<T1> it(*this);
-				return (it += n);
-			}
 
 // listConstRevIterator
+
 	template <typename T1>
-	listConstRevIterator<T1> &listConstRevIterator<T1>::operator=(const listConstRevIterator<T1>& rhs) {
-		node = rhs.node;
-		return (*this);
+	listConstRevIterator<T1> listConstRevIterator<T1>::operator++(int) {
+		listConstRevIterator temp = *this;
+		_node = _node->prev;
+		return (temp);
 	}
 
 	template <typename T1>
-		listConstRevIterator<T1>& listConstRevIterator<T1>::operator=(const listRevIterator<T1>& rhs) {
-		node = rhs.node;
-		return (*this);
+	listConstRevIterator<T1>	listConstRevIterator<T1>::operator--(int) {
+		listConstRevIterator<T1> temp = *this;
+		_node = _node->next;
+		return (temp);
 	}
-
-	template <typename T1>
-	listConstRevIterator<T1>& listConstRevIterator<T1>::operator++() {
-		--node;
-		return (*this);
-	}
-
-	template <typename T1>
-		listConstRevIterator<T1> listConstRevIterator<T1>::operator++(int) {
-			listConstRevIterator<T1> tmp(*this);
-			operator++();
-			return (tmp);
-		}
-
-	template <typename T1>
-			listConstRevIterator<T1>&	listConstRevIterator<T1>::operator--() {
-				++node;
-				return (*this);
-			}
-
-	template <typename T1>
-			listConstRevIterator<T1>	listConstRevIterator<T1>::operator--(int) {
-				listConstRevIterator<T1> tmp(*this);
-				operator--();
-				return (tmp);
-			}
-
-	template <typename T1>
-			listConstRevIterator<T1>& listConstRevIterator<T1>::operator+=(int n) {
-				node -= n;
-				return (*this);
-			}
-
-	template <typename T1>
-			listConstRevIterator<T1>& listConstRevIterator<T1>::operator-=(int n) {
-				node += n;
-				return (*this);
-			}
-
-	template <typename T1>
-			listConstRevIterator<T1>	listConstRevIterator<T1>::operator+(int n) const {
-				listConstRevIterator<T1> it(*this);
-				return (it -= n);
-			}
-
-	template <typename T1>
-			listConstRevIterator<T1>	listConstRevIterator<T1>::operator-(int n) const {
-				listConstRevIterator<T1> it(*this);
-				return (it += n);
-			}
-
 }
 #endif

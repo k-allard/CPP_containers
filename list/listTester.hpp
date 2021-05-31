@@ -74,7 +74,7 @@ void ListTester::testAssignations() {
 	// ft_first.assign(2, 99);
 	// if (!compareCustomlists(first, ft_first))
 	// 	passed();
-	
+
 	// std::cout << "Range assignation -   ";
 	// int myints[] = {1776,7,4};
 	// third.assign (myints, myints + 3);
@@ -111,7 +111,7 @@ void ListTester::testCapacity() {
 // 	else
 // 		std::cout << RED << "FAIL ❌\n" << "Ft list capacity: " << ft_first.capacity() \
 // 		<< "\nStd list capacity: " << first.capacity() << NC << "\n";
-	
+
 // 	std::cout << "empty() -             ";
 // 	std::list<int> second;
 // 	ft::list<int> ft_second;
@@ -127,7 +127,7 @@ void ListTester::testCapacity() {
 // 		passed();
 // 	else
 // 		std::cout << RED << "FAIL ❌\n" << NC;
-	
+
 // 	std::cout << "resize() -            ";
 // 	first.resize(3);
 // 	ft_first.resize(3);
@@ -172,7 +172,7 @@ void ListTester::testCapacity() {
 // 	}
 // 	if (!compareCustomlists(first, ft_first))
 // 		passed();
-	
+
 // 	std::cout << "front() -             ";
 // 	if (first.front() == ft_first.front())
 // 			passed();
@@ -204,14 +204,14 @@ void ListTester::testIterators() {
 
 	// if (!compareCustomlists(first, ft_first))
 	// 	passed();
-	
+
 	// std::cout << "begin() and end() -   ";
 	// for (std::list<int>::iterator it = first.begin(); it != first.end(); ++it)
 	// 	*(it) += 1;
 
 	// for (ft::list<int>::iterator ft_it = ft_first.begin(); ft_it != ft_first.end(); ++ft_it)
 	// 	*(ft_it) += 1;
-		
+
 	// if (!compareCustomlists(first, ft_first))
 	// 	passed();
 
@@ -232,7 +232,7 @@ void ListTester::testModifiers() {
 	// std::cout << "--- Fill assign ---";
 	// first.assign (2,99);
 	// ft_first.assign(2,99);
-	// printCustomlists(first,ft_first);                                                     
+	// printCustomlists(first,ft_first);
 	// if (!compareCustomlists(first, ft_first))
 	// 	passed();
 
@@ -241,14 +241,14 @@ void ListTester::testModifiers() {
 	// first.push_back(14);
 	// ft_first.push_back(7);
 	// ft_first.push_back(14);
-	// printCustomlists(first,ft_first);    
+	// printCustomlists(first,ft_first);
 	// if (!compareCustomlists(first, ft_first))
 	// 	passed();
 
 	// std::cout << "--- pop_back() ---";
 	// first.pop_back();
 	// ft_first.pop_back();
-	// printCustomlists(first,ft_first);    
+	// printCustomlists(first,ft_first);
 	// if (!compareCustomlists(first, ft_first))
 	// 	passed();
 
@@ -343,6 +343,7 @@ void ListTester::passed() {
 
 int ListTester::compareCustomlists(std::list<int> &std_list, ft::list<int> &ft_list) {
 	int fail = 0;
+
 	// for (std::list<int>::size_type i = 0; i < std_list.size(); i++) {
 	// 	stdString << std_list.at(i) << " ";
 	// }

@@ -8,20 +8,9 @@
 
 #include "../header.hpp"
 
-template <typename T>
-struct node
-{
-	T data;
-	struct node *prev;
-	struct node *next;
-
-	node() : data(T()) {}
-	node(const T &value) : data(value) {}
-};
-
 namespace ft
 {
-	template < class T, class Allocator = std::allocator<T> > 
+	template < class T, class Allocator = std::allocator<T> >
 	class list
 	{
 	public:
@@ -45,20 +34,20 @@ namespace ft
 		typedef node<T>						_node;
 		typedef _node *						_node_pointer;
 		_node_pointer						_end;
-		
+
 	public:
 
-		// 
+		//
 		//  C O N S T R U C T O R S  &  D E S T R U C T O R
 		//
 
 		list (const allocator_type& alloc = allocator_type());   // default
 		list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());    // fill
-		template <class InputIterator> list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());    // range
+//		template <class InputIterator> list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());    // range
 		list (const list& x);   // copy
 		~list();
 
-		// 
+		//
 		//  A S S I G N A T I O N
 		//
 
@@ -66,7 +55,7 @@ namespace ft
 		template <class InputIterator> void assign (InputIterator first, InputIterator last);    // range
 		void assign (size_type n, const value_type& val);   // fill
 
-		// 
+		//
 		//  I T E R A T O R S
 		//
 
@@ -79,15 +68,15 @@ namespace ft
 		reverse_iterator rend();
 		const_reverse_iterator rend() const;
 
-		// 
+		//
 		//  C A P A C I T Y
-		// 
+		//
 
 		bool empty() const;
 		size_type size() const;
 		size_type max_size() const;
 
-		// 
+		//
 		//  E L E M E N T   A C C E S S
 		//
 
@@ -106,7 +95,7 @@ namespace ft
 		void pop_back();
 		iterator insert (iterator position, const value_type& val); // single element
 		void insert (iterator position, size_type n, const value_type& val); // fill
-		template <class InputIterator> void insert (iterator position, InputIterator first, InputIterator last); // range	
+		template <class InputIterator> void insert (iterator position, InputIterator first, InputIterator last); // range
 		iterator erase (iterator position);
 		iterator erase (iterator first, iterator last);
 		void swap (list& x);
@@ -135,7 +124,7 @@ namespace ft
 		void defaultListBuild(const allocator_type& alloc);
 	};
 
-	// 
+	//
 	//  C O N S T R U C T O R S  &  D E S T R U C T O R
 	//
 
@@ -178,7 +167,7 @@ namespace ft
 			delete _end;
 	}
 
-	// 
+	//
 	//  A S S I G N A T I O N
 	//
 
@@ -186,7 +175,7 @@ namespace ft
 	// template <class InputIterator> void assign (InputIterator first, InputIterator last);    // range
 	// void assign (size_type n, const value_type& val);   // fill
 
-	// 
+	//
 	//  I T E R A T O R S
 	//
 
@@ -199,15 +188,15 @@ namespace ft
 	// reverse_iterator rend();
 	// const_reverse_iterator rend() const;
 
-	// 
+	//
 	//  C A P A C I T Y
-	// 
+	//
 
 	// bool empty() const;
 	// size_type size() const;
 	// size_type max_size() const;
 
-	// 
+	//
 	//  E L E M E N T   A C C E S S
 	//
 
@@ -244,12 +233,12 @@ namespace ft
 
 	// iterator insert (iterator position, const value_type& val); // single element
 	// void insert (iterator position, size_type n, const value_type& val); // fill
-	// template <class InputIterator> void insert (iterator position, InputIterator first, InputIterator last); // range	
+	// template <class InputIterator> void insert (iterator position, InputIterator first, InputIterator last); // range
 	// iterator erase (iterator position);
 	// iterator erase (iterator first, iterator last);
 	// void swap (list& x);
 	// void resize (size_type n, value_type val = value_type());
-	
+
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::clear() {
 		while (_size)
@@ -273,7 +262,7 @@ namespace ft
 	// template <class Compare> void sort (Compare comp);
 	// void reverse();
 
-	// 
+	//
 	//  N O N - M E M B E R S
 	//
 
