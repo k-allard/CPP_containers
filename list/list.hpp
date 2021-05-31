@@ -46,7 +46,7 @@ namespace ft
 		typedef _node *						_node_pointer;
 		_node_pointer						_end;
 		
-	
+	public:
 
 		// 
 		//  C O N S T R U C T O R S  &  D E S T R U C T O R
@@ -130,6 +130,9 @@ namespace ft
 		template <class Compare> void sort (Compare comp);
 		void reverse();
 
+	private:
+
+		void defaultListBuild(const allocator_type& alloc);
 	};
 
 	// 
@@ -137,7 +140,7 @@ namespace ft
 	//
 
 	template <typename T, typename Allocator>
-	list<T, Allocator>::list (const allocator_type& alloc) { // default constructor
+	void list<T, Allocator>::defaultListBuild(const allocator_type& alloc) {
 		_allocator = alloc;
 		_size = 0;
 		_end = new node<value_type>();
@@ -145,10 +148,17 @@ namespace ft
 		_end->prev = _end;
 	}
 
-	// template <typename T, typename Allocator>
-	// list<T, Allocator>::list (size_type n, const value_type& val, const allocator_type& alloc) { // fill constructor
+	template <typename T, typename Allocator>
+	list<T, Allocator>::list (const allocator_type& alloc) { // default constructor
+		defaultListBuild(alloc);
+	}
 
-	// }   
+	template <typename T, typename Allocator>
+	list<T, Allocator>::list (size_type n, const value_type& val, const allocator_type& alloc) { 	// fill constructor
+		defaultListBuild(alloc);
+		for (int i = 0; i < n; i++)
+			push_back(val);
+	}
 
 	// template <class InputIterator>
 	// template <typename T, typename Allocator>
@@ -164,7 +174,8 @@ namespace ft
 	template <typename T, typename Allocator>
 	list<T, Allocator>::~list() {
 		clear();
-		delete _end;
+		// if (_size != 0)
+			delete _end;
 	}
 
 	// 
@@ -222,7 +233,15 @@ namespace ft
 		_size++;
 	}
 
-	// void pop_back();
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::pop_back() {
+		_node_pointer toDel = _end->prev;
+		_end->prev = toDel->prev;
+		toDel->prev->next = _end;
+		delete toDel;
+		_size--;
+	}
+
 	// iterator insert (iterator position, const value_type& val); // single element
 	// void insert (iterator position, size_type n, const value_type& val); // fill
 	// template <class InputIterator> void insert (iterator position, InputIterator first, InputIterator last); // range	
@@ -233,11 +252,8 @@ namespace ft
 	
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::clear() {
-		_node_pointer toDel = _end->prev;
-		_end->prev = toDel->prev;
-		toDel->prev->next = _end;
-		delete toDel;
-		_size--;
+		while (_size)
+			pop_back();
 	}
 
 	//
