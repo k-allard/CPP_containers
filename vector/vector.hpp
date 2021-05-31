@@ -3,17 +3,16 @@
 //  dynamically allocated array
 //
 
-#include "../header.hpp"
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
+#include "../header.hpp"
 
 namespace ft
 {
     template <class T, class Allocator = std::allocator<T> >
     class vector
     {
-
     public:
         typedef T											value_type;
         typedef Allocator									allocator_type;
@@ -24,10 +23,10 @@ namespace ft
         typedef typename allocator_type::pointer			pointer;
         typedef typename allocator_type::const_pointer		const_pointer;
 
-		typedef vectorIterator<T>						iterator;
-		typedef vectorConstIterator<T>				const_iterator;
-		typedef vectorRevIterator<T>					reverse_iterator;
-		typedef vectorConstRevIterator<T>			const_reverse_iterator;
+		typedef vectorIterator<T>							iterator;
+		typedef vectorConstIterator<T>						const_iterator;
+		typedef vectorRevIterator<T>						reverse_iterator;
+		typedef vectorConstRevIterator<T>					const_reverse_iterator;
 
 	private:
 		allocator_type						_allocator;
