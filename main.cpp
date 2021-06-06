@@ -15,10 +15,10 @@ int main()
 
 ListTester *listTester = new ListTester;
     listTester->testConstructors();
-	// listTester->testAssignations();
-	// listTester->testCapacity();
+	listTester->testAssignations();
+	listTester->testCapacity();
 	// listTester->testElementAccess();
-	// listTester->testIterators();
+	listTester->testIterators();
 	// listTester->testModifiers();
 	// listTester->testSwap();
 	// listTester->testRelationalOperators();

@@ -42,9 +42,9 @@ void ListTester::testConstructors() {
 	std::cout << "Default constructor - ";
 	if (!compareCustomlists(first, ft_first))
 		passed();
-	// std::cout << "Fill constructor -    ";
-	// if (!compareCustomlists(second, ft_second))
-	// 	passed();
+	std::cout << "Fill constructor -    ";
+	if (!compareCustomlists(second, ft_second))
+		passed();
 	// std::cout << "Range constructor -   ";
 	// if (!compareCustomlists(third, ft_third))
 	// 	passed();
@@ -54,20 +54,20 @@ void ListTester::testConstructors() {
 }
 
 void ListTester::testAssignations() {
-	// std::list<int> first(3,0);
-	// std::list<int> second(5,0);
-	// std::list<int> third;
+	std::list<int> first(3,0);
+	std::list<int> second(5,0);
+	std::list<int> third;
 
-	// ft::list<int> ft_first(3,0);
-	// ft::list<int> ft_second(5,0);
-	// ft::list<int> ft_third;
+	ft::list<int> ft_first(3,0);
+	ft::list<int> ft_second(5,0);
+	ft::list<int> ft_third;
 
-	// first = second;
-	// ft_first = ft_second;
+	first = second;
+	ft_first = ft_second;
 
-	// std::cout << "operator= -           ";
-	// if (!compareCustomlists(first, ft_first))
-	// 	passed();
+	std::cout << "operator= -           ";
+	if (!compareCustomlists(first, ft_first))
+		passed();
 
 	// std::cout << "Fill assignation -    ";
 	// first.assign(2, 99);
@@ -86,17 +86,19 @@ void ListTester::testAssignations() {
 void ListTester::testCapacity() {
 // 	int flag = 0;
 
-// 	std::cout << "size() -              ";
-// 	std::list<int> first;
-// 	ft::list<int> ft_first;
-// 	int myints[] = { 12, 10, 8, 6, 4, 2, 1 };
+	std::cout << "size() -              ";
+	std::list<int> first (6, 7);
+	ft::list<int> ft_first (6, 7);
+	// int myints[] = { 12, 10, 8, 6, 4, 2, 1 };
+
+
 // 	first.assign (myints, myints + 7);
 // 	ft_first.assign (myints, myints + 7);
-// 	if (first.size() == ft_first.size())
-// 		passed();
-// 	else
-// 		std::cout << RED << "FAIL ❌\n" << "Ft list size: " << ft_first.size() \
-// 		<< "\nStd list size: " << first.size() << NC << "\n";
+	// if (first.size() == ft_first.size())
+	// 	passed();
+	// else
+	// 	std::cout << RED << "FAIL ❌\n" << "Ft list size: " << ft_first.size() \
+	// 	<< "\nStd list size: " << first.size() << NC << "\n";
 
 // 	std::cout << "max_size() -          ";
 // 	if (first.max_size() == ft_first.max_size())
@@ -186,34 +188,36 @@ void ListTester::testCapacity() {
 }
 
 void ListTester::testIterators() {
-	// std::list<int> first (5);  // 5 default-constructed ints
-	// ft::list<int> ft_first (5);  // 5 default-constructed ints
+	std::list<int> first (5);  // 5 ints 0
+	ft::list<int> ft_first (5);  // 5 ints 0
 
-	// std::cout << "rbegin() and rend() - ";
+	std::cout << "rbegin() and rend() - ";
 
-	// std::list<int>::reverse_iterator rit = first.rbegin();
-	// 	ft::list<int>::reverse_iterator ft_rit = ft_first.rbegin();
+	std::list<int>::reverse_iterator rit = first.rbegin();
+	ft::list<int>::reverse_iterator ft_rit = ft_first.rbegin();
 
-	// int i = 0;
-	// for (; rit!= first.rend(); ++rit)
-	// 	*rit = ++i;
+	int i = 0;
+	for (; rit != first.rend(); ++rit)
+		*rit = ++i;
 
-	// int k=0;
-	// for (; ft_rit!= ft_first.rend(); ++ft_rit)
-	// 	*ft_rit = ++k;
+	int k = 0;
+	for (; ft_rit != ft_first.rend(); ++ft_rit)
+		*ft_rit = ++k;
 
-	// if (!compareCustomlists(first, ft_first))
-	// 	passed();
+	printCustomlists(first, ft_first);
+	if (!compareCustomlists(first, ft_first))
+		passed();
 
-	// std::cout << "begin() and end() -   ";
-	// for (std::list<int>::iterator it = first.begin(); it != first.end(); ++it)
-	// 	*(it) += 1;
+	std::cout << "begin() and end() -   ";
+	for (std::list<int>::iterator it = first.begin(); it != first.end(); ++it)
+		*(it) += 1;
 
-	// for (ft::list<int>::iterator ft_it = ft_first.begin(); ft_it != ft_first.end(); ++ft_it)
-	// 	*(ft_it) += 1;
+	for (ft::list<int>::iterator ft_it = ft_first.begin(); ft_it != ft_first.end(); ++ft_it)
+		*(ft_it) += 1;
 
-	// if (!compareCustomlists(first, ft_first))
-	// 	passed();
+printCustomlists(first, ft_first);
+	if (!compareCustomlists(first, ft_first))
+		passed();
 
 }
 
@@ -344,30 +348,30 @@ void ListTester::passed() {
 int ListTester::compareCustomlists(std::list<int> &std_list, ft::list<int> &ft_list) {
 	int fail = 0;
 
-	// for (std::list<int>::size_type i = 0; i < std_list.size(); i++) {
-	// 	stdString << std_list.at(i) << " ";
-	// }
-	// for (ft::list<int>::size_type i = 0; i < ft_list.size(); i++) {
-	// 	ftString << ft_list.at(i) << " ";
-	// }
-	// if (ftString.str().compare(stdString.str())) {
-	// 	std::cout << RED << "FAIL ❌\n" << "Ft list : " << ftString.str() \
-	// 	<< "\nStd list: " << stdString.str() << NC << "\n";
-	// 	fail = 1;
-	// }
-	// stdString.str(std::string());
-	// ftString.str(std::string());
+	for (std::list<int>::iterator it = std_list.begin(); it != std_list.end(); it++) {
+		stdString << *it << ' ';
+	}
+	for (ft::list<int>::iterator ft_it = ft_list.begin(); ft_it != ft_list.end(); ft_it++) {
+		ftString << *ft_it << ' ';
+	}
+	if (ftString.str().compare(stdString.str())) {
+		std::cout << RED << "FAIL ❌\n" << "Ft list : " << ftString.str() \
+		<< "\nStd list: " << stdString.str() << NC << "\n";
+		fail = 1;
+	}
+	stdString.str(std::string());
+	ftString.str(std::string());
 	return fail;
 }
 
 void ListTester::printCustomlists(std::list<int> &std_list, ft::list<int> &ft_list) {
-	// std::cout << "\nFt list : ";
-	// for (std::list<int>::size_type i = 0; i < std_list.size(); i++) {
-	// 	std::cout << std_list.at(i) << " ";
-	// }
-	// std::cout << "\nStd list: ";
-	// for (ft::list<int>::size_type i = 0; i < ft_list.size(); i++) {
-	// 	std::cout << ft_list.at(i) << " ";
-	// }
-	// std::cout << "\n";
+	std::cout << "\nFt list : ";
+	for (ft::list<int>::iterator ft_it = ft_list.begin(); ft_it != ft_list.end(); ft_it++) {
+		std::cout << *ft_it << ' ';
+	}
+	std::cout << "\nStd list: ";
+	for (std::list<int>::iterator it = std_list.begin(); it != std_list.end(); it++) {
+		std::cout << *it << ' ';
+	}
+	std::cout << "\n";
 }

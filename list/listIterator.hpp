@@ -25,7 +25,7 @@ namespace ft
 		listIterator & operator=(const listIterator &src) { _node = src._node; return (*this); }
 		~listIterator() {}
 
-		reference operator*() const { return (*_node->data); }
+		reference & operator*() const { return (_node->data); }
 		ptr operator->() { return (_node->data);}
 		listIterator &operator++() { _node = _node->next; return (*this); }
 		listIterator &operator--() { _node = _node->prev; return (*this); }
@@ -77,7 +77,7 @@ namespace ft
 		listRevIterator & operator=(const listRevIterator &src) { _node = src._node; return (*this); }
 		~listRevIterator() {}
 
-		reference operator*() const { return (*_node->data); }
+		reference & operator*() const { return (_node->data); }
 		ptr operator->() {return (_node->data); }
 		listRevIterator &operator++() { _node = _node->prev; return (*this); }
 		listRevIterator &operator--() { _node = _node->next; return (*this); }
@@ -89,12 +89,12 @@ namespace ft
 
 	template<typename T1>
 	class listConstRevIterator {
-				public:
+	public:
 		typedef const T1						value_type;
 		typedef const T1&						reference;
 		typedef const T1*						ptr;
-		typedef const node<T1>*				node_ptr;
-		node_ptr						_node;
+		typedef const node<T1>*					node_ptr;
+		node_ptr								_node;
 
 		listConstRevIterator() : _node(nullptr) {}
 		listConstRevIterator(node_ptr p) : _node(p) {}

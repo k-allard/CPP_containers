@@ -207,8 +207,7 @@ private:
 
 	template <typename T, typename Alloc>
 	void vector<T, Alloc>::_assign(size_type count, const T &value, ft::is_int) {
-		while (_size)
-			_allocator.destroy(_ptr + --_size);
+		clear();
 		reserve(count);
 		while (_size < count)
 			push_back(value);
