@@ -125,6 +125,8 @@ namespace ft
 		void defaultListBuild(const allocator_type& alloc);
 		void _assign(size_type count, const T &value, ft::is_int);
 		template <typename InputIterator> void _assign(InputIterator first, InputIterator last, ft::not_int);
+		void _insert(iterator position, int n, T val, ft::is_int);
+		template <typename InputIterator> void _insert(iterator position, InputIterator first, InputIterator last, ft::not_int);
 	};
 
 	//
@@ -306,17 +308,42 @@ namespace ft
 	}
 
 	template <typename T, typename Allocator>
-	typename list<T, Allocator>::iterator list<T, Allocator>::insert (iterator position, const value_type& val) {		// single element
+	void list<T, Allocator>::_insert(iterator position, int n, T val, ft::is_int) {
+		while (n--)
+			insert(position, val);
+	}
+	
+	template <typename T, typename Allocator>
+	template <typename InputIterator> 
+	void list<T, Allocator>::_insert(iterator position, InputIterator first, InputIterator last, ft::not_int) {
+		while (first != last) {
+			position = insert(position, *(first++));
+			position++;
+		}
+	}
 
+	template <typename T, typename Allocator>
+	typename list<T, Allocator>::iterator list<T, Allocator>::insert (iterator position, const value_type& val) {		// single element
+		_node_pointer temp = new _node(val);
+		temp->next = position._node;
+		temp->next->prev = temp;
+		temp->prev = position._node->prev;
+		temp->prev->next = temp;
+		_size++;
+		return (iterator(temp));
 	}
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::insert (iterator position, size_type n, const value_type& val) {							// fill
+		while (n--)
+			insert(position, val);
 	}
 
 	template <typename T, typename Allocator>
 	template <class InputIterator> 
 	void list<T, Allocator>::insert (iterator position, InputIterator first, InputIterator last) {						// range
+		typedef typename is_integer<InputIterator>::type res;
+		_insert(position, first, last, res());
 	}
 
 	// iterator erase (iterator position);

@@ -19,7 +19,7 @@ ListTester *listTester = new ListTester;
 	listTester->testCapacity();
 	// listTester->testElementAccess();
 	listTester->testIterators();
-	// listTester->testModifiers();
+	listTester->testModifiers();
 	// listTester->testSwap();
 	// listTester->testRelationalOperators();
 

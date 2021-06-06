@@ -69,36 +69,36 @@ void ListTester::testAssignations() {
 	if (!compareCustomlists(first, ft_first))
 		passed();
 
-	// std::cout << "Fill assignation -    ";
-	// first.assign(2, 99);
-	// ft_first.assign(2, 99);
-	// if (!compareCustomlists(first, ft_first))
-	// 	passed();
+	std::cout << "Fill assignation -    ";
+	first.assign(2, 99);
+	ft_first.assign(2, 99);
+	if (!compareCustomlists(first, ft_first))
+		passed();
 
-	// std::cout << "Range assignation -   ";
-	// int myints[] = {1776,7,4};
-	// third.assign (myints, myints + 3);
-	// ft_third.assign (myints, myints + 3);
-	// if (!compareCustomlists(third, ft_third))
-	// 	passed();
+	std::cout << "Range assignation -   ";
+	int myints[] = {1776,7,4};
+	third.assign (myints, myints + 3);
+	ft_third.assign (myints, myints + 3);
+	if (!compareCustomlists(third, ft_third))
+		passed();
 }
 
 void ListTester::testCapacity() {
-// 	int flag = 0;
+	int flag = 0;
 
 	std::cout << "size() -              ";
 	std::list<int> first (6, 7);
 	ft::list<int> ft_first (6, 7);
-	// int myints[] = { 12, 10, 8, 6, 4, 2, 1 };
+	int myints[] = { 12, 10, 8, 6, 4, 2, 1 };
 
 
-// 	first.assign (myints, myints + 7);
-// 	ft_first.assign (myints, myints + 7);
-	// if (first.size() == ft_first.size())
-	// 	passed();
-	// else
-	// 	std::cout << RED << "FAIL ❌\n" << "Ft list size: " << ft_first.size() \
-	// 	<< "\nStd list size: " << first.size() << NC << "\n";
+	first.assign (myints, myints + 7);
+	ft_first.assign (myints, myints + 7);
+	if (first.size() == ft_first.size())
+		passed();
+	else
+		std::cout << RED << "FAIL ❌\n" << "Ft list size: " << ft_first.size() \
+		<< "\nStd list size: " << first.size() << NC << "\n";
 
 // 	std::cout << "max_size() -          ";
 // 	if (first.max_size() == ft_first.max_size())
@@ -222,47 +222,49 @@ printCustomlists(first, ft_first);
 }
 
 void ListTester::testModifiers() {
-	// std::list<int> first (5);  // 5 default-constructed ints
-	// ft::list<int> ft_first (5);  // 5 default-constructed ints
+	std::list<int> first (5);  // 5 default-constructed ints
+	ft::list<int> ft_first (5);  // 5 default-constructed ints
 
-	// std::cout << "--- Range assign ---";
-	// int myints[] = {1776,7,4};
-	// first.assign (myints,myints + 3);
-	// ft_first.assign(myints,myints + 3);
-	// printCustomlists(first,ft_first);
-	// if (!compareCustomlists(first, ft_first))
-	// 	passed();
+	std::cout << "--- Range assign ---";
+	int myints[] = {1776,7,4};
+	first.assign (myints,myints + 3);
+	ft_first.assign(myints,myints + 3);
+	printCustomlists(first,ft_first);
+	if (!compareCustomlists(first, ft_first))
+		passed();
 
-	// std::cout << "--- Fill assign ---";
-	// first.assign (2,99);
-	// ft_first.assign(2,99);
-	// printCustomlists(first,ft_first);
-	// if (!compareCustomlists(first, ft_first))
-	// 	passed();
+	std::cout << "--- Fill assign ---";
+	first.assign (2,99);
+	ft_first.assign(2,99);
+	printCustomlists(first,ft_first);
+	if (!compareCustomlists(first, ft_first))
+		passed();
 
-	// std::cout << "--- push_back() ---";
-	// first.push_back(7);
-	// first.push_back(14);
-	// ft_first.push_back(7);
-	// ft_first.push_back(14);
-	// printCustomlists(first,ft_first);
-	// if (!compareCustomlists(first, ft_first))
-	// 	passed();
+	std::cout << "--- push_back() ---";
+	first.push_back(7);
+	first.push_back(14);
+	ft_first.push_back(7);
+	ft_first.push_back(14);
+	printCustomlists(first,ft_first);
+	if (!compareCustomlists(first, ft_first))
+		passed();
 
-	// std::cout << "--- pop_back() ---";
-	// first.pop_back();
-	// ft_first.pop_back();
-	// printCustomlists(first,ft_first);
-	// if (!compareCustomlists(first, ft_first))
-	// 	passed();
+	std::cout << "--- pop_back() ---";
+	first.pop_back();
+	ft_first.pop_back();
+	printCustomlists(first,ft_first);
+	if (!compareCustomlists(first, ft_first))
+		passed();
 
 	// std::cout << "--- Insert single element ---";
 	// std::list<int>::iterator it;
 	// ft::list<int>::iterator ft_it;
 	// it = first.begin();
 	// ft_it = ft_first.begin();
-	// it = first.insert ( it + 1, 200 );
-	// ft_it = ft_first.insert ( ft_it + 1, 200 );
+	// ++it;
+	// ++ft_it;
+	// it = first.insert (it, 200 );
+	// ft_it = ft_first.insert (ft_it, 200 );
 	// printCustomlists(first,ft_first);
 	// if (!compareCustomlists(first, ft_first))
 	// 	passed();
