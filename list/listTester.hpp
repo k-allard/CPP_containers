@@ -257,8 +257,8 @@ void ListTester::testModifiers() {
 		passed();
 
 	// std::cout << "--- Insert single element ---";
-	// std::list<int>::iterator it;
-	// ft::list<int>::iterator ft_it;
+	std::list<int>::iterator it;
+	ft::list<int>::iterator ft_it;
 	// it = first.begin();
 	// ft_it = ft_first.begin();
 	// ++it;
