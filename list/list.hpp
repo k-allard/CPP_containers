@@ -43,8 +43,8 @@ namespace ft
 
 		list (const allocator_type& alloc = allocator_type());   // default
 		list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());    // fill
-//			template <class InputIterator>
-		// list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());    // range
+	
+		// template <class InputIterator> list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());    // range
 		// list (const list& x);   // copy
 		~list();
 
@@ -157,7 +157,8 @@ namespace ft
 	// template <typename T, typename Allocator>
 	// template <class InputIterator>
 	// list<T, Allocator>::list (InputIterator first, InputIterator last, const allocator_type& alloc) {    // range constructor
-
+	// 	defaultListBuild(alloc);
+	// 	insert(begin(), first, last);
 	// }
 
 	// template <typename T, typename Allocator>

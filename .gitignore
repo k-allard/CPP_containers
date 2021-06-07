@@ -5,3 +5,4 @@ a.out
 *.dSYM/
 my_containers.dSYM
 result
+.idea/
