@@ -33,12 +33,12 @@ void ListTester::testConstructors() {
 	std::list<int> first;
 	std::list<int> second (4,100);
 	// std::list<int> third (second.begin(),second.end());
-	// std::list<int> fourth (third);
+	std::list<int> fourth (second);
 
 	ft::list<int> ft_first;
 	ft::list<int> ft_second(4, 100);
 	// ft::list<int> ft_third (ft_second.begin(),ft_second.end());
-	// ft::list<int> ft_fourth (ft_third);
+	ft::list<int> ft_fourth (ft_second);
 	std::cout << "Default constructor - ";
 	if (!compareCustomlists(first, ft_first))
 		passed();
@@ -48,9 +48,9 @@ void ListTester::testConstructors() {
 	// std::cout << "Range constructor -   ";
 	// if (!compareCustomlists(third, ft_third))
 	// 	passed();
-	// std::cout << "Copy constructor -    ";
-	// if (!compareCustomlists(fourth, ft_fourth))
-	// 	passed();
+	std::cout << "Copy constructor -    ";
+	if (!compareCustomlists(fourth, ft_fourth))
+		passed();
 }
 
 void ListTester::testAssignations() {
