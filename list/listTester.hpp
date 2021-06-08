@@ -246,13 +246,13 @@ void ListTester::testModifiers() {
 	 if (!compareCustomlists(first, ft_first))
 	 	passed();
 
-//	 std::cout << "--- Insert range ---";
-//	 int myarray [] = { 501,502,503 };
-//	 first.insert (first.end(), myarray, myarray + 3);
-//	 ft_first.insert (ft_first.end(), myarray, myarray + 3);
-//	 printCustomlists(first,ft_first);
-//	 if (!compareCustomlists(first, ft_first))
-//	 	passed();
+	 std::cout << "--- Insert range ---";
+	 int myarray [] = { 501,502,503 };
+	 first.insert (first.end(), myarray, myarray + 3);
+	 ft_first.insert (ft_first.end(), myarray, myarray + 3);
+	 printCustomlists(first,ft_first);
+	 if (!compareCustomlists(first, ft_first))
+	 	passed();
 
 	 std::cout << "--- Erase single element ---";
 

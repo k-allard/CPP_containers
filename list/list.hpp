@@ -96,7 +96,7 @@ namespace ft
 		void pop_back();
 		iterator insert (iterator position, const value_type& val); // single element
 		void insert (iterator position, size_type n, const value_type& val); // fill
-//		template <class InputIterator> void insert (iterator position, InputIterator first, InputIterator last); // range
+		template <class InputIterator> void insert (iterator position, InputIterator first, InputIterator last); // range
 		iterator erase (iterator position);
 		iterator erase (iterator first, iterator last);
 		void swap (list& x);
@@ -320,7 +320,7 @@ namespace ft
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::pop_back() {
 		_node_pointer toDel = _end->prev;
-		_end->prev = toDel->prev;	// TODO: тут происходит обращение к освобожденной памяти 2
+		_end->prev = toDel->prev;
 		toDel->prev->next = _end;
 		delete toDel;
 		_size--;
@@ -328,17 +328,18 @@ namespace ft
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::_insert(iterator position, int n, T val, ft::is_int) {
-			while (n--) {
-				insert(position, val);
-				position++;
-			}
-		}
+		std::cout << "I AM HERE IN INSERT - INT" << std::endl;
+
+		while (n--)
+			position = insert(position, val);
+	}
 
 
 
 	template <typename T, typename Allocator>
 	template <typename InputIterator>
 	void list<T, Allocator>::_insert(iterator position, InputIterator first, InputIterator last, ft::not_int) {
+		std::cout << "I AM HERE IN INSERT - NOT INT" << std::endl;
 		while (first != last) {
 			position = insert(position, *(first++));
 			position++;
@@ -362,12 +363,12 @@ namespace ft
 			position = insert(position, val);
 	}
 
-//	template <typename T, typename Allocator>
-//	template <class InputIterator>
-//	void list<T, Allocator>::insert (iterator position, InputIterator first, InputIterator last) {						// range
-//		typedef typename is_integer<InputIterator>::type res;
-//		_insert(position, first, last, res());
-//	}
+	template <typename T, typename Allocator>
+	template <class InputIterator>
+	void list<T, Allocator>::insert (iterator position, InputIterator first, InputIterator last) {						// range
+		typedef typename is_integer<InputIterator>::type res;
+		_insert(position, first, last, res());
+	}
 
 	template <typename T, typename Allocator>
 	typename list<T, Allocator>::iterator list<T, Allocator>::erase (iterator position) {
