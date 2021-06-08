@@ -96,7 +96,7 @@ namespace ft
 		void pop_back();
 		iterator insert (iterator position, const value_type& val); // single element
 		void insert (iterator position, size_type n, const value_type& val); // fill
-		template <class InputIterator> void insert (iterator position, InputIterator first, InputIterator last); // range
+//		template <class InputIterator> void insert (iterator position, InputIterator first, InputIterator last); // range
 		iterator erase (iterator position);
 		iterator erase (iterator first, iterator last);
 		void swap (list& x);
@@ -362,12 +362,12 @@ namespace ft
 			position = insert(position, val);
 	}
 
-	template <typename T, typename Allocator>
-	template <class InputIterator>
-	void list<T, Allocator>::insert (iterator position, InputIterator first, InputIterator last) {						// range
-		typedef typename is_integer<InputIterator>::type res;
-		_insert(position, first, last, res());
-	}
+//	template <typename T, typename Allocator>
+//	template <class InputIterator>
+//	void list<T, Allocator>::insert (iterator position, InputIterator first, InputIterator last) {						// range
+//		typedef typename is_integer<InputIterator>::type res;
+//		_insert(position, first, last, res());
+//	}
 
 	template <typename T, typename Allocator>
 	typename list<T, Allocator>::iterator list<T, Allocator>::erase (iterator position) {
