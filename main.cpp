@@ -14,12 +14,12 @@ int main()
 // 	vectorTester->testRelationalOperators();
 
 ListTester *listTester = new ListTester;
-//    listTester->testConstructors();
+    listTester->testConstructors();
 //	listTester->testAssignations();
 //	listTester->testCapacity();
 //	 listTester->testElementAccess();
 //	listTester->testIterators();
-	listTester->testModifiers();
+//	listTester->testModifiers();
 //	 listTester->testSwap();
 	// listTester->testRelationalOperators();
 

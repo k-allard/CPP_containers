@@ -43,7 +43,7 @@ namespace ft
 
 		explicit list (const allocator_type& alloc = allocator_type());   // default
 		explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());    // fill
-//		 template <class InputIterator> list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());    // range
+		 template <class InputIterator> list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());    // range
 		list (const list& x);   // copy
 		~list();
 
@@ -154,12 +154,12 @@ namespace ft
 			push_back(val);
 	}
 
-//	 template <typename T, typename Allocator>
-//	 template <class InputIterator>
-//	 list<T, Allocator>::list (InputIterator first, InputIterator last, const allocator_type& alloc) {    // range constructor
-//	 	defaultListBuild(alloc);
-//	 	insert(begin(), first, last);
-//	 }
+	 template <typename T, typename Allocator>
+	 template <class InputIterator>
+	 list<T, Allocator>::list (InputIterator first, InputIterator last, const allocator_type& alloc) {    // range constructor
+	 	defaultListBuild(alloc);
+	 	insert(begin(), first, last);
+	 }
 
 	template <typename T, typename Allocator>
 	list<T, Allocator>::list (const list& x) { 	// copy constructor
@@ -328,8 +328,6 @@ namespace ft
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::_insert(iterator position, int n, T val, ft::is_int) {
-		std::cout << "I AM HERE IN INSERT - INT" << std::endl;
-
 		while (n--)
 			position = insert(position, val);
 	}
@@ -339,7 +337,6 @@ namespace ft
 	template <typename T, typename Allocator>
 	template <typename InputIterator>
 	void list<T, Allocator>::_insert(iterator position, InputIterator first, InputIterator last, ft::not_int) {
-		std::cout << "I AM HERE IN INSERT - NOT INT" << std::endl;
 		while (first != last) {
 			position = insert(position, *(first++));
 			position++;
