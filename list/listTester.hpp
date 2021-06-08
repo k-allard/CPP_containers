@@ -116,19 +116,6 @@ void ListTester::testCapacity() {
  		passed();
  	else
  		std::cout << RED << "FAIL ❌\n" << NC;
-
-// 	std::cout << "resize() -            ";
-// 	first.resize(3);
-// 	ft_first.resize(3);
-// 	flag = 0;
-// 	if (compareCustomlists(first, ft_first))
-// 		flag = 1;
-// 	first.resize(10);
-// 	ft_first.resize(10);
-// 	if (compareCustomlists(first, ft_first))
-// 		flag = 1;
-// 	if (!flag)
-// 		passed();
  }
 
  void ListTester::testElementAccess() {
@@ -243,6 +230,21 @@ void ListTester::testModifiers() {
 	if (!compareCustomlists(first, ft_first))
 		passed();
 
+	std::cout << "--- resize() ---";
+ 	first.resize(2);
+ 	ft_first.resize(2);
+	printCustomlists(first,ft_first);
+	int flag = 0;
+ 	if (compareCustomlists(first, ft_first))
+ 		flag = 1;
+ 	first.resize(10);
+ 	ft_first.resize(10);
+	printCustomlists(first,ft_first);
+	if (compareCustomlists(first, ft_first))
+ 		flag = 1;
+ 	if (!flag)
+ 		passed();
+
 	// std::cout << "--- Insert single element ---";
 	std::list<int>::iterator it;
 	ft::list<int>::iterator ft_it;
@@ -289,24 +291,24 @@ void ListTester::testModifiers() {
 }
 
 void ListTester::testSwap() {
-	// std::cout << "--- non-member swap() ---";
+	 std::cout << "--- swap() ---";
 
-	// std::list<int> first (3,100);   // three ints with a value of 100
-	// ft::list<int> ft_first (3,100);   // three ints with a value of 100
+	 std::list<int> first (3,100);   // three ints with a value of 100
+	 ft::list<int> ft_first (3,100);   // three ints with a value of 100
 
-	// std::list<int> second (5,200);   // five ints with a value of 200
-	// ft::list<int> ft_second (5,200);   // five ints with a value of 200
-	// printCustomlists(first, ft_first);
-	// printCustomlists(second, ft_second);
+	 std::list<int> second (5,200);   // five ints with a value of 200
+	 ft::list<int> ft_second (5,200);   // five ints with a value of 200
+	 printCustomlists(first, ft_first);
+	 printCustomlists(second, ft_second);
 
-	// first.swap(second);
-	// ft_first.swap(ft_second);
+	 first.swap(second);
+	 ft_first.swap(ft_second);
 
-	// printCustomlists(first, ft_first);
-	// printCustomlists(second, ft_second);
+	 printCustomlists(first, ft_first);
+	 printCustomlists(second, ft_second);
 
-	// if (!compareCustomlists(first, ft_first) && !compareCustomlists(second, ft_second))
-	// 	passed();
+	 if (!compareCustomlists(first, ft_first) && !compareCustomlists(second, ft_second))
+	 	passed();
 }
 
 void ListTester::testRelationalOperators() {

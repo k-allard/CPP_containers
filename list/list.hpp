@@ -359,8 +359,22 @@ namespace ft
 
 	// iterator erase (iterator position);
 	// iterator erase (iterator first, iterator last);
-	// void swap (list& x);
-	// void resize (size_type n, value_type val = value_type());
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::swap (list& x) {
+		list<T, Allocator> temp = *this;
+		*this = x;
+		x = temp;
+		temp.clear();
+	}
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::resize (size_type n, value_type val) {
+		while (n < _size)
+			pop_back();
+		while (n > _size)
+			push_back(val);
+	 }
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::clear() {
