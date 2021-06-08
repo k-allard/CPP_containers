@@ -283,10 +283,22 @@ namespace ft
 	//  E L E M E N T   A C C E S S
 	//
 
-	// reference front();
-	// const_reference front() const;
-	// reference back();
-	// const_reference back() const;
+	template <class T, class Allocator>
+	typename list<T, Allocator>::reference list<T, Allocator>::front() {
+		return (_end->next->data);
+	}
+	template <class T, class Allocator>
+	typename list<T, Allocator>::const_reference list<T, Allocator>::front() const {
+		return (_end->next->data);
+	}
+	template <class T, class Allocator>
+	typename list<T, Allocator>::reference list<T, Allocator>::back() {
+		return (_end->prev->data);
+	}
+	template <class T, class Allocator>
+	typename list<T, Allocator>::const_reference list<T, Allocator>::back() const {
+		return (_end->prev->data);
+	}
 
 	//
 	//  M O D I F I C A T I O N

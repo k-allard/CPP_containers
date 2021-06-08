@@ -119,46 +119,25 @@ void ListTester::testCapacity() {
  }
 
  void ListTester::testElementAccess() {
-// 	std::cout << "operator[] -          ";
-// 	std::list<int> first (10);   // 10 zero-initialized elements
-// 	ft::list<int> ft_first (10);   // 10 zero-initialized elements
-// 	std::list<int>::size_type sz = first.size();
-// 	ft::list<int>::size_type ft_sz = ft_first.size();
-// 	// assign values:
-// 	for (unsigned i = 0; i < sz; i++) first[i]=i;
-// 	for (unsigned i = 0; i < ft_sz; i++) ft_first[i]=i;
-//
-// 	if (!compareCustomlists(first, ft_first))
-// 		passed();
-//
-// 	std::cout << "at() -                ";
-// 	// reverse std list using function at:
-// 	for (unsigned i = 0; i < sz / 2; i++) {
-// 		int temp;
-// 		temp = first.at(sz - 1 - i);
-// 		first.at(sz - 1 - i) = first.at(i);
-// 		first.at(i)=temp;
-// 	}
-// 	// reverse ft list using operator[]:
-// 	for (unsigned i = 0; i < ft_sz / 2; i++) {
-// 		int temp;
-// 		temp = ft_first.at(ft_sz - 1 - i);
-// 		ft_first.at(ft_sz - 1 - i) = ft_first.at(i);
-// 		ft_first.at(i)=temp;
-// 	}
-// 	if (!compareCustomlists(first, ft_first))
-// 		passed();
-//
-// 	std::cout << "front() -             ";
-// 	if (first.front() == ft_first.front())
-// 			passed();
-// 	else
-// 		std::cout << RED << "FAIL ❌\n" << NC;
-// 	std::cout << "back() -              ";
-// 	if (first.back() == ft_first.back())
-// 			passed();
-// 	else
-// 		std::cout << RED << "FAIL ❌\n" << NC;
+ 	std::list<int> first (3, 4);   // 10 zero-initialized elements
+ 	ft::list<int> ft_first (3, 4);   // 10 zero-initialized elements
+ 	std::list<int>::size_type sz = first.size();
+ 	ft::list<int>::size_type ft_sz = ft_first.size();
+	first.resize(5);
+	 ft_first.resize(5);
+
+	 printCustomlists(first, ft_first);
+
+ 	std::cout << "front() -             ";
+ 	if (first.front() == ft_first.front())
+ 			passed();
+ 	else
+ 		std::cout << RED << "FAIL ❌\n" << NC;
+ 	std::cout << "back() -              ";
+ 	if (first.back() == ft_first.back())
+ 			passed();
+ 	else
+ 		std::cout << RED << "FAIL ❌\n" << NC;
 }
 
 void ListTester::testIterators() {
