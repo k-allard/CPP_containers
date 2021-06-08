@@ -7,7 +7,7 @@ OBJS = $(SRCS:.cpp=.o)
 HEADER = header.hpp
 
 FLAGS2 =-Wall -Wextra -Werror
-FLAGS =-g -fsanitize-address-poison-custom-array-cookie -fsanitize-address-use-after-scope -fsanitize-address-use-odr-indicator -fsanitize=address
+FLAGS =-std=c++98 -g -fsanitize-address-poison-custom-array-cookie -fsanitize-address-use-after-scope -fsanitize-address-use-odr-indicator -fsanitize=address
 
 all: $(NAME)
 

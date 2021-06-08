@@ -369,8 +369,25 @@ namespace ft
 		_insert(position, first, last, res());
 	}
 
-	// iterator erase (iterator position);
-	// iterator erase (iterator first, iterator last);
+	template <typename T, typename Allocator>
+	typename list<T, Allocator>::iterator list<T, Allocator>::erase (iterator position) {
+		iterator ret_temp = position;
+		ret_temp++;
+		_node_pointer temp = position._node;
+		temp->prev->next = temp->next;
+		temp->next->prev = temp->prev;
+		delete temp;
+		_size--;
+		return(ret_temp);
+	}
+
+	template <typename T, typename Allocator>
+	typename list<T, Allocator>::iterator list<T, Allocator>::erase (iterator first, iterator last) {
+		iterator temp = first;
+		while (temp != last && temp != end())
+			temp = erase(temp);
+		return (temp);
+	}
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::swap (list& x) {

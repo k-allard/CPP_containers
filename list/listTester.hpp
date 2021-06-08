@@ -254,19 +254,48 @@ void ListTester::testModifiers() {
 	// if (!compareCustomlists(first, ft_first))
 	// 	passed();
 
-	// std::cout << "--- Erase single element ---";
-	// first.erase(first.begin() + 3);
-	// ft_first.erase(ft_first.begin() + 3);
-	// printCustomlists(first,ft_first);
-	// if (!compareCustomlists(first, ft_first))
-	// 	passed();
+	 std::cout << "--- Erase single element ---";
 
-	// std::cout << "--- Erase range ---";
-	// first.erase(first.begin() + 3, first.end());
-	// ft_first.erase(ft_first.begin() + 3, ft_first.end());
-	// printCustomlists(first,ft_first);
-	// if (!compareCustomlists(first, ft_first))
-	// 	passed();
+	std::list<int> second;
+	std::list<int>::iterator it1, it2;
+
+	ft::list<int> ft_second;
+	ft::list<int>::iterator ft_it1, ft_it2;
+
+	for (int i=1; i<10; ++i) {
+		second.push_back(i * 10);
+		ft_second.push_back(i * 10);
+	}
+												// 10 20 30 40 50 60 70 80 90
+	it1 = it2 = second.begin();
+	ft_it1 = ft_it2 = ft_second.begin();
+	++it1;
+	++ft_it1;
+	for (int i=0; i<6; ++i) {
+		++it2;
+		++ft_it2;
+	}
+	printCustomlists(second, ft_second);
+	it1 = second.erase (it1);
+	ft_it1 = ft_second.erase (ft_it1);   // 10 30 40 50 60 70 80 90
+
+	it2 = second.erase (it2);
+	ft_it2 = ft_second.erase (ft_it2);   // 10 30 40 50 60 80 90
+	printCustomlists(second, ft_second);
+	if (!compareCustomlists(second, ft_second))
+		passed();
+	++it1;
+	++ft_it1;
+
+	--it2;
+	--ft_it2;
+	std::cout << "--- Erase range ---";
+	second.erase (it1, it2);
+	ft_second.erase (ft_it1,ft_it2);     // 10 30 60 80 90
+
+	printCustomlists(second, ft_second);
+	if (!compareCustomlists(second, ft_second))
+		passed();
 }
 
 void ListTester::testSwap() {
