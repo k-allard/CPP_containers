@@ -218,41 +218,41 @@ void ListTester::testModifiers() {
  		flag = 1;
  	first.resize(10);
  	ft_first.resize(10);
-	printCustomlists(first,ft_first);
+	printCustomlists(first,ft_first);			// 99 99 0 0 0 0 0 0 0 0
 	if (compareCustomlists(first, ft_first))
  		flag = 1;
  	if (!flag)
  		passed();
 
-	// std::cout << "--- Insert single element ---";
+	 std::cout << "--- Insert single element ---";
 	std::list<int>::iterator it;
 	ft::list<int>::iterator ft_it;
-	// it = first.begin();
-	// ft_it = ft_first.begin();
-	// ++it;
-	// ++ft_it;
-	// it = first.insert (it, 200 );
-	// ft_it = ft_first.insert (ft_it, 200 );
-	// printCustomlists(first,ft_first);
-	// if (!compareCustomlists(first, ft_first))
-	// 	passed();
+	 it = first.begin();
+	 ft_it = ft_first.begin();
+	 ++it;
+	 ++ft_it;
+	 it = first.insert (it, 200 );
+	 ft_it = ft_first.insert (ft_it, 200 );
+	 printCustomlists(first,ft_first);			// 99 200 99 0 0 0 0 0 0 0 0
+	 if (!compareCustomlists(first, ft_first))
+	 	passed();
 
-	// std::cout << "--- Insert fill ---";
-	// it = first.begin();
-	// ft_it = ft_first.begin();
-	// first.insert (it,2,300);
-	// ft_first.insert (ft_it,2,300);
-	// printCustomlists(first,ft_first);
-	// if (!compareCustomlists(first, ft_first))
-	// 	passed();
+	 std::cout << "--- Insert fill ---";
+	 it = first.begin();
+	 ft_it = ft_first.begin();
+	 first.insert (it,2,300);
+	 ft_first.insert (ft_it,2,300);
+	 printCustomlists(first,ft_first);
+	 if (!compareCustomlists(first, ft_first))
+	 	passed();
 
-	// std::cout << "--- Insert range ---";
-	// int myarray [] = { 501,502,503 };
-	// first.insert (first.end() - 1, myarray, myarray + 3);
-	// ft_first.insert (ft_first.end() - 1, myarray, myarray + 3);
-	// printCustomlists(first,ft_first);
-	// if (!compareCustomlists(first, ft_first))
-	// 	passed();
+//	 std::cout << "--- Insert range ---";
+//	 int myarray [] = { 501,502,503 };
+//	 first.insert (first.end(), myarray, myarray + 3);
+//	 ft_first.insert (ft_first.end(), myarray, myarray + 3);
+//	 printCustomlists(first,ft_first);
+//	 if (!compareCustomlists(first, ft_first))
+//	 	passed();
 
 	 std::cout << "--- Erase single element ---";
 

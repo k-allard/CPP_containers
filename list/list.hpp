@@ -320,7 +320,7 @@ namespace ft
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::pop_back() {
 		_node_pointer toDel = _end->prev;
-		_end->prev = toDel->prev;
+		_end->prev = toDel->prev;	// TODO: тут происходит обращение к освобожденной памяти 2
 		toDel->prev->next = _end;
 		delete toDel;
 		_size--;
@@ -335,9 +335,9 @@ namespace ft
 		}
 
 
-	
+
 	template <typename T, typename Allocator>
-	template <typename InputIterator> 
+	template <typename InputIterator>
 	void list<T, Allocator>::_insert(iterator position, InputIterator first, InputIterator last, ft::not_int) {
 		while (first != last) {
 			position = insert(position, *(first++));
@@ -349,9 +349,9 @@ namespace ft
 	typename list<T, Allocator>::iterator list<T, Allocator>::insert (iterator position, const value_type& val) {		// single element
 		_node_pointer temp = new _node(val);
 		temp->next = position._node;
-		temp->next->prev = temp;
 		temp->prev = position._node->prev;
 		temp->prev->next = temp;
+		temp->next->prev = temp;
 		_size++;
 		return (iterator(temp));
 	}
@@ -359,11 +359,11 @@ namespace ft
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::insert (iterator position, size_type n, const value_type& val) {							// fill
 		while (n--)
-			insert(position, val);
+			position = insert(position, val);
 	}
 
 	template <typename T, typename Allocator>
-	template <class InputIterator> 
+	template <class InputIterator>
 	void list<T, Allocator>::insert (iterator position, InputIterator first, InputIterator last) {						// range
 		typedef typename is_integer<InputIterator>::type res;
 		_insert(position, first, last, res());
