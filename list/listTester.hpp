@@ -26,30 +26,31 @@ private:
 	std::stringstream ftString;
 	void passed();
 	int compareCustomlists(std::list<int> &std_list, ft::list<int> &ft_list);
+	int compareStringlists(std::list<std::string> &std_list, ft::list<std::string> &ft_list);
 	void printCustomlists(std::list<int> &std_list, ft::list<int> &ft_list);
 };
 
 void ListTester::testConstructors() {
 	std::list<int> first;
-	std::list<int> second (4,100);
-	// std::list<int> third (second.begin(),second.end());
-	std::list<int> fourth (second);
+	std::list<std::string> second (4,"list");
+	std::list<std::string> third (second.begin(),second.end());
+	std::list<std::string> fourth (second);
 
 	ft::list<int> ft_first;
-	ft::list<int> ft_second(4, 100);
-	// ft::list<int> ft_third (ft_second.begin(),ft_second.end());
-	ft::list<int> ft_fourth (ft_second);
+	ft::list<std::string> ft_second(4, "list");
+	ft::list<std::string> ft_third (ft_second.begin(),ft_second.end());
+	ft::list<std::string> ft_fourth (ft_second);
 	std::cout << "Default constructor - ";
 	if (!compareCustomlists(first, ft_first))
 		passed();
 	std::cout << "Fill constructor -    ";
-	if (!compareCustomlists(second, ft_second))
+	if (!compareStringlists(second, ft_second))
 		passed();
-	// std::cout << "Range constructor -   ";
-	// if (!compareCustomlists(third, ft_third))
-	// 	passed();
+	std::cout << "Range constructor -   ";
+	if (!compareStringlists(third, ft_third))
+		passed();
 	std::cout << "Copy constructor -    ";
-	if (!compareCustomlists(fourth, ft_fourth))
+	if (!compareStringlists(fourth, ft_fourth))
 		passed();
 }
 
@@ -345,6 +346,25 @@ void ListTester::passed() {
 	const unsigned int microseconds = 250000; //1000000 microseconds = 1 sec
 	std::cout << GREEN << "PASSED ✅" << NC << "\n\n";
 	usleep(microseconds);
+}
+
+int ListTester::compareStringlists(std::list<std::string> &std_list, ft::list<std::string> &ft_list) {
+	int fail = 0;
+
+	for (std::list<std::string>::iterator it = std_list.begin(); it != std_list.end(); it++) {
+		stdString << *it << ' ';
+	}
+	for (ft::list<std::string>::iterator ft_it = ft_list.begin(); ft_it != ft_list.end(); ft_it++) {
+		ftString << *ft_it << ' ';
+	}
+	if (ftString.str().compare(stdString.str())) {
+		std::cout << RED << "FAIL ❌\n" << "Ft list : " << ftString.str() \
+		<< "\nStd list: " << stdString.str() << NC << "\n";
+		fail = 1;
+	}
+	stdString.str(std::string());
+	ftString.str(std::string());
+	return fail;
 }
 
 int ListTester::compareCustomlists(std::list<int> &std_list, ft::list<int> &ft_list) {
