@@ -32,22 +32,23 @@ private:
 void ListTester::testConstructors() {
 	std::list<int> first;
 	std::list<int> second (4,100);
-	// std::list<int> third (second.begin(),second.end());
+//	 std::list<int> third (second.begin(),second.end());
 	std::list<int> fourth (second);
 
 	ft::list<int> ft_first;
 	ft::list<int> ft_second(4, 100);
-	// ft::list<int> ft_third (ft_second.begin(),ft_second.end());
+//	 ft::list<int> ft_third (ft_second.begin(),ft_second.end());
 	ft::list<int> ft_fourth (ft_second);
+
 	std::cout << "Default constructor - ";
 	if (!compareCustomlists(first, ft_first))
 		passed();
 	std::cout << "Fill constructor -    ";
 	if (!compareCustomlists(second, ft_second))
 		passed();
-	// std::cout << "Range constructor -   ";
-	// if (!compareCustomlists(third, ft_third))
-	// 	passed();
+//	 std::cout << "Range constructor -   ";
+//	 if (!compareCustomlists(third, ft_third))
+//	 	passed();
 	std::cout << "Copy constructor -    ";
 	if (!compareCustomlists(fourth, ft_fourth))
 		passed();
@@ -100,35 +101,21 @@ void ListTester::testCapacity() {
 		std::cout << RED << "FAIL ❌\n" << "Ft list size: " << ft_first.size() \
 		<< "\nStd list size: " << first.size() << NC << "\n";
 
-// 	std::cout << "max_size() -          ";
-// 	if (first.max_size() == ft_first.max_size())
-// 		passed();
-// 	else
-// 		std::cout << RED << "FAIL ❌\n" << "Ft list size: " << ft_first.size() \
-// 		<< "\nStd list size: " << first.size() << NC << "\n";
+ 	std::cout << "max_size() -          ";
+ 	if (first.max_size() == ft_first.max_size())
+ 		passed();
+ 	else
+ 		std::cout << RED << "FAIL ❌\n" << "Ft list size: " << ft_first.size() \
+ 		<< "\nStd list size: " << first.size() << NC << "\n";
 
-// 	std::cout << "capacity() -          ";
-// 	if (first.capacity() == ft_first.capacity())
-// 		passed();
-// 	else
-// 		std::cout << RED << "FAIL ❌\n" << "Ft list capacity: " << ft_first.capacity() \
-// 		<< "\nStd list capacity: " << first.capacity() << NC << "\n";
 
-// 	std::cout << "empty() -             ";
-// 	std::list<int> second;
-// 	ft::list<int> ft_second;
-// 	if (first.empty() == ft_first.empty() && second.empty() == ft_second.empty())
-// 		passed();
-// 	else
-// 		std::cout << RED << "FAIL ❌\n" << NC;
-
-// 	std::cout << "reserve() -           ";
-// 	first.reserve(100);
-// 	ft_first.reserve(100);
-// 	if (first.capacity() == ft_first.capacity())
-// 		passed();
-// 	else
-// 		std::cout << RED << "FAIL ❌\n" << NC;
+ 	std::cout << "empty() -             ";
+ 	std::list<int> second;
+ 	ft::list<int> ft_second;
+ 	if (first.empty() == ft_first.empty() && second.empty() == ft_second.empty())
+ 		passed();
+ 	else
+ 		std::cout << RED << "FAIL ❌\n" << NC;
 
 // 	std::cout << "resize() -            ";
 // 	first.resize(3);
@@ -142,9 +129,9 @@ void ListTester::testCapacity() {
 // 		flag = 1;
 // 	if (!flag)
 // 		passed();
-// }
+ }
 
-// void ListTester::testElementAccess() {
+ void ListTester::testElementAccess() {
 // 	std::cout << "operator[] -          ";
 // 	std::list<int> first (10);   // 10 zero-initialized elements
 // 	ft::list<int> ft_first (10);   // 10 zero-initialized elements
@@ -153,10 +140,10 @@ void ListTester::testCapacity() {
 // 	// assign values:
 // 	for (unsigned i = 0; i < sz; i++) first[i]=i;
 // 	for (unsigned i = 0; i < ft_sz; i++) ft_first[i]=i;
-
+//
 // 	if (!compareCustomlists(first, ft_first))
 // 		passed();
-
+//
 // 	std::cout << "at() -                ";
 // 	// reverse std list using function at:
 // 	for (unsigned i = 0; i < sz / 2; i++) {
@@ -174,7 +161,7 @@ void ListTester::testCapacity() {
 // 	}
 // 	if (!compareCustomlists(first, ft_first))
 // 		passed();
-
+//
 // 	std::cout << "front() -             ";
 // 	if (first.front() == ft_first.front())
 // 			passed();

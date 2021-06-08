@@ -41,10 +41,9 @@ namespace ft
 		//  C O N S T R U C T O R S  &  D E S T R U C T O R
 		//
 
-		list (const allocator_type& alloc = allocator_type());   // default
-		list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());    // fill
-	
-		// template <class InputIterator> list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());    // range
+		explicit list (const allocator_type& alloc = allocator_type());   // default
+		explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());    // fill
+//		 template <class InputIterator> list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());    // range
 		list (const list& x);   // copy
 		~list();
 
@@ -73,9 +72,10 @@ namespace ft
 		//  C A P A C I T Y
 		//
 
-		bool empty() const;
+		bool empty() const { return (_size == 0); }
 		size_type size() const { return (_size); }
-		size_type max_size() const;
+		size_type max_size() const ;
+
 
 		//
 		//  E L E M E N T   A C C E S S
@@ -154,12 +154,12 @@ namespace ft
 			push_back(val);
 	}
 
-	// template <typename T, typename Allocator>
-	// template <class InputIterator>
-	// list<T, Allocator>::list (InputIterator first, InputIterator last, const allocator_type& alloc) {    // range constructor
-	// 	defaultListBuild(alloc);
-	// 	insert(begin(), first, last);
-	// }
+//	 template <typename T, typename Allocator>
+//	 template <class InputIterator>
+//	 list<T, Allocator>::list (InputIterator first, InputIterator last, const allocator_type& alloc) {    // range constructor
+//	 	defaultListBuild(alloc);
+//	 	insert(begin(), first, last);
+//	 }
 
 	template <typename T, typename Allocator>
 	list<T, Allocator>::list (const list& x) { 	// copy constructor
@@ -275,9 +275,10 @@ namespace ft
 	//  C A P A C I T Y
 	//
 
-	// bool empty() const;
-	// size_type max_size() const;
-
+	template <class T, class Allocator>
+	typename list<T, Allocator>::size_type list<T, Allocator>::max_size() const {
+		return (std::numeric_limits<size_type>::max() / sizeof(_node));
+	}
 	//
 	//  E L E M E N T   A C C E S S
 	//
@@ -315,9 +316,13 @@ namespace ft
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::_insert(iterator position, int n, T val, ft::is_int) {
-		while (n--)
-			insert(position, val);
-	}
+			while (n--) {
+				insert(position, val);
+				position++;
+			}
+		}
+
+
 	
 	template <typename T, typename Allocator>
 	template <typename InputIterator> 
