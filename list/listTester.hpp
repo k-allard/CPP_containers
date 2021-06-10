@@ -6,6 +6,9 @@
 #define RED "\033[0;31m"
 #define NC "\033[0m"
 
+// a predicate implemented as a function:
+bool single_digit (const int& value) { return (value < 10); }
+
 class ListTester {
 
 public:
@@ -32,9 +35,6 @@ private:
 	static void printCustomlists(std::list<int> &std_list, ft::list<int> &ft_list);
 	void printStdlist(std::list<int> &std_list);
 	void printFtlist(ft::list<int> &ft_list);
-
-	// a predicate implemented as a function:
-	bool single_digit (const int& value) { return (value < 10); }
 
 	// a predicate implemented as a class:
 	struct is_odd {
@@ -445,16 +445,22 @@ void ListTester::testOperations() {
 
 	std::cout << "--- remove_if() ---";
 
-	int myints[]= {15,36,7,17,20,39,4,1};
-	std::list<int> third (myints,myints+8);   // 15 36 7 17 20 39 4 1
+	int myints[] = {15, 36, 7, 17, 20, 39, 4, 1};
+	std::list<int> third (myints, myints + 8);   // 15 36 7 17 20 39 4 1
+	ft::list<int> ft_third (myints, myints + 8);
 	printStdlist(third);
-	bool (ListTester::*func)(const int& value);
-	func = &ListTester::single_digit;
-	third.remove_if(&func);        		   // 15 36 17 20 39
+	printFtlist(ft_third);
+
+	third.remove_if(single_digit);        		   // 15 36 17 20 39
 	third.remove_if(is_odd());               // 36 20
+	ft_third.remove_if(single_digit);        		   // 15 36 17 20 39
+	ft_third.remove_if(is_odd());               // 36 20
+
 	printStdlist(third);
-
-
+	printFtlist(ft_third);
+	std::cout << "\n";
+	if (!compareCustomlists(third, ft_third))
+		passed();
 
 //
 //
