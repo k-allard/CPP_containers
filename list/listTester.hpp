@@ -462,10 +462,23 @@ void ListTester::testOperations() {
 	if (!compareCustomlists(third, ft_third))
 		passed();
 
-//
-//
-//	std::cout << "--- unique() ---";
-//
+	std::cout << "--- unique() ---";
+	int myints2[] = {15, 15, 7, 17, 17, 17, 4, 3};
+	std::list<int> fourth (myints2, myints2 + 8);
+	ft::list<int> ft_fourth (myints2, myints2 + 8);
+	printStdlist(fourth);
+	printFtlist(ft_fourth);
+
+	fourth.unique();
+	ft_fourth.unique();
+
+	printStdlist(fourth);
+	printFtlist(ft_fourth);
+	std::cout << "\n";
+	if (!compareCustomlists(fourth, ft_fourth))
+		passed();
+
+
 //
 //	std::cout << "--- unique(BinaryPredicate) ---";
 //

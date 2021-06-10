@@ -492,7 +492,7 @@ namespace ft
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::remove (const value_type& val) {
-		ft::list<int>::iterator it = begin();
+		iterator it = begin();
 		while (it != end()) {
 			if (*it == val) {
 				ft::list<int>::iterator itt = it;
@@ -507,7 +507,7 @@ namespace ft
 	 template <typename T, typename Allocator>
 	 template <class Predicate>
 	 void list<T, Allocator>::remove_if (Predicate pred) {
-	 	ft::list<int>::iterator it = begin();
+	 	iterator it = begin();
 		 while (it != end()) {
 			 if (pred(*it)) {
 				 ft::list<int>::iterator itt = it;
@@ -519,9 +519,21 @@ namespace ft
 		 }
 	 }
 
+	// removes all but the first element from every consecutive group of equal elements in the container
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::unique() {
+		iterator it = begin();
+		iterator it_next = ++begin();
 
+		while (it_next != end()) {
+			if (*it == *it_next) {
+				it_next = erase(it_next);
+			}
+			else {
+				++it;
+				++it_next;
+			}
+		}
 	}
 
 
