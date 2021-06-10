@@ -426,7 +426,23 @@ namespace ft
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::splice (iterator position, list& x) { 					//   entire list
+		_node_pointer first_moved_node = x.begin()._node;	//1ая перемещаемая нода
+		_node_pointer last_moved_node = (--x.end())._node;	//последняя перемещаемая нода
+		_node_pointer next = position._node;				// эта нода будет следующей за ними
+		_node_pointer prev = (--position)._node;			// эта будет перед ними
+		int node_count = x._size;
 
+		// удаляем ноды из листа-листочника x
+		x.end()._node->next = x.end()._node;
+		x.end()._node->prev = x.end()._node;
+		x._size = 0;
+
+		// добавляем ноды в текущий лист
+		prev->next = first_moved_node;
+		next->prev = last_moved_node;
+		first_moved_node->prev = prev;
+		last_moved_node->next = next;
+		_size += node_count;
 	}
 
 	template <typename T, typename Allocator>					//   куда			     из какого листа     откуда

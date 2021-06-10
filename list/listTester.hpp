@@ -411,7 +411,19 @@ void ListTester::testOperations() {
 		passed();
 
 
-//	std::cout << "\n--- splice() entire list ---\n";
+	std::cout << "\n--- splice() entire list ---\n";
+	std::cout << "\n  *splicing . . .*\n";
+	second.splice(second.begin(), first);
+	ft_second.splice(ft_second.begin(), ft_first);
+
+	printStdlist(first);
+	printStdlist(second);
+	printFtlist(ft_first);
+	printFtlist(ft_second);
+	std::cout << "\n";
+	if (!compareCustomlists(first, ft_first) && !compareCustomlists(second, ft_second))
+		passed();
+
 //
 //
 //	std::cout << "--- remove() ---";
