@@ -495,12 +495,12 @@ namespace ft
 		ft::list<int>::iterator it = begin();
 		while (it != end()) {
 			if (*it == val) {
-				std::cout << "Found " << val << "!!!" << std::endl;
+				ft::list<int>::iterator itt = it;
+				++it;
+				erase(itt);
 			}
-			else {
-				std::cout << "[" << *it << "]" << std::endl;
-			}
-			++it;
+			else
+				++it;
 		}
 	}
 

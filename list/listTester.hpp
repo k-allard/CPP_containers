@@ -435,6 +435,7 @@ void ListTester::testOperations() {
 	printCustomlists(second, ft_second);
 	if (!compareCustomlists(second, ft_second))
 		passed();
+
 //	std::cout << "--- remove_if() ---";
 //
 //

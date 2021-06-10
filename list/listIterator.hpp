@@ -1,5 +1,5 @@
 //
-//  V E C T O R   I T E R A T O R S
+//  L I S T   I T E R A T O R S
 //
 
 #ifndef LISTITERATOR_HPP
