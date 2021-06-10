@@ -1,6 +1,7 @@
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "modernize-use-auto"
 #include "../header.hpp"
+#include <cmath>
 
 #define GREEN "\033[0;32m"
 #define RED "\033[0;31m"
@@ -8,6 +9,11 @@
 
 // a predicate implemented as a function:
 bool single_digit (const int& value) { return (value < 10); }
+
+// a binary predicate implemented as a function:
+bool same_integral_part (double first, double second) {
+	return ( int(first) == int(second) );
+}
 
 class ListTester {
 
@@ -31,14 +37,20 @@ private:
 	std::stringstream stdString;
 	std::stringstream ftString;
 	static void passed();
-	int compareCustomlists(std::list<int> &std_list, ft::list<int> &ft_list);
-	static void printCustomlists(std::list<int> &std_list, ft::list<int> &ft_list);
-	void printStdlist(std::list<int> &std_list);
-	void printFtlist(ft::list<int> &ft_list);
+	template <class T> int compareStdFtLists(std::list<T> &std_list, ft::list<T> &ft_list);
+	template <class T> void printStdFtLists(std::list<T> &std_list, ft::list<T> &ft_list);
+	template <class T> void printStdlist(std::list<T> &std_list);
+	template <class T> void printFtlist(ft::list<T> &ft_list);
 
 	// a predicate implemented as a class:
 	struct is_odd {
 		bool operator() (const int& value) { return (value % 2) == 1; }
+	};
+
+	// a binary predicate implemented as a class:
+	struct is_near {
+		bool operator() (double first, double second)
+		{ return (fabs(first-second) < 5.0); }
 	};
 };
 
@@ -54,16 +66,16 @@ void ListTester::testConstructors() {
 	ft::list<int> ft_fourth (ft_second);
 
 	std::cout << "Default constructor - ";
-	if (!compareCustomlists(first, ft_first))
+	if (!compareStdFtLists(first, ft_first))
 		passed();
 	std::cout << "Fill constructor -    ";
-	if (!compareCustomlists(second, ft_second))
+	if (!compareStdFtLists(second, ft_second))
 		passed();
 	 std::cout << "Range constructor -   ";
-	 if (!compareCustomlists(third, ft_third))
+	 if (!compareStdFtLists(third, ft_third))
 	 	passed();
 	std::cout << "Copy constructor -    ";
-	if (!compareCustomlists(fourth, ft_fourth))
+	if (!compareStdFtLists(fourth, ft_fourth))
 		passed();
 }
 
@@ -80,20 +92,20 @@ void ListTester::testAssignations() {
 	ft_first = ft_second;
 
 	std::cout << "operator= -           ";
-	if (!compareCustomlists(first, ft_first))
+	if (!compareStdFtLists(first, ft_first))
 		passed();
 
 	std::cout << "Fill assignation -    ";
 	first.assign(2, 99);
 	ft_first.assign(2, 99);
-	if (!compareCustomlists(first, ft_first))
+	if (!compareStdFtLists(first, ft_first))
 		passed();
 
 	std::cout << "Range assignation -   ";
 	int myints[] = {1776,7,4};
 	third.assign (myints, myints + 3);
 	ft_third.assign (myints, myints + 3);
-	if (!compareCustomlists(third, ft_third))
+	if (!compareStdFtLists(third, ft_third))
 		passed();
 }
 
@@ -139,7 +151,7 @@ void ListTester::testCapacity() {
 	first.resize(5);
 	 ft_first.resize(5);
 
-	 printCustomlists(first, ft_first);
+	 printStdFtLists(first, ft_first);
 
  	std::cout << "front() -             ";
  	if (first.front() == ft_first.front())
@@ -170,8 +182,8 @@ void ListTester::testIterators() {
 	for (; ft_rit != ft_first.rend(); ++ft_rit)
 		*ft_rit = ++k;
 
-	printCustomlists(first, ft_first);
-	if (!compareCustomlists(first, ft_first))
+	printStdFtLists(first, ft_first);
+	if (!compareStdFtLists(first, ft_first))
 		passed();
 
 	std::cout << "begin() and end() -   ";
@@ -181,8 +193,8 @@ void ListTester::testIterators() {
 	for (ft::list<int>::iterator ft_it = ft_first.begin(); ft_it != ft_first.end(); ++ft_it)
 		*(ft_it) += 1;
 
-printCustomlists(first, ft_first);
-	if (!compareCustomlists(first, ft_first))
+	printStdFtLists(first, ft_first);
+	if (!compareStdFtLists(first, ft_first))
 		passed();
 
 }
@@ -195,15 +207,15 @@ void ListTester::testModifiers() {
 	int myints[] = {1776,7,4};
 	first.assign (myints,myints + 3);
 	ft_first.assign(myints,myints + 3);
-	printCustomlists(first,ft_first);
-	if (!compareCustomlists(first, ft_first))
+	printStdFtLists(first, ft_first);
+	if (!compareStdFtLists(first, ft_first))
 		passed();
 
 	std::cout << "--- Fill assign ---";
 	first.assign (2,99);
 	ft_first.assign(2,99);
-	printCustomlists(first,ft_first);
-	if (!compareCustomlists(first, ft_first))
+	printStdFtLists(first, ft_first);
+	if (!compareStdFtLists(first, ft_first))
 		passed();
 
 	std::cout << "--- push_front() ---";
@@ -211,15 +223,15 @@ void ListTester::testModifiers() {
 	first.push_front(0);
 	ft_first.push_front(1);
 	ft_first.push_front(0);
-	printCustomlists(first,ft_first);
-	if (!compareCustomlists(first, ft_first))
+	printStdFtLists(first, ft_first);
+	if (!compareStdFtLists(first, ft_first))
 		passed();
 
 	std::cout << "--- pop_front() ---";
 	first.pop_front();
 	ft_first.pop_front();
-	printCustomlists(first,ft_first);
-	if (!compareCustomlists(first, ft_first))
+	printStdFtLists(first, ft_first);
+	if (!compareStdFtLists(first, ft_first))
 		passed();
 
 	std::cout << "--- push_back() ---";
@@ -227,28 +239,28 @@ void ListTester::testModifiers() {
 	first.push_back(14);
 	ft_first.push_back(7);
 	ft_first.push_back(14);
-	printCustomlists(first,ft_first);
-	if (!compareCustomlists(first, ft_first))
+	printStdFtLists(first, ft_first);
+	if (!compareStdFtLists(first, ft_first))
 		passed();
 
 	std::cout << "--- pop_back() ---";
 	first.pop_back();
 	ft_first.pop_back();
-	printCustomlists(first,ft_first);
-	if (!compareCustomlists(first, ft_first))
+	printStdFtLists(first, ft_first);
+	if (!compareStdFtLists(first, ft_first))
 		passed();
 
 	std::cout << "--- resize() ---";
  	first.resize(2);
  	ft_first.resize(2);
-	printCustomlists(first,ft_first);
+	printStdFtLists(first, ft_first);
 	int flag = 0;
- 	if (compareCustomlists(first, ft_first))
+ 	if (compareStdFtLists(first, ft_first))
  		flag = 1;
  	first.resize(10);
  	ft_first.resize(10);
-	printCustomlists(first,ft_first);			// 99 99 0 0 0 0 0 0 0 0
-	if (compareCustomlists(first, ft_first))
+	printStdFtLists(first, ft_first);			// 99 99 0 0 0 0 0 0 0 0
+	if (compareStdFtLists(first, ft_first))
  		flag = 1;
  	if (!flag)
  		passed();
@@ -262,8 +274,8 @@ void ListTester::testModifiers() {
 	 ++ft_it;
 	 it = first.insert (it, 200 );
 	 ft_it = ft_first.insert (ft_it, 200 );
-	 printCustomlists(first,ft_first);			// 99 200 99 0 0 0 0 0 0 0 0
-	 if (!compareCustomlists(first, ft_first))
+	printStdFtLists(first, ft_first);			// 99 200 99 0 0 0 0 0 0 0 0
+	 if (!compareStdFtLists(first, ft_first))
 	 	passed();
 
 	 std::cout << "--- Insert fill ---";
@@ -271,16 +283,16 @@ void ListTester::testModifiers() {
 	 ft_it = ft_first.begin();
 	 first.insert (it,2,300);
 	 ft_first.insert (ft_it,2,300);
-	 printCustomlists(first,ft_first);
-	 if (!compareCustomlists(first, ft_first))
+	printStdFtLists(first, ft_first);
+	 if (!compareStdFtLists(first, ft_first))
 	 	passed();
 
 	 std::cout << "--- Insert range ---";
 	 int myarray [] = { 501,502,503 };
 	 first.insert (first.end(), myarray, myarray + 3);
 	 ft_first.insert (ft_first.end(), myarray, myarray + 3);
-	 printCustomlists(first,ft_first);
-	 if (!compareCustomlists(first, ft_first))
+	printStdFtLists(first, ft_first);
+	 if (!compareStdFtLists(first, ft_first))
 	 	passed();
 
 	 std::cout << "--- Erase single element ---";
@@ -304,14 +316,14 @@ void ListTester::testModifiers() {
 		++it2;
 		++ft_it2;
 	}
-	printCustomlists(second, ft_second);
+	printStdFtLists(second, ft_second);
 	it1 = second.erase (it1);
 	ft_it1 = ft_second.erase (ft_it1);   // 10 30 40 50 60 70 80 90
 
 	it2 = second.erase (it2);
 	ft_it2 = ft_second.erase (ft_it2);   // 10 30 40 50 60 80 90
-	printCustomlists(second, ft_second);
-	if (!compareCustomlists(second, ft_second))
+	printStdFtLists(second, ft_second);
+	if (!compareStdFtLists(second, ft_second))
 		passed();
 	++it1;
 	++ft_it1;
@@ -322,8 +334,8 @@ void ListTester::testModifiers() {
 	second.erase (it1, it2);
 	ft_second.erase (ft_it1,ft_it2);     // 10 30 60 80 90
 
-	printCustomlists(second, ft_second);
-	if (!compareCustomlists(second, ft_second))
+	printStdFtLists(second, ft_second);
+	if (!compareStdFtLists(second, ft_second))
 		passed();
 }
 
@@ -372,7 +384,7 @@ void ListTester::testOperations() {
 	printFtlist(ft_first);
 	printFtlist(ft_second);
 	std::cout << "\n";
-	if (!compareCustomlists(first, ft_first) && !compareCustomlists(second, ft_second))
+	if (!compareStdFtLists(first, ft_first) && !compareStdFtLists(second, ft_second))
 		passed();
 
 	std::cout << "--- splice() range ---\n";
@@ -415,7 +427,7 @@ void ListTester::testOperations() {
 	printFtlist(ft_first);
 	printFtlist(ft_second);
 	std::cout << "\n";
-	if (!compareCustomlists(first, ft_first) && !compareCustomlists(second, ft_second))
+	if (!compareStdFtLists(first, ft_first) && !compareStdFtLists(second, ft_second))
 		passed();
 
 
@@ -429,7 +441,7 @@ void ListTester::testOperations() {
 	printFtlist(ft_first);
 	printFtlist(ft_second);
 	std::cout << "\n";
-	if (!compareCustomlists(first, ft_first) && !compareCustomlists(second, ft_second))
+	if (!compareStdFtLists(first, ft_first) && !compareStdFtLists(second, ft_second))
 		passed();
 
 	std::cout << "--- remove() ---\n";
@@ -439,8 +451,8 @@ void ListTester::testOperations() {
 	ft_second.remove(90);
 	ft_second.remove(4);
 
-	printCustomlists(second, ft_second);
-	if (!compareCustomlists(second, ft_second))
+	printStdFtLists(second, ft_second);
+	if (!compareStdFtLists(second, ft_second))
 		passed();
 
 	std::cout << "--- remove_if() ---";
@@ -459,7 +471,7 @@ void ListTester::testOperations() {
 	printStdlist(third);
 	printFtlist(ft_third);
 	std::cout << "\n";
-	if (!compareCustomlists(third, ft_third))
+	if (!compareStdFtLists(third, ft_third))
 		passed();
 
 	std::cout << "--- unique() ---";
@@ -475,21 +487,46 @@ void ListTester::testOperations() {
 	printStdlist(fourth);
 	printFtlist(ft_fourth);
 	std::cout << "\n";
-	if (!compareCustomlists(fourth, ft_fourth))
+	if (!compareStdFtLists(fourth, ft_fourth))
 		passed();
 
+	std::cout << "--- sort() ---";
 
-//
-//	std::cout << "--- unique(BinaryPredicate) ---";
-//
-//
+	double mydoubles[] = { 12.15,  2.72, 73.0,  12.77,  3.14,
+						 12.77, 73.35, 72.25, 15.3,  72.25 };
+	std::list<double> fifth (mydoubles,mydoubles+10);
+	ft::list<double> ft_fifth (mydoubles,mydoubles+10);
+	printStdFtLists(fifth, ft_fifth);
+
+	fifth.sort();             		//  2.72,  3.14, 12.15, 12.77, 12.77, 15.3,  72.25, 72.25, 73.0,  73.35
+	ft_fifth.sort();             	//  2.72,  3.14, 12.15, 12.77, 12.77, 15.3,  72.25, 72.25, 73.0,  73.35
+	printStdFtLists(fifth, ft_fifth);
+	if (!compareStdFtLists(fifth, ft_fifth))
+		passed();
+	std::cout << "--- unique() ---";
+
+	fifth.unique();          		 //  2.72,  3.14, 12.15, 12.77, 15.3,  72.25, 73.0,  73.35
+	ft_fifth.unique();        		 //  2.72,  3.14, 12.15, 12.77, 15.3,  72.25, 73.0,  73.35
+	printStdFtLists(fifth, ft_fifth);
+
+	std::cout << "\n--- unique(BinaryPredicate) ---";
+	std::cout << "\n\t--- (same_integral_part) ---";
+	fifth.unique (same_integral_part); 		 	//  2.72,  3.14, 12.15, 15.3,  72.25, 73.0
+	ft_fifth.unique (same_integral_part); 		 //  2.72,  3.14, 12.15, 15.3,  72.25, 73.0
+	printStdFtLists(fifth, ft_fifth);
+	std::cout << "\n\t--- (is_near) ---";
+	fifth.unique (is_near());         	  //  2.72, 12.15, 72.25
+	ft_fifth.unique (is_near());           //  2.72, 12.15, 72.25
+	printStdFtLists(fifth, ft_fifth);
+	if (!compareStdFtLists(fifth, ft_fifth))
+		passed();
+
 //	std::cout << "--- merge(list) ---";
 //
 //
 //	std::cout << "--- merge(list, Compare) ---";
 //
 //
-//	std::cout << "--- sort() ---";
 //
 //
 //	std::cout << "--- sort(Compare) ---";
@@ -508,16 +545,16 @@ void ListTester::testSwap() {
 
 	 std::list<int> second (5,200);   // five ints with a value of 200
 	 ft::list<int> ft_second (5,200);   // five ints with a value of 200
-	 printCustomlists(first, ft_first);
-	 printCustomlists(second, ft_second);
+	printStdFtLists(first, ft_first);
+	printStdFtLists(second, ft_second);
 
 	 first.swap(second);
 	 ft_first.swap(ft_second);
 
-	 printCustomlists(first, ft_first);
-	 printCustomlists(second, ft_second);
+	printStdFtLists(first, ft_first);
+	printStdFtLists(second, ft_second);
 
-	 if (!compareCustomlists(first, ft_first) && !compareCustomlists(second, ft_second))
+	 if (!compareStdFtLists(first, ft_first) && !compareStdFtLists(second, ft_second))
 	 	passed();
 }
 
@@ -546,13 +583,14 @@ void ListTester::passed() {
 	usleep(microseconds);
 }
 
-int ListTester::compareCustomlists(std::list<int> &std_list, ft::list<int> &ft_list) {
+template <class T>
+int ListTester::compareStdFtLists(std::list<T> &std_list, ft::list<T> &ft_list) {
 	int fail = 0;
 
-	for (std::list<int>::iterator it = std_list.begin(); it != std_list.end(); it++) {
+	for (typename std::list<T>::iterator it = std_list.begin(); it != std_list.end(); it++) {
 		stdString << *it << ' ';
 	}
-	for (ft::list<int>::iterator ft_it = ft_list.begin(); ft_it != ft_list.end(); ft_it++) {
+	for (typename ft::list<T>::iterator ft_it = ft_list.begin(); ft_it != ft_list.end(); ft_it++) {
 		ftString << *ft_it << ' ';
 	}
 	if (ftString.str().compare(stdString.str())) {
@@ -571,28 +609,31 @@ int ListTester::compareCustomlists(std::list<int> &std_list, ft::list<int> &ft_l
 	return fail;
 }
 
-void ListTester::printCustomlists(std::list<int> &std_list, ft::list<int> &ft_list) {
+template <class T>
+void ListTester::printStdFtLists(std::list<T> &std_list, ft::list<T> &ft_list) {
 	std::cout << "\nFt list : ";
-	for (ft::list<int>::iterator ft_it = ft_list.begin(); ft_it != ft_list.end(); ft_it++) {
+	for (typename ft::list<T>::iterator ft_it = ft_list.begin(); ft_it != ft_list.end(); ft_it++) {
 		std::cout << *ft_it << ' ';
 	}
 	std::cout << "\nStd list: ";
-	for (std::list<int>::iterator it = std_list.begin(); it != std_list.end(); it++) {
+	for (typename std::list<T>::iterator it = std_list.begin(); it != std_list.end(); it++) {
 		std::cout << *it << ' ';
 	}
 	std::cout << "\n";
 }
 
-void ListTester::printStdlist(std::list<int> &std_list) {
+template <class T>
+void ListTester::printStdlist(std::list<T> &std_list) {
 	std::cout << "\nStd list: ";
-	for (std::list<int>::iterator it = std_list.begin(); it != std_list.end(); it++) {
+	for (typename std::list<T>::iterator it = std_list.begin(); it != std_list.end(); it++) {
 		std::cout << *it << ' ';
 	}
 }
 
-void ListTester::printFtlist(ft::list<int> &ft_list) {
+template <class T>
+void ListTester::printFtlist(ft::list<T> &ft_list) {
 	std::cout << "\nFt list:  ";
-	for (ft::list<int>::iterator ft_it = ft_list.begin(); ft_it != ft_list.end(); ft_it++) {
+	for (typename ft::list<T>::iterator ft_it = ft_list.begin(); ft_it != ft_list.end(); ft_it++) {
 		std::cout << *ft_it << ' ';
 	}
 }

@@ -540,7 +540,18 @@ namespace ft
 	template <typename T, typename Allocator>
 	template <class BinaryPredicate>
 	 void list<T, Allocator>::unique (BinaryPredicate binary_pred) {
+		iterator it = begin();
+		iterator it_next = ++begin();
 
+		while (it_next != end()) {
+			if (binary_pred(*it, *it_next)) {
+				it_next = erase(it_next);
+			}
+			else {
+				++it;
+				++it_next;
+			}
+		}
 	 }
 
 	template <typename T, typename Allocator>
@@ -556,13 +567,47 @@ namespace ft
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::sort() {
-
+		iterator temp = begin();
+		iterator next = ++begin();
+		value_type data;
+		if (empty())
+			return ;
+		while (next != end()) {
+			if (*next < *temp) {
+				data = *next;
+				*next = *temp;
+				*temp = data;
+				next = ++begin();
+				temp = begin();
+			}
+			else {
+				temp++;
+				next++;
+			}
+		}
 	}
 
 	template <typename T, typename Allocator>
 	template <class Compare>
 	 void list<T, Allocator>::sort (Compare comp) {
-
+		iterator temp = begin();
+		iterator next = ++begin();
+		value_type data;
+		if (empty())
+			return ;
+		while (next != end()) {
+			if (comp(*next, *temp)) {
+				data = *next;
+				*next = *temp;
+				*temp = data;
+				next = ++begin();
+				temp = begin();
+			}
+			else {
+				temp++;
+				next++;
+			}
+		}
 	 }
 
 	template <typename T, typename Allocator>
