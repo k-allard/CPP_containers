@@ -367,10 +367,51 @@ void ListTester::testOperations() {
 	if (!compareCustomlists(first, ft_first) && !compareCustomlists(second, ft_second))
 		passed();
 
+	std::cout << "--- splice() range ---\n";
+
+	/// a d v a n c i n g
+	//	source iterators
+	itt = first.end();
+	for (int i = 0; i < 7; ++i)
+		--itt;
+	ft_itt = ft_first.end();
+	for (int i = 0; i < 7; ++i)
+		--ft_itt;
+
+	it = first.end();
+	for (int i = 0; i < 4; ++i)
+		--it;
+	ft_it = ft_first.end();
+	for (int i = 0; i < 4; ++i)
+		--ft_it;
+	//	destination iterators
+	std::list<int>::iterator it_dest = second.begin();
+	for (int i = 0; i < 3; ++i)
+		++it_dest;
+	ft::list<int>::iterator ft_it_dest = ft_second.begin();
+	for (int i = 0; i < 3; ++i)
+		++ft_it_dest;
+
+	//	std::cout << "*it_dest is at [" << *it_dest << "] and *ft_it_dest is at [" << *ft_it_dest << "]\n";
+	//	std::cout << "*itt is at [" << *itt << "] and *ft_itt is at [" << *ft_itt << "]\n";
+	//	std::cout << "*it is at [" << *it << "] and *ft_it is at [" << *ft_it << "]\n";
+	/// - - - - - - - - -
+
+
+	std::cout << "\n  *splicing . . .*\n";
+	second.splice(it_dest, first, itt, it);
+	ft_second.splice(ft_it_dest, ft_first, ft_itt, ft_it);
+
+	printStdlist(first);
+	printStdlist(second);
+	printFtlist(ft_first);
+	printFtlist(ft_second);
+	std::cout << "\n";
+	if (!compareCustomlists(first, ft_first) && !compareCustomlists(second, ft_second))
+		passed();
+
+
 //	std::cout << "\n--- splice() entire list ---\n";
-//
-//
-//	std::cout << "--- splice() range ---";
 //
 //
 //	std::cout << "--- remove() ---";
@@ -460,6 +501,12 @@ int ListTester::compareCustomlists(std::list<int> &std_list, ft::list<int> &ft_l
 	if (ftString.str().compare(stdString.str())) {
 		std::cout << RED << "FAIL ❌\n" << "Ft list : " << ftString.str() \
 		<< "\nStd list: " << stdString.str() << NC << "\n";
+		fail = 1;
+	}
+
+	if (std_list.size() != ft_list.size()) {
+		std::cout << RED << "SIZE FAIL ❌\n" << "Ft list size: " << ft_list.size() \
+		<< "\nStd list size: " << std_list.size() << NC << "\n";
 		fail = 1;
 	}
 	stdString.str(std::string());

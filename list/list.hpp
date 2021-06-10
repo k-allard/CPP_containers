@@ -431,26 +431,47 @@ namespace ft
 
 	template <typename T, typename Allocator>					//   куда			     из какого листа     откуда
 	void list<T, Allocator>::splice (   iterator position,   list& x,			 iterator i) { 		// single element
-
-		_node_pointer moved_node	= i._node;				// перемещаемая нода
-		_node_pointer next			= position._node;		// эта нода будет следующей за ней
-		_node_pointer prev			= (--position)._node;	// эта будет перед ней
+		_node_pointer moved_node = i._node;				// перемещаемая нода
+		_node_pointer next = position._node;			// эта нода будет следующей за ней
+		_node_pointer prev= (--position)._node;			// эта будет перед ней
 
 		// удаляем ноду из листа-листочника x
-		moved_node->prev->next 	= moved_node->next;
-		moved_node->next->prev 	= moved_node->prev;
+		moved_node->prev->next = moved_node->next;
+		moved_node->next->prev = moved_node->prev;
 		x._size--;
 
 		// добавляем ноду в текущий лист
-		prev->next 				= moved_node;
-		moved_node->prev		= prev;
-		next->prev 				= moved_node;
-		moved_node->next 		= next;
+		prev->next = moved_node;
+		moved_node->prev = prev;
+		next->prev = moved_node;
+		moved_node->next = next;
 		_size++;
 	}
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::splice (iterator position, list& x, iterator first, iterator last) { 	// element range
+		size_type node_count = 0;
+
+		_node_pointer first_moved_node = first._node;	// 1ая перемещаемая нода
+		_node_pointer last_moved_node = (--last)._node;	// последняя перемещаемая нода
+		_node_pointer next = position._node;			// эта нода будет следующей за ними
+		_node_pointer prev= (--position)._node;			// эта будет перед ними
+
+		while (first++ != last)
+			node_count++;
+		node_count++;
+
+		// удаляем ноды из листа-листочника x
+		first_moved_node->prev->next = last_moved_node->next;
+		last_moved_node->next->prev = first_moved_node->prev;
+		x._size -= node_count;
+
+		// добавляем ноды в текущий лист
+		prev->next = first_moved_node;
+		first_moved_node->prev = prev;
+		next->prev = last_moved_node;
+		last_moved_node->next = next;
+		_size += node_count;
 	}
 
 	template <typename T, typename Allocator>
