@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "modernize-use-auto"
 #include "../header.hpp"
 
 #define GREEN "\033[0;32m"
@@ -18,15 +20,18 @@ public:
 	void testElementAccess();
 	void testIterators();
 	void testModifiers() ;
+	void testOperations();
 	void testSwap();
 	void testRelationalOperators();
 
 private:
 	std::stringstream stdString;
 	std::stringstream ftString;
-	void passed();
+	static void passed();
 	int compareCustomlists(std::list<int> &std_list, ft::list<int> &ft_list);
-	void printCustomlists(std::list<int> &std_list, ft::list<int> &ft_list);
+	static void printCustomlists(std::list<int> &std_list, ft::list<int> &ft_list);
+	void printStdlist(std::list<int> &std_list);
+	void printFtlist(ft::list<int> &ft_list);
 };
 
 void ListTester::testConstructors() {
@@ -314,6 +319,89 @@ void ListTester::testModifiers() {
 		passed();
 }
 
+void ListTester::testOperations() {
+	std::list<int> first;
+	ft::list<int> ft_first;
+	for (int i = 1; i < 10; ++i) {
+		first.push_back(i * 10);
+		ft_first.push_back(i * 10);
+	}
+	std::list<int> second;
+	ft::list<int> ft_second;
+	for (int i = 1; i < 8; ++i) {
+		second.push_back(i);
+		ft_second.push_back(i);
+	}
+
+	std::cout << "\n--- splice() single element ---\n";
+	printStdlist(first);
+	printStdlist(second);
+	printFtlist(ft_first);
+	printFtlist(ft_second);
+
+/// a d v a n c i n g
+	std::list<int>::iterator itt = first.begin();
+	for (int i = 0; i < 5; ++i)
+		++itt;
+	ft::list<int>::iterator ft_itt = ft_first.begin();
+	for (int i = 0; i < 5; ++i)
+		++ft_itt;
+
+	std::list<int>::iterator it = second.begin();
+	for (int i = 0; i < 3; ++i)
+		++it;
+	ft::list<int>::iterator ft_it = ft_second.begin();
+	for (int i = 0; i < 3; ++i)
+		++ft_it;
+/// - - - - - - - - -
+
+	std::cout << "\n\n  *splicing . . .*\n";
+	first.splice(itt, second, it);
+	ft_first.splice(ft_itt, ft_second, ft_it);
+
+	printStdlist(first);
+	printStdlist(second);
+	printFtlist(ft_first);
+	printFtlist(ft_second);
+	std::cout << "\n";
+	if (!compareCustomlists(first, ft_first) && !compareCustomlists(second, ft_second))
+		passed();
+
+//	std::cout << "\n--- splice() entire list ---\n";
+//
+//
+//	std::cout << "--- splice() range ---";
+//
+//
+//	std::cout << "--- remove() ---";
+//
+//
+//	std::cout << "--- remove_if() ---";
+//
+//
+//	std::cout << "--- unique() ---";
+//
+//
+//	std::cout << "--- unique(BinaryPredicate) ---";
+//
+//
+//	std::cout << "--- merge(list) ---";
+//
+//
+//	std::cout << "--- merge(list, Compare) ---";
+//
+//
+//	std::cout << "--- sort() ---";
+//
+//
+//	std::cout << "--- sort(Compare) ---";
+//
+//
+//	std::cout << "--- reverse() ---";
+
+
+}
+
 void ListTester::testSwap() {
 	 std::cout << "--- swap() ---";
 
@@ -390,3 +478,19 @@ void ListTester::printCustomlists(std::list<int> &std_list, ft::list<int> &ft_li
 	}
 	std::cout << "\n";
 }
+
+void ListTester::printStdlist(std::list<int> &std_list) {
+	std::cout << "\nStd list: ";
+	for (std::list<int>::iterator it = std_list.begin(); it != std_list.end(); it++) {
+		std::cout << *it << ' ';
+	}
+}
+
+void ListTester::printFtlist(ft::list<int> &ft_list) {
+	std::cout << "\nFt list:  ";
+	for (ft::list<int>::iterator ft_it = ft_list.begin(); ft_it != ft_list.end(); ft_it++) {
+		std::cout << *ft_it << ' ';
+	}
+}
+
+#pragma clang diagnostic pop

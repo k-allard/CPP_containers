@@ -420,18 +420,88 @@ namespace ft
 	// O P E R A T I O N S
 	//
 
-	// void splice (iterator position, list& x); //   entire list
-	// void splice (iterator position, list& x, iterator i); // single element
-	// void splice (iterator position, list& x, iterator first, iterator last); // element range
-	// void remove (const value_type& val);
-	// template <class Predicate> void remove_if (Predicate pred);
-	// void unique();
-	// template <class BinaryPredicate> void unique (BinaryPredicate binary_pred);
-	// void merge (list& x);
-	// template <class Compare> void merge (list& x, Compare comp);
-	// void sort();
-	// template <class Compare> void sort (Compare comp);
-	// void reverse();
+	// splice() functions
+	//  - transfer elements of list x into the container
+	//  - do not involve the construction or destruction of any element
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::splice (iterator position, list& x) { 					//   entire list
+
+	}
+
+	template <typename T, typename Allocator>					//   куда			     из какого листа     откуда
+	void list<T, Allocator>::splice (   iterator position,   list& x,			 iterator i) { 		// single element
+
+		_node_pointer moved_node	= i._node;				// перемещаемая нода
+		_node_pointer next			= position._node;		// эта нода будет следующей за ней
+		_node_pointer prev			= (--position)._node;	// эта будет перед ней
+
+		// удаляем ноду из листа-листочника x
+		moved_node->prev->next 	= moved_node->next;
+		moved_node->next->prev 	= moved_node->prev;
+		x._size--;
+
+		// добавляем ноду в текущий лист
+		prev->next 				= moved_node;
+		moved_node->prev		= prev;
+		next->prev 				= moved_node;
+		moved_node->next 		= next;
+		_size++;
+	}
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::splice (iterator position, list& x, iterator first, iterator last) { 	// element range
+	}
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::remove (const value_type& val) {
+
+	}
+
+	 template <typename T, typename Allocator>
+	 template <class Predicate>
+	 void list<T, Allocator>::remove_if (Predicate pred) {
+
+	 }
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::unique() {
+
+	}
+
+
+	template <typename T, typename Allocator>
+	template <class BinaryPredicate>
+	 void list<T, Allocator>::unique (BinaryPredicate binary_pred) {
+
+	 }
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::merge (list& x) {
+
+	}
+
+	template <typename T, typename Allocator>
+	template <class Compare>
+	 void list<T, Allocator>::merge (list& x, Compare comp) {
+
+	 }
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::sort() {
+
+	}
+
+	template <typename T, typename Allocator>
+	template <class Compare>
+	 void list<T, Allocator>::sort (Compare comp) {
+
+	 }
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::reverse() {
+
+	}
 
 	//
 	//  N O N - M E M B E R S
