@@ -304,8 +304,15 @@ namespace ft
 	//  M O D I F I C A T I O N
 	//
 
-	// void push_front (const value_type& val);
-	// void pop_front();
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::push_front (const value_type& val) {
+		insert(begin(), val);
+	}
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::pop_front() {
+		erase(begin());
+	}
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::push_back (const value_type& val) {

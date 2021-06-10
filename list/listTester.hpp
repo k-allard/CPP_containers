@@ -193,6 +193,22 @@ void ListTester::testModifiers() {
 	if (!compareCustomlists(first, ft_first))
 		passed();
 
+	std::cout << "--- push_front() ---";
+	first.push_front(1);
+	first.push_front(0);
+	ft_first.push_front(1);
+	ft_first.push_front(0);
+	printCustomlists(first,ft_first);
+	if (!compareCustomlists(first, ft_first))
+		passed();
+
+	std::cout << "--- pop_front() ---";
+	first.pop_front();
+	ft_first.pop_front();
+	printCustomlists(first,ft_first);
+	if (!compareCustomlists(first, ft_first))
+		passed();
+
 	std::cout << "--- push_back() ---";
 	first.push_back(7);
 	first.push_back(14);
