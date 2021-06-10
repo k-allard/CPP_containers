@@ -492,7 +492,16 @@ namespace ft
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::remove (const value_type& val) {
-
+		ft::list<int>::iterator it = begin();
+		while (it != end()) {
+			if (*it == val) {
+				std::cout << "Found " << val << "!!!" << std::endl;
+			}
+			else {
+				std::cout << "[" << *it << "]" << std::endl;
+			}
+			++it;
+		}
 	}
 
 	 template <typename T, typename Allocator>

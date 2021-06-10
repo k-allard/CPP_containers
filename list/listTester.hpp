@@ -424,11 +424,17 @@ void ListTester::testOperations() {
 	if (!compareCustomlists(first, ft_first) && !compareCustomlists(second, ft_second))
 		passed();
 
-//
-//
-//	std::cout << "--- remove() ---";
-//
-//
+
+	std::cout << "--- remove() ---\n";
+
+	second.remove(90);
+	second.remove(4);
+	ft_second.remove(90);
+	ft_second.remove(4);
+
+	printCustomlists(second, ft_second);
+	if (!compareCustomlists(second, ft_second))
+		passed();
 //	std::cout << "--- remove_if() ---";
 //
 //
