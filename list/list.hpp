@@ -507,7 +507,16 @@ namespace ft
 	 template <typename T, typename Allocator>
 	 template <class Predicate>
 	 void list<T, Allocator>::remove_if (Predicate pred) {
-
+	 	ft::list<int>::iterator it = begin();
+		 while (it != end()) {
+			 if (pred(*it)) {
+				 ft::list<int>::iterator itt = it;
+				 ++it;
+				 erase(itt);
+			 }
+			 else
+				 ++it;
+		 }
 	 }
 
 	template <typename T, typename Allocator>

@@ -32,6 +32,14 @@ private:
 	static void printCustomlists(std::list<int> &std_list, ft::list<int> &ft_list);
 	void printStdlist(std::list<int> &std_list);
 	void printFtlist(ft::list<int> &ft_list);
+
+	// a predicate implemented as a function:
+	bool single_digit (const int& value) { return (value < 10); }
+
+	// a predicate implemented as a class:
+	struct is_odd {
+		bool operator() (const int& value) { return (value % 2) == 1; }
+	};
 };
 
 void ListTester::testConstructors() {
@@ -424,7 +432,6 @@ void ListTester::testOperations() {
 	if (!compareCustomlists(first, ft_first) && !compareCustomlists(second, ft_second))
 		passed();
 
-
 	std::cout << "--- remove() ---\n";
 
 	second.remove(90);
@@ -436,7 +443,19 @@ void ListTester::testOperations() {
 	if (!compareCustomlists(second, ft_second))
 		passed();
 
-//	std::cout << "--- remove_if() ---";
+	std::cout << "--- remove_if() ---";
+
+	int myints[]= {15,36,7,17,20,39,4,1};
+	std::list<int> third (myints,myints+8);   // 15 36 7 17 20 39 4 1
+	printStdlist(third);
+	bool (ListTester::*func)(const int& value);
+	func = &ListTester::single_digit;
+	third.remove_if(&func);        		   // 15 36 17 20 39
+	third.remove_if(is_odd());               // 36 20
+	printStdlist(third);
+
+
+
 //
 //
 //	std::cout << "--- unique() ---";
