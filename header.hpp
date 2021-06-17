@@ -27,3 +27,7 @@ struct node
 #include "list/listIterator.hpp"
 #include "list/list.hpp"
 #include "list/listTester.hpp"
+
+#include "map/mapIterator.hpp"
+#include "map/map.hpp"
+#include "map/mapTester.hpp"
