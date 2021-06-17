@@ -52,8 +52,8 @@ namespace ft
 		listConstIterator & operator=(const listConstIterator &src) { _node = src._node; return (*this); }
 		~listConstIterator() {}
 
-		reference operator*() const { return (*_node->data); }
-		ptr operator->() {return (_node->data);}
+		reference operator*() const { return (_node->data); }
+		ptr operator->() {return (&_node->data);}
 		listConstIterator &operator++() { _node = _node->next; return (*this); }
 		listConstIterator &operator--() { _node = _node->prev; return (*this); }
 		listConstIterator operator++(int);

@@ -3,26 +3,26 @@
 
 int main()
 {
-// VectorTester *vectorTester = new VectorTester;
-//     vectorTester->testConstructors();
-// 	vectorTester->testAssignations();
-// 	vectorTester->testCapacity();
-// 	vectorTester->testElementAccess();
-// 	vectorTester->testIterators();
-// 	vectorTester->testModifiers();
-// 	vectorTester->testSwap();
-// 	vectorTester->testRelationalOperators();
+VectorTester *vectorTester = new VectorTester;
+    vectorTester->testConstructors();
+	vectorTester->testAssignations();
+	vectorTester->testCapacity();
+	vectorTester->testElementAccess();
+	vectorTester->testIterators();
+	vectorTester->testModifiers();
+	vectorTester->testSwap();
+	vectorTester->testRelationalOperators();
 
 ListTester *listTester = new ListTester;
-//    listTester->testConstructors();
-//	listTester->testAssignations();
-//	listTester->testCapacity();
-//	 listTester->testElementAccess();
-//	listTester->testIterators();
-//	listTester->testModifiers();
+   listTester->testConstructors();
+	listTester->testAssignations();
+	listTester->testCapacity();
+	 listTester->testElementAccess();
+	listTester->testIterators();
+	listTester->testModifiers();
 	listTester->testOperations();
-//	 listTester->testSwap();
-	// listTester->testRelationalOperators();
+	 listTester->testSwap();
+	listTester->testRelationalOperators();
 
     return 0;
 }

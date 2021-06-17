@@ -17,7 +17,7 @@ bool same_integral_part (double first, double second) {
 
 // compare only integral part:
 bool mycomparison (double first, double second)
-{ return ( int(first)<int(second) ); }
+{ return ( int(first) < int(second) ); }
 
 
 class ListTester {
@@ -581,6 +581,8 @@ void ListTester::testOperations() {
 	printStdlist(std_d_second);
 	printFtlist(ft_d_first);
 	printFtlist(ft_d_second);
+	std::cout << "\n\n  *merging . . .*\n";
+
 	std_d_first.merge(std_d_second, mycomparison);
 	ft_d_first.merge(ft_d_second, mycomparison);
 	printStdlist(std_d_first);
@@ -592,52 +594,88 @@ void ListTester::testOperations() {
 	if (!compareStdFtLists(std_d_first, ft_d_first) && !compareStdFtLists(std_d_second, ft_d_second))
 		passed();
 
-//	std::cout << "--- sort(Compare) ---";
-//
-//
-//	std::cout << "--- reverse() ---";
+	std::cout << "--- sort(Compare) ---";
+	std_d_first.clear();
+	ft_d_first.clear();
 
+	std_d_first.push_back (3.1);
+	std_d_first.push_back (2.9);
+	std_d_first.push_back (2.2);
+
+	ft_d_first.push_back (3.1);
+	ft_d_first.push_back (2.9);
+	ft_d_first.push_back (2.2);
+
+	printStdFtLists(std_d_first, ft_d_first);
+	std::cout << "\n\n  *sorting . . .*\n";
+	std_d_first.sort(mycomparison);
+	ft_d_first.sort(mycomparison);
+	printStdFtLists(std_d_first, ft_d_first);
+	if (!compareStdFtLists(std_d_first, ft_d_first))
+		passed();
+
+
+	std::cout << "--- reverse() ---";
+	std_d_first.reverse();
+	ft_d_first.reverse();
+	printStdFtLists(std_d_first, ft_d_first);
+	if (!compareStdFtLists(std_d_first, ft_d_first))
+		passed();
 
 }
 
 void ListTester::testSwap() {
-	 std::cout << "--- swap() ---";
+	std::cout << "--- swap() ---";
 
-	 std::list<int> first (3,100);   // three ints with a value of 100
-	 ft::list<int> ft_first (3,100);   // three ints with a value of 100
+	std::list<int> first (3,100);   // three ints with a value of 100
+	ft::list<int> ft_first (3,100);   // three ints with a value of 100
 
-	 std::list<int> second (5,200);   // five ints with a value of 200
-	 ft::list<int> ft_second (5,200);   // five ints with a value of 200
+	std::list<int> second (5,200);   // five ints with a value of 200
+	ft::list<int> ft_second (5,200);   // five ints with a value of 200
 	printStdFtLists(first, ft_first);
 	printStdFtLists(second, ft_second);
 
-	 first.swap(second);
-	 ft_first.swap(ft_second);
+	std::cout << "\n\n  *swaping . . .*\n";
+	first.swap(second);
+	ft_first.swap(ft_second);
 
 	printStdFtLists(first, ft_first);
 	printStdFtLists(second, ft_second);
 
-	 if (!compareStdFtLists(first, ft_first) && !compareStdFtLists(second, ft_second))
+	if (!compareStdFtLists(first, ft_first) && !compareStdFtLists(second, ft_second))
 	 	passed();
+
+	std::cout << "--- swap() non-member overload ---";
+	std::cout << "\n\n  *swaping . . .*\n";
+	std::swap(first, second);
+	ft::swap(ft_first, ft_second);
+
+	printStdFtLists(first, ft_first);
+	printStdFtLists(second, ft_second);
+
+	if (!compareStdFtLists(first, ft_first) && !compareStdFtLists(second, ft_second))
+	 	passed();
+
+
 }
 
 void ListTester::testRelationalOperators() {
-	// std::cout << "--- relational operators ---\n";
+	std::cout << "--- relational operators ---\n";
 
-	// std::list<int> first (3,100);   // three ints with a value of 100
-	// std::list<int> second (2,200);   // two ints with a value of 200
-	// ft::list<int> ft_first (3,100);   // three ints with a value of 100
-	// ft::list<int> ft_second (2,200);   // two ints with a value of 200
+	std::list<int> first (3,100);   // three ints with a value of 100
+	std::list<int> second (2,200);   // two ints with a value of 200
+	ft::list<int> ft_first (3,100);   // three ints with a value of 100
+	ft::list<int> ft_second (2,200);   // two ints with a value of 200
 
-	// if ((first==second) == (ft_first==ft_second) && \
-	// 	(first!=second) == (ft_first!=ft_second) && \
-	// 	(first< second) == (ft_first< ft_second)  && \
-	// 	(first> second) == (ft_first> ft_second)  && \
-	// 	(first<=second) == (ft_first<=ft_second) && \
-	// 	(first>=second) == (ft_first>=ft_second))
-	// 		passed();
-	// else
-	// 	std::cout << RED << "FAIL ❌\n" << NC;
+	if ((first==second) == (ft_first==ft_second) && \
+		(first!=second) == (ft_first!=ft_second) && \
+		(first< second) == (ft_first< ft_second)  && \
+		(first> second) == (ft_first> ft_second)  && \
+		(first<=second) == (ft_first<=ft_second) && \
+		(first>=second) == (ft_first>=ft_second))
+			passed();
+	else
+		std::cout << RED << "FAIL ❌\n" << NC;
 }
 
 void ListTester::passed() {

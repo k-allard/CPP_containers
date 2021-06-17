@@ -620,7 +620,15 @@ namespace ft
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::reverse() {
-
+		iterator first = this->begin();
+		iterator end = this->end();
+		for (size_type i = 0; i < _size / 2; i++) {
+			end--;
+			value_type temp = *first;
+			*first = *end;
+			*end = temp;
+			first++;
+		}
 	}
 
 	//
@@ -628,20 +636,58 @@ namespace ft
 	//
 
 	template <class T, class Alloc>
-	void swap (list<T,Alloc>& x, list<T,Alloc>& y);
+	void swap (list<T,Alloc>& x, list<T,Alloc>& y) { x.swap(y); }
 
 	template <class T, class Alloc>
-	bool operator== (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs);
+	bool operator== (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
+		if (lhs.size() != rhs.size())
+			return (false);
+		typename list<T, Alloc>::const_iterator lhs_begin = lhs.begin(), rhs_begin = rhs.begin();
+		for (typename list<T, Alloc>::size_type i = 0; i < lhs.size(); i++) {
+			if (*lhs_begin != *rhs_begin)
+				return (false);
+			lhs_begin++;
+			rhs_begin++;
+		}
+			
+		return (true);
+	}
+
 	template <class T, class Alloc>
-	bool operator!= (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs);
+	bool operator!= (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
+		return (!(lhs == rhs));
+	}
+
 	template <class T, class Alloc>
-	bool operator<  (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs);
+	bool operator< (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
+		return (rhs > lhs);
+	}
+
 	template <class T, class Alloc>
-	bool operator<= (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs);
+	bool operator<= (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
+		return (!(rhs < lhs));
+	}
+
 	template <class T, class Alloc>
-	bool operator>  (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs);
+	bool operator> (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
+		typename list<T, Alloc>::const_iterator lhs_begin = lhs.begin(), rhs_begin = rhs.begin();
+		for (typename list<T, Alloc>::size_type i = 0; i < lhs.size(); i++) {
+			if (*lhs_begin < *rhs_begin)
+				return (false);
+			else if (*lhs_begin > *rhs_begin)
+				return (true);
+			lhs_begin++; 
+			rhs_begin++;
+		}
+		if (lhs.size() < rhs.size())
+			return (true);
+		return (false);
+	}
+
 	template <class T, class Alloc>
-	bool operator>= (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs);
+	bool operator>= (const list<T,Alloc>& lhs, const list<T,Alloc>& rhs) {
+		return (!(lhs < rhs));
+	}
 }
 
 #endif
