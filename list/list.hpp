@@ -41,10 +41,9 @@ namespace ft
 		//  C O N S T R U C T O R S  &  D E S T R U C T O R
 		//
 
-		list (const allocator_type& alloc = allocator_type());   // default
-		list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());    // fill
-	
-		template <class InputIterator> list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());    // range
+		explicit list (const allocator_type& alloc = allocator_type());   // default
+		explicit list (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type());    // fill
+		 template <class InputIterator> list (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type());    // range
 		list (const list& x);   // copy
 		~list();
 
@@ -73,9 +72,10 @@ namespace ft
 		//  C A P A C I T Y
 		//
 
-		bool empty() const;
+		bool empty() const { return (_size == 0); }
 		size_type size() const { return (_size); }
-		size_type max_size() const;
+		size_type max_size() const ;
+
 
 		//
 		//  E L E M E N T   A C C E S S
@@ -275,24 +275,44 @@ namespace ft
 	//  C A P A C I T Y
 	//
 
-	// bool empty() const;
-	// size_type max_size() const;
-
+	template <class T, class Allocator>
+	typename list<T, Allocator>::size_type list<T, Allocator>::max_size() const {
+		return (std::numeric_limits<size_type>::max() / sizeof(_node));
+	}
 	//
 	//  E L E M E N T   A C C E S S
 	//
 
-	// reference front();
-	// const_reference front() const;
-	// reference back();
-	// const_reference back() const;
+	template <class T, class Allocator>
+	typename list<T, Allocator>::reference list<T, Allocator>::front() {
+		return (_end->next->data);
+	}
+	template <class T, class Allocator>
+	typename list<T, Allocator>::const_reference list<T, Allocator>::front() const {
+		return (_end->next->data);
+	}
+	template <class T, class Allocator>
+	typename list<T, Allocator>::reference list<T, Allocator>::back() {
+		return (_end->prev->data);
+	}
+	template <class T, class Allocator>
+	typename list<T, Allocator>::const_reference list<T, Allocator>::back() const {
+		return (_end->prev->data);
+	}
 
 	//
 	//  M O D I F I C A T I O N
 	//
 
-	// void push_front (const value_type& val);
-	// void pop_front();
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::push_front (const value_type& val) {
+		insert(begin(), val);
+	}
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::pop_front() {
+		erase(begin());
+	}
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::push_back (const value_type& val) {
@@ -316,11 +336,13 @@ namespace ft
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::_insert(iterator position, int n, T val, ft::is_int) {
 		while (n--)
-			insert(position, val);
+			position = insert(position, val);
 	}
-	
+
+
+
 	template <typename T, typename Allocator>
-	template <typename InputIterator> 
+	template <typename InputIterator>
 	void list<T, Allocator>::_insert(iterator position, InputIterator first, InputIterator last, ft::not_int) {
 		while (first != last) {
 			T *val = new T(*(first++));	//TODO: Allocator
@@ -333,9 +355,9 @@ namespace ft
 	typename list<T, Allocator>::iterator list<T, Allocator>::insert (iterator position, const value_type& val) {		// single element
 		_node_pointer temp = new _node(val);
 		temp->next = position._node;
-		temp->next->prev = temp;
 		temp->prev = position._node->prev;
 		temp->prev->next = temp;
+		temp->next->prev = temp;
 		_size++;
 		return (iterator(temp));
 	}
@@ -343,20 +365,51 @@ namespace ft
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::insert (iterator position, size_type n, const value_type& val) {							// fill
 		while (n--)
-			insert(position, val);
+			position = insert(position, val);
 	}
 
 	template <typename T, typename Allocator>
-	template <class InputIterator> 
+	template <class InputIterator>
 	void list<T, Allocator>::insert (iterator position, InputIterator first, InputIterator last) {						// range
 		typedef typename is_integer<InputIterator>::type res;
 		_insert(position, first, last, res());
 	}
 
-	// iterator erase (iterator position);
-	// iterator erase (iterator first, iterator last);
-	// void swap (list& x);
-	// void resize (size_type n, value_type val = value_type());
+	template <typename T, typename Allocator>
+	typename list<T, Allocator>::iterator list<T, Allocator>::erase (iterator position) {
+		iterator ret_temp = position;
+		ret_temp++;
+		_node_pointer temp = position._node;
+		temp->prev->next = temp->next;
+		temp->next->prev = temp->prev;
+		delete temp;
+		_size--;
+		return(ret_temp);
+	}
+
+	template <typename T, typename Allocator>
+	typename list<T, Allocator>::iterator list<T, Allocator>::erase (iterator first, iterator last) {
+		iterator temp = first;
+		while (temp != last && temp != end())
+			temp = erase(temp);
+		return (temp);
+	}
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::swap (list& x) {
+		list<T, Allocator> temp = *this;
+		*this = x;
+		x = temp;
+		temp.clear();
+	}
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::resize (size_type n, value_type val) {
+		while (n < _size)
+			pop_back();
+		while (n > _size)
+			push_back(val);
+	 }
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::clear() {
@@ -368,18 +421,200 @@ namespace ft
 	// O P E R A T I O N S
 	//
 
-	// void splice (iterator position, list& x); //   entire list
-	// void splice (iterator position, list& x, iterator i); // single element
-	// void splice (iterator position, list& x, iterator first, iterator last); // element range
-	// void remove (const value_type& val);
-	// template <class Predicate> void remove_if (Predicate pred);
-	// void unique();
-	// template <class BinaryPredicate> void unique (BinaryPredicate binary_pred);
-	// void merge (list& x);
-	// template <class Compare> void merge (list& x, Compare comp);
-	// void sort();
-	// template <class Compare> void sort (Compare comp);
-	// void reverse();
+	// splice() functions
+	//  - transfer elements of list x into the container
+	//  - do not involve the construction or destruction of any element
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::splice (iterator position, list& x) { 					//   entire list
+		_node_pointer first_moved_node = x.begin()._node;	//1ая перемещаемая нода
+		_node_pointer last_moved_node = (--x.end())._node;	//последняя перемещаемая нода
+		_node_pointer next = position._node;				// эта нода будет следующей за ними
+		_node_pointer prev = (--position)._node;			// эта будет перед ними
+		int node_count = x._size;
+
+		// удаляем ноды из листа-листочника x
+		x.end()._node->next = x.end()._node;
+		x.end()._node->prev = x.end()._node;
+		x._size = 0;
+
+		// добавляем ноды в текущий лист
+		prev->next = first_moved_node;
+		next->prev = last_moved_node;
+		first_moved_node->prev = prev;
+		last_moved_node->next = next;
+		_size += node_count;
+	}
+
+	template <typename T, typename Allocator>					//   куда			     из какого листа     откуда
+	void list<T, Allocator>::splice (   iterator position,   list& x,			 iterator i) { 		// single element
+		_node_pointer moved_node = i._node;				// перемещаемая нода
+		_node_pointer next = position._node;			// эта нода будет следующей за ней
+		_node_pointer prev= (--position)._node;			// эта будет перед ней
+
+		// удаляем ноду из листа-листочника x
+		moved_node->prev->next = moved_node->next;
+		moved_node->next->prev = moved_node->prev;
+		x._size--;
+
+		// добавляем ноду в текущий лист
+		prev->next = moved_node;
+		moved_node->prev = prev;
+		next->prev = moved_node;
+		moved_node->next = next;
+		_size++;
+	}
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::splice (iterator position, list& x, iterator first, iterator last) { 	// element range
+		size_type node_count = 0;
+
+		_node_pointer first_moved_node = first._node;	// 1ая перемещаемая нода
+		_node_pointer last_moved_node = (--last)._node;	// последняя перемещаемая нода
+		_node_pointer next = position._node;			// эта нода будет следующей за ними
+		_node_pointer prev= (--position)._node;			// эта будет перед ними
+
+		while (first++ != last)
+			node_count++;
+		node_count++;
+
+		// удаляем ноды из листа-листочника x
+		first_moved_node->prev->next = last_moved_node->next;
+		last_moved_node->next->prev = first_moved_node->prev;
+		x._size -= node_count;
+
+		// добавляем ноды в текущий лист
+		prev->next = first_moved_node;
+		first_moved_node->prev = prev;
+		next->prev = last_moved_node;
+		last_moved_node->next = next;
+		_size += node_count;
+	}
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::remove (const value_type& val) {
+		iterator it = begin();
+		while (it != end()) {
+			if (*it == val) {
+				ft::list<int>::iterator itt = it;
+				++it;
+				erase(itt);
+			}
+			else
+				++it;
+		}
+	}
+
+	 template <typename T, typename Allocator>
+	 template <class Predicate>
+	 void list<T, Allocator>::remove_if (Predicate pred) {
+	 	iterator it = begin();
+		 while (it != end()) {
+			 if (pred(*it)) {
+				 ft::list<int>::iterator itt = it;
+				 ++it;
+				 erase(itt);
+			 }
+			 else
+				 ++it;
+		 }
+	 }
+
+	// removes all but the first element from every consecutive group of equal elements in the container
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::unique() {
+		iterator it = begin();
+		iterator it_next = ++begin();
+
+		while (it_next != end()) {
+			if (*it == *it_next) {
+				it_next = erase(it_next);
+			}
+			else {
+				++it;
+				++it_next;
+			}
+		}
+	}
+
+
+	template <typename T, typename Allocator>
+	template <class BinaryPredicate>
+	 void list<T, Allocator>::unique (BinaryPredicate binary_pred) {
+		iterator it = begin();
+		iterator it_next = ++begin();
+
+		while (it_next != end()) {
+			if (binary_pred(*it, *it_next)) {
+				it_next = erase(it_next);
+			}
+			else {
+				++it;
+				++it_next;
+			}
+		}
+	 }
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::merge (list& x) {
+
+	}
+
+	template <typename T, typename Allocator>
+	template <class Compare>
+	 void list<T, Allocator>::merge (list& x, Compare comp) {
+
+	 }
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::sort() {
+		iterator temp = begin();
+		iterator next = ++begin();
+		value_type data;
+		if (empty())
+			return ;
+		while (next != end()) {
+			if (*next < *temp) {
+				data = *next;
+				*next = *temp;
+				*temp = data;
+				next = ++begin();
+				temp = begin();
+			}
+			else {
+				temp++;
+				next++;
+			}
+		}
+	}
+
+	template <typename T, typename Allocator>
+	template <class Compare>
+	 void list<T, Allocator>::sort (Compare comp) {
+		iterator temp = begin();
+		iterator next = ++begin();
+		value_type data;
+		if (empty())
+			return ;
+		while (next != end()) {
+			if (comp(*next, *temp)) {
+				data = *next;
+				*next = *temp;
+				*temp = data;
+				next = ++begin();
+				temp = begin();
+			}
+			else {
+				temp++;
+				next++;
+			}
+		}
+	 }
+
+	template <typename T, typename Allocator>
+	void list<T, Allocator>::reverse() {
+
+	}
 
 	//
 	//  N O N - M E M B E R S
