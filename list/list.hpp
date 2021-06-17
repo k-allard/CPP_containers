@@ -467,28 +467,8 @@ namespace ft
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::splice (iterator position, list& x, iterator first, iterator last) { 	// element range
-		size_type node_count = 0;
-
-		_node_pointer first_moved_node = first._node;	// 1ая перемещаемая нода
-		_node_pointer last_moved_node = (--last)._node;	// последняя перемещаемая нода
-		_node_pointer next = position._node;			// эта нода будет следующей за ними
-		_node_pointer prev= (--position)._node;			// эта будет перед ними
-
-		while (first++ != last)
-			node_count++;
-		node_count++;
-
-		// удаляем ноды из листа-листочника x
-		first_moved_node->prev->next = last_moved_node->next;
-		last_moved_node->next->prev = first_moved_node->prev;
-		x._size -= node_count;
-
-		// добавляем ноды в текущий лист
-		prev->next = first_moved_node;
-		first_moved_node->prev = prev;
-		next->prev = last_moved_node;
-		last_moved_node->next = next;
-		_size += node_count;
+		while (first != last)
+			splice(position, x, first++);
 	}
 
 	template <typename T, typename Allocator>
@@ -555,15 +535,42 @@ namespace ft
 		}
 	 }
 
+	// both lists should be sorted in ascending order before calling this func
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::merge (list& x) {
-
+		if (this == &x || !x.size())
+			return ;
+		iterator first = this->begin();
+		iterator end = this->end();
+		iterator x_first = x.begin();
+		iterator x_end = x.end();
+		while (first != end && x_first != x_end) {
+			if (*first > *x_first)
+				splice(first, x, x_first++);
+			else
+				first++;
+		}
+		splice(this->end(), x, x.begin(), x_end);
 	}
 
+	// merges lists doing internal comparisons
 	template <typename T, typename Allocator>
 	template <class Compare>
 	 void list<T, Allocator>::merge (list& x, Compare comp) {
+		if (this == &x)
+			return ;
+		iterator first = this->begin();
+		iterator end = this->end();
+		iterator x_first = x.begin();
+		iterator x_end = x.end();
 
+		while (first != end && x_first != x_end) {
+			if (comp(*x_first, *first))
+				splice(first, x, x_first++);
+			else
+				first++;
+		}
+		splice(end, x, x.begin(), x.end());
 	 }
 
 	template <typename T, typename Allocator>

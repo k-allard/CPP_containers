@@ -479,6 +479,7 @@ namespace ft {
 				if (this != &x && x.size()) {
 					iterator first = this->begin(), end = this->end();
 					iterator xFirst = x.begin(), xEnd = x.end();
+					
 					while (first != end && xFirst != xEnd) {
 						if (comp(*xFirst, *first))
 							splice(first, x, xFirst++);

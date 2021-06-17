@@ -15,8 +15,12 @@ bool same_integral_part (double first, double second) {
 	return ( int(first) == int(second) );
 }
 
-class ListTester {
+// compare only integral part:
+bool mycomparison (double first, double second)
+{ return ( int(first)<int(second) ); }
 
+
+class ListTester {
 public:
 	ListTester() {
 		std::cout << " - - - - - - - - - - - - - - - - - - - -";
@@ -522,14 +526,72 @@ void ListTester::testOperations() {
 	if (!compareStdFtLists(fifth, ft_fifth))
 		passed();
 
-//	std::cout << "--- merge(list) ---";
-//
-//
-//	std::cout << "--- merge(list, Compare) ---";
-//
-//
-//
-//
+	std::cout << "--- merge(list) ---";
+  	std::list<double> std_d_first, std_d_second;
+  	ft::list<double> ft_d_first, ft_d_second;
+
+	std_d_first.push_back (3.1);
+	std_d_first.push_back (2.2);
+	std_d_first.push_back (2.9);
+	std_d_second.push_back (3.7);
+	std_d_second.push_back (7.1);
+	std_d_second.push_back (1.4);
+
+	ft_d_first.push_back (3.1);
+	ft_d_first.push_back (2.2);
+	ft_d_first.push_back (2.9);
+	ft_d_second.push_back (3.7);
+	ft_d_second.push_back (7.1);
+	ft_d_second.push_back (1.4);
+
+	printStdlist(std_d_first);
+	printStdlist(std_d_second);
+	printFtlist(ft_d_first);
+	printFtlist(ft_d_second);
+
+	std::cout << "\n\n  *sorting . . .*\n";
+
+	std_d_first.sort();
+	std_d_second.sort();
+	ft_d_first.sort();
+	ft_d_second.sort();
+
+	printStdlist(std_d_first);
+	printStdlist(std_d_second);
+	printFtlist(ft_d_first);
+	printFtlist(ft_d_second);
+
+	std::cout << "\n\n  *merging . . .*\n";
+	std_d_first.merge(std_d_second);
+	ft_d_first.merge(ft_d_second);
+	printStdlist(std_d_first);
+	printStdlist(std_d_second);
+	printFtlist(ft_d_first);
+	printFtlist(ft_d_second);
+
+	std::cout << std::endl;
+	if (!compareStdFtLists(std_d_first, ft_d_first) && !compareStdFtLists(std_d_second, ft_d_second))
+		passed();
+
+	std::cout << "\n--- merge(list, Compare) ---";
+	std_d_second.push_back (2.1);
+	ft_d_second.push_back (2.1);
+
+	printStdlist(std_d_first);
+	printStdlist(std_d_second);
+	printFtlist(ft_d_first);
+	printFtlist(ft_d_second);
+	std_d_first.merge(std_d_second, mycomparison);
+	ft_d_first.merge(ft_d_second, mycomparison);
+	printStdlist(std_d_first);
+	printStdlist(std_d_second);
+	printFtlist(ft_d_first);
+	printFtlist(ft_d_second);
+
+	std::cout << std::endl;
+	if (!compareStdFtLists(std_d_first, ft_d_first) && !compareStdFtLists(std_d_second, ft_d_second))
+		passed();
+
 //	std::cout << "--- sort(Compare) ---";
 //
 //
