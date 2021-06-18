@@ -31,7 +31,7 @@ namespace ft
 	private:
 		allocator_type						_allocator;
 		size_type							_size;
-		typedef node<T>						_node;
+		typedef ListNode<T>						_node;
 		typedef _node *						_node_pointer;
 		_node_pointer						_end;
 
@@ -137,7 +137,7 @@ namespace ft
 	void list<T, Allocator>::defaultListBuild(const allocator_type& alloc) {
 		_allocator = alloc;
 		_size = 0;
-		_end = new node<value_type>();
+		_end = new ListNode<value_type>();
 		_end->next = _end;
 		_end->prev = _end;
 	}
@@ -316,7 +316,7 @@ namespace ft
 
 	template <typename T, typename Allocator>
 	void list<T, Allocator>::push_back (const value_type& val) {
-		_node_pointer newNode 	= new node<value_type>(val);
+		_node_pointer newNode 	= new ListNode<value_type>(val);
 		newNode->next 			= _end;
 		newNode->prev 			= _end->prev;
 		_end->prev->next 		= newNode;

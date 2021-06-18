@@ -16,7 +16,7 @@ namespace ft
 		typedef T1						value_type;
 		typedef T1&						reference;
 		typedef T1*						ptr;
-		typedef node<T1>*				node_ptr;
+		typedef ListNode<T1>*				node_ptr;
 		node_ptr						_node;
 
 		listIterator() : _node(nullptr) {}
@@ -43,7 +43,7 @@ namespace ft
 		typedef const T1				value_type;
 		typedef const T1&				reference;
 		typedef const T1*				ptr;
-		typedef node<T1>*				node_ptr;
+		typedef ListNode<T1>*				node_ptr;
 		node_ptr						_node;
 
 		listConstIterator() : _node(nullptr) {}
@@ -68,7 +68,7 @@ namespace ft
 		typedef T1						value_type;
 		typedef T1&						reference;
 		typedef T1*						ptr;
-		typedef node<T1>*				node_ptr;
+		typedef ListNode<T1>*				node_ptr;
 		node_ptr						_node;
 
 		listRevIterator() : _node(nullptr) {}
@@ -93,7 +93,7 @@ namespace ft
 		typedef const T1						value_type;
 		typedef const T1&						reference;
 		typedef const T1*						ptr;
-		typedef const node<T1>*					node_ptr;
+		typedef const ListNode<T1>*					node_ptr;
 		node_ptr								_node;
 
 		listConstRevIterator() : _node(nullptr) {}

@@ -25,7 +25,7 @@ int main()
 	// listTester->testRelationalOperators();
 
 	MapTester *mapTester = new MapTester;
-	// mapTester->testConstructors();
+	mapTester->testConstructors();
 	// mapTester->testAssignations();
 	// mapTester->testIterators();
 	// mapTester->testCapacity();

@@ -8,9 +8,9 @@ class VectorTester {
 
 public:
 	VectorTester() {
-		std::cout << " - - - - - - - - - - - - - - - - - - - - - -";
-		std::cout << "\n" << " - - - - - - - - V E C T O R - - - - - - - - " << "\n";
-		std::cout << " - - - - - - - - - - - - - - - - - - - - - -\n";
+		std::cout << " - - - - - - - - - - - - - - - - - - - - - - - -";
+		std::cout << "\n" << " - - - - - - - - - V E C T O R - - - - - - - - - " << "\n";
+		std::cout << " - - - - - - - - - - - - - - - - - - - - - - - -\n";
 	}
 	void testConstructors();
 	void testAssignations();

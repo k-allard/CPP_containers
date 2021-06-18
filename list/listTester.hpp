@@ -23,9 +23,9 @@ bool mycomparison (double first, double second)
 class ListTester {
 public:
 	ListTester() {
-		std::cout << " - - - - - - - - - - - - - - - - - - - -";
-		std::cout << "\n" << " - - - - - - - - L I S T - - - - - - - - " << "\n";
-		std::cout << " - - - - - - - - - - - - - - - - - - - -\n";
+		std::cout << " - - - - - - - - - - - - - - - - - - - - - - - -";
+		std::cout << "\n" << " - - - - - - - - - - L I S T - - - - - - - - - - " << "\n";
+		std::cout << " - - - - - - - - - - - - - - - - - - - - - - - -\n";
 	}
 	void testConstructors();
 	void testAssignations();
