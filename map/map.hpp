@@ -29,6 +29,7 @@ namespace ft
 		typedef const value_type * const_pointer;
 		typedef RBTree<Key, T, compare> tree_type;
 		typedef MapIterator<T, Key>	iterator;
+        typedef MapIterator<T, Key>	const_iterator;
 
         typedef TreeNode<Key, T>		_node;
 		typedef _node *					_node_pointer;
@@ -42,7 +43,8 @@ namespace ft
 	** --------------------------------------------------------------------------------
 	*/
 		explicit
-		map(const compare &comp = compare(), const allocator_type &allocator = allocator_type()) : _allocator(allocator), _compare(comp) {}//, _value_comp(comp) {}
+		map(const compare &comp = compare(), const allocator_type &allocator = allocator_type()) : _allocator(allocator), _compare(comp) {
+		}//, _value_comp(comp) {}
 		
         // template <class InputIterator>
 		// map(InputIterator first, InputIterator last, const compare &comp = compare(), const allocator_type &allocator = allocator_type())
@@ -52,18 +54,18 @@ namespace ft
 		// 	insert(first, last);
 		// }
 
-		// map(const map &x)
-		// {
-		// 	_allocator = x._allocator;
-		// 	_compare = x._compare;
-		// 	insert(x.begin(), x.end());
-		// }
+		 map(const map &x)
+		 {
+		 	_allocator = x._allocator;
+		 	_compare = x._compare;
+		 	insert(x.begin(), x.end());
+		 }
 
-		~map()
-		{
-			clear();
-			delete _tree.maximum(_tree.getRoot());
-		}
+//		~map()
+//		{
+//			clear();
+//			//delete _tree.maximum(_tree.getRoot());
+//		}
 
 		map &operator=(const map &x)
 		{
@@ -90,9 +92,9 @@ namespace ft
 	// ** --------------------------------------------------------------------------------
 	// */
 		iterator				begin() 			{return (iterator(_tree.minimum(_tree.getRoot())));}
-	// 	const_iterator			begin() const 		{return (const_iterator(_tree._begin));}
+	 	const_iterator			begin() const 		{return (const_iterator(_tree.minimum(_tree.getRoot())));}
 		iterator				end() 				{return (iterator(_tree.maximum(_tree.getRoot())));}
-	// 	const_iterator			end() const 		{return (const_iterator(_tree._end));}
+	 	const_iterator			end() const 		{return (const_iterator(_tree.maximum(_tree.getRoot())));}
 	// 	reverse_iterator		rbegin() 			{return (reverse_iterator(_tree._end->parent ? _tree._end->parent : _tree._end));}
 	// 	const_reverse_iterator	rbegin() const 		{return (const_reverse_iterator(_tree._end->parent ? _tree._end->parent : _tree._end));}
 	// 	reverse_iterator		rend() 				{return (reverse_iterator(_tree._end));}
@@ -119,10 +121,15 @@ namespace ft
 	// **                                  Modifiers
 	// ** --------------------------------------------------------------------------------
 	// */
-	// 	std::pair<iterator,bool> insert (const value_type& val)
-	// 	{
+//    single element (1)
+        pair<iterator,bool> insert (const value_type& val) {}
 
-	// }
+//        with hint (2)
+        iterator insert (iterator position, const value_type& val) {}
+
+//        range (3)
+        template <class InputIterator>
+        void insert (InputIterator first, InputIterator last) {}
 
 	// 	// ERASE
 	

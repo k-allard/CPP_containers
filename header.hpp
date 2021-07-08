@@ -9,10 +9,7 @@
 
 
 #include <vector>
-#include "ifInteger.hpp"
-#include "vector/vectorIterator.hpp"
-#include "vector/vector.hpp"
-#include "vector/vectorTester.hpp"
+
 
 template <typename T>
 struct ListNode
@@ -28,7 +25,8 @@ struct ListNode
 // data structure that represents a node in the tree
 template <typename Key, typename T>
 struct TreeNode {
-	std::pair<const Key, T> data; 	// holds the key and value
+    Key data;
+	T dataValue; 	// holds the key and value
 	TreeNode *parent; 				// pointer to the parent
 	TreeNode *left; 				// pointer to left child
 	TreeNode *right; 				// pointer to right child
@@ -36,6 +34,28 @@ struct TreeNode {
 
 	
 };
+
+const                         /* this is a const object...     */
+class nullptr_t
+{
+public:
+    template<class T>          /* convertible to any type       */
+    operator T*() const        /* of null non-member            */
+    { return 0; }           /* pointer...                    */
+
+    template<class C, class T> /* or any type of null           */
+    operator T C::*() const /* member pointer...             */
+    { return 0; }
+
+private:
+    void operator&() const;    /* Can't take address of nullptr */
+
+} nullptr = {};               /* and whose name is nullptr     */
+
+#include "ifInteger.hpp"
+#include "vector/vectorIterator.hpp"
+#include "vector/vector.hpp"
+#include "vector/vectorTester.hpp"
 
 #include "list/listIterator.hpp"
 #include "list/list.hpp"

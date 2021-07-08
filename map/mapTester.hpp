@@ -46,15 +46,15 @@ public:
 };
 
 void MapTester::testConstructors() {
-	std::map<int, string> first;
-	std::map<int, string> second;
+	std::map<int, std::string> first;
+	std::map<int, std::string> second;
 	//  std::map<int, string> third (second.begin(),second.end());
-	std::map<int, string> fourth (second);
+	std::map<int, std::string> fourth (second);
 
-	ft::map<int, string> ft_first;
-	ft::map<int, string> ft_second;
+	ft::map<int, std::string> ft_first;
+	ft::map<int, std::string> ft_second;
 	//  ft::map<int, string> ft_third (ft_second.begin(),ft_second.end());
-	ft::map<int, string> ft_fourth (ft_second);
+	ft::map<int, std::string> ft_fourth (ft_second);
 
 	// std::cout << "Default constructor - ";
 	// if (!compareStdFtmaps(first, ft_first))
