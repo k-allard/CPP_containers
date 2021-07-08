@@ -119,61 +119,13 @@ namespace ft
 	// **                                  Modifiers
 	// ** --------------------------------------------------------------------------------
 	// */
-	// 	// INSERT
 	// 	std::pair<iterator,bool> insert (const value_type& val)
 	// 	{
-	// 		_node_pointer tmp = _tree.find_place(val.first, _tree._root);
-	// 		if (tmp == NULL)
-	// 		{
-	// 			_tree.insert_new_node(val);
-	// 			return (std::make_pair(iterator(_tree.find_place(val.first, _tree._root)), true));
-	// 		}
-	// 		return (std::make_pair(iterator(tmp), false));
-	// 	}
-	// 	iterator insert(iterator position, const value_type &val)
-	// 	{
-	// 		(void)position;
-	// 		_node_pointer tmp = _tree.find_place(val.first, _tree._root);
-	// 		if (tmp == NULL)
-	// 		{
-	// 			_tree.insert_new_node(val);
-	// 			return (iterator(_tree.find_place(val.first, _tree._root)));
-	// 		}
-	// 		return (iterator(tmp));
-	// 	}
-	// 	template <class InputIterator>
-	// 	void insert(InputIterator first, InputIterator last)
-	// 	{
-	// 		while (first != last)
-	// 		{
-	// 			insert(*first);
-	// 			first++;
-	// 		}
-	// 	}
+
+	// }
 
 	// 	// ERASE
-	// 	void erase(iterator position)
-	// 	{
-	// 		_node_pointer tmp = _tree.find_place((*position).first, _tree._root);
-	// 		if (tmp == NULL)
-	// 			return;
-	// 		_tree.erase(tmp);
-	// 		_tree._size--;
-	// 	}
-	// 	size_type erase(const key_type &k)
-	// 	{
-	// 		_node_pointer tmp = _tree.find_place(k, _tree._root);
-	// 		if (tmp == NULL)
-	// 			return 0;
-	// 		_tree.erase(tmp);
-	// 		_tree._size--;
-	// 		return 1;
-	// 	}
-	// 	void erase(iterator first, iterator last)
-	// 	{
-	// 		while (first != last)
-	// 			erase(first++);
-	// 	}
+	
 
 		// CLEAR
 		void clear()
@@ -186,29 +138,7 @@ namespace ft
 	// 	// SWAP
 	// 	void swap (map& x)
 	// 	{
-	// 		_node_pointer	tmp_root	= _tree._root;
-	// 		_node_pointer	tmp_end		= _tree._end;
-	// 		_node_pointer	tmp_begin 	= _tree._begin;
-	// 		size_type	 	tmp_size	= _tree._size;
-	// 		allocator_type	tmp_alloc	= _alloc;
-	// 		compare		tmp_k_comp	= _comp;
-	// 		value_compare	tmp_v_comp	= _value_comp;
 
-	// 		_tree._root  = x._tree._root;
-	// 		_tree._end	 = x._tree._end;
-	// 		_tree._begin = x._tree._begin;
-	// 		_tree._size	 = x._tree._size;
-	// 		_alloc		 = x._alloc;
-	// 		_comp		 = x._comp;
-	// 		_value_comp  = x._value_comp;
-
-	// 		x._tree._root  = tmp_root;
-	// 		x._tree._end   = tmp_end;
-	// 		x._tree._begin = tmp_begin;
-	// 		x._tree._size  = tmp_size;
-	// 		x._allocator 	   = tmp_alloc;
-	// 		x._comp		   = tmp_k_comp;
-	// 		x._value_comp  = tmp_v_comp;
 	// 	}
 
 	// /*
@@ -217,70 +147,7 @@ namespace ft
 	// ** --------------------------------------------------------------------------------
 	// */
 	// 	iterator find(const key_type &k)
-	// 	{
-	// 		_node_pointer tmp = _tree.find_place(k, _tree._root);
-	// 		return (tmp == NULL ? end() : iterator(tmp));
-	// 	}
 
-	// 	const_iterator find(const key_type &k) const
-	// 	{
-	// 		_node_pointer tmp = _tree.find_place(k, _tree._root);
-	// 		return (tmp == NULL ? end() : const_iterator(tmp));
-	// 	}
-
-	// 	iterator lower_bound(const key_type &k)
-	// 	{
-	// 		_node_pointer tmp = _tree.find_lower_bound(k);
-	// 		return (tmp == NULL ? end() : iterator(tmp));
-	// 	}
-
-	// 	const_iterator lower_bound(const key_type &k) const
-	// 	{
-	// 		_node_pointer tmp = _tree.find_lower_bound(k);
-	// 		return (tmp == NULL ? end() : const_iterator(tmp));
-	// 	}
-
-	// 	iterator upper_bound(const key_type &k)
-	// 	{
-	// 		_node_pointer tmp = _tree.find_lower_bound(k);
-	// 		if (tmp)
-	// 		{
-	// 			_node_pointer equal = _tree.find_place(k, _tree._root);
-	// 			if (equal)
-	// 				return (++(iterator(equal)));
-	// 			return (iterator(tmp));
-	// 		}
-	// 		return (end());
-	// 	}
-
-	// 	const_iterator upper_bound(const key_type &k) const
-	// 	{
-	// 		_node_pointer tmp = _tree.find_lower_bound(k);
-	// 		if (tmp)
-	// 		{
-	// 			_node_pointer equal = _tree.find_place(k, _tree._root);
-	// 			if (equal)
-	// 				return (++(const_iterator(equal)));
-	// 			return (const_iterator(tmp));
-	// 		}
-	// 		return (end());
-	// 	}
-
-	// 	std::pair<const_iterator, const_iterator> equal_range(const key_type &k) const
-	// 	{
-	// 		return (std::make_pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k)));
-	// 	}
-
-	// 	std::pair<iterator, iterator> equal_range(const key_type &k)
-	// 	{
-	// 		return (std::make_pair<iterator, iterator>(lower_bound(k), upper_bound(k)));
-	// 	}
-
-	// 	size_type count(const key_type &k) const
-	// 	{
-	// 		_node_pointer tmp = _tree.find_lower_bound(k);
-	// 		return (tmp == NULL ? 0 : 1);
-	// 	}
 
 	/*
 	** --------------------------------------------------------------------------------
