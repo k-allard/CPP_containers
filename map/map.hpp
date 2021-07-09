@@ -7,6 +7,8 @@
 # define MAP_HPP
 
 #include "../header.hpp"
+#include "pair.hpp"
+
 #include <iostream>
 #include <map>
 
@@ -15,46 +17,67 @@ namespace ft
     template <class Key,
           class T,
 		  class Compare =  std::less<Key>,
-          class Allocator = std::allocator<std::pair<const Key,T> > >
+          class Alloc = std::allocator<ft::pair<const Key,T> > >
     class map
     {
-        typedef Key key_type;
-		typedef T value_type;
-		typedef std::pair<const key_type, value_type> pair_type;
-		typedef Allocator allocator_type;
-		typedef Compare compare;
-		typedef value_type & reference;
-		typedef const value_type & const_reference;
-		typedef value_type * pointer;
-		typedef const value_type * const_pointer;
-		typedef RBTree<Key, T, compare> tree_type;
-		typedef MapIterator<T, Key>	iterator;
-        typedef MapIterator<T, Key>	const_iterator;
+		/*
+		** member types
+		*/
+        typedef Key 					key_type;
+		typedef T 						mapped_type;
+		typedef ft::pair<const Key, T>	value_type;
+		typedef Compare					key_compare;
+		// Nested function class to compare elements
+		class value_compare : public binary_function<value_type, value_type, bool>
+		{   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+			friend class map;
+			protected:
+				Compare comp;
+				value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+			public:
+				typedef bool 		result_type;
+				typedef value_type	first_argument_type;
+				typedef value_type	second_argument_type;
+				bool operator() (const value_type& x, const value_type& y) const
+				{
+					return comp(x.first, y.first);
+				}
+		};
+		typedef Alloc 					allocator_type;
+		typedef value_type & 			reference;
+		typedef const value_type & 		const_reference;
+		typedef value_type * 			pointer;
+		typedef const value_type * 		const_pointer;
 
+		typedef MapIterator<T, Key>		iterator;
+        typedef MapIterator<T, Key>		const_iterator;
+
+		typedef RBTree<Key, T, Compare>	tree_type;
         typedef TreeNode<Key, T>		_node;
 		typedef _node *					_node_pointer;
 		allocator_type					_allocator;
-		compare				    		_compare;
+		key_compare				    	_compare;
 		tree_type						_tree;
+		value_compare					_value_comp;
     public:
-    /*
-	** --------------------------------------------------------------------------------
-	**                               Constructors & other
-	** --------------------------------------------------------------------------------
-	*/
-		explicit
-		map(const compare &comp = compare(), const allocator_type &allocator = allocator_type()) : _allocator(allocator), _compare(comp) {
-		}//, _value_comp(comp) {}
-		
-        // template <class InputIterator>
-		// map(InputIterator first, InputIterator last, const compare &comp = compare(), const allocator_type &allocator = allocator_type())
-		// {
-		// 	_allocator = allocator;
-		// 	_compare = comp;
-		// 	insert(first, last);
-		// }
 
-		 map(const map &x)
+	//
+	//  C O N S T R U C T O R S  &  D E S T R U C T O R
+	//
+		explicit
+		map(const key_compare &comp = key_compare(), const allocator_type &allocator = allocator_type()) : _allocator(allocator), _compare(comp), _value_comp(comp) { }
+		
+        template <class InputIterator>
+  		map (InputIterator first, InputIterator last,
+       			const key_compare& comp = key_compare(),
+       			const allocator_type& alloc = allocator_type())
+		{
+			_allocator = alloc;
+			_compare = comp;
+			insert(first, last);
+		}
+
+		 map(const map &x) : _value_comp(x._value_comp)
 		 {
 		 	_allocator = x._allocator;
 		 	_compare = x._compare;
@@ -110,28 +133,33 @@ namespace ft
 	// 		_node_pointer curr = _tree.find_place(k, _tree._root);
 	// 		if (!curr)
 	// 		{
-	// 			insert(std::make_pair(k, mapped_type()));
+	// 			insert(ft::make_pair(k, mapped_type()));
 	// 			curr = _tree.find_place(k, _tree._root);
 	// 		}
 	// 		return (curr->element.second);
 	// 	}
 
 	// /*
-	// ** --------------------------------------------------------------------------------
 	// **                                  Modifiers
-	// ** --------------------------------------------------------------------------------
 	// */
-//    single element (1)
-        pair<iterator,bool> insert (const value_type& val) {}
 
-//        with hint (2)
-        iterator insert (iterator position, const value_type& val) {}
+	// insert single element (1)
+	ft::pair<iterator,bool> insert (const value_type& val) { 
+		_tree.insert(val.first, val.second); 
+	}
 
-//        range (3)
-        template <class InputIterator>
-        void insert (InputIterator first, InputIterator last) {}
+	// insert with hint (2)	
+	iterator insert (iterator position, const value_type& val) {
 
-	// 	// ERASE
+	}
+
+	// insert range (3)	
+	template <class InputIterator>
+	void insert (InputIterator first, InputIterator last) {
+
+	}
+
+	// ERASE
 	
 
 		// CLEAR
@@ -161,7 +189,7 @@ namespace ft
 	**                                  Observers
 	** --------------------------------------------------------------------------------
 	*/
-		compare key_comp() const
+		key_compare key_comp() const
 		{
 			return (_compare);
 		}
