@@ -21,7 +21,7 @@ namespace ft
 		tree_type _tree;
 
 	public:
-		// MapIterator() 					: _node(nullptr) {}
+		MapIterator() 					: _node(nullptr) {}
 		 MapIterator(node_pointer p) 	: _node(p) {}
 
 		MapIterator & operator=(const MapIterator &src) { _node = src._node; return (*this); }
@@ -72,7 +72,7 @@ namespace ft
         tree_type _tree;
 
     public:
-        // MapIterator() 					: _node(nullptr) {}
+        MapIterator() 					: _node(nullptr) {}
         ConstMapIterator(node_pointer p) 	: _node(p) {}
 
         ConstMapIterator & operator=(const ConstMapIterator &src) { _node = src._node; return (*this); }
