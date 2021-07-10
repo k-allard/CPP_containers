@@ -59,15 +59,15 @@ void MapTester::testConstructors() {
 	 std::cout << "Default constructor - ";
 	 if (!compareStdFtmaps(first, ft_first))
 	 	passed();
-	// std::cout << "Fill constructor -    ";
-	// if (!compareStdFtmaps(second, ft_second))
-	// 	passed();
-	//  std::cout << "Range constructor -   ";
-	//  if (!compareStdFtmaps(third, ft_third))
-	//  	passed();
-	// std::cout << "Copy constructor -    ";
-	// if (!compareStdFtmaps(fourth, ft_fourth))
-	// 	passed();
+	 std::cout << "Fill constructor -    ";
+	 if (!compareStdFtmaps(second, ft_second))
+	 	passed();
+//    std::cout << "Range constructor -   ";
+//    if (!compareStdFtmaps(third, ft_third))
+//        passed();
+	 std::cout << "Copy constructor -    ";
+	 if (!compareStdFtmaps(fourth, ft_fourth))
+	 	passed();
 }
 
 void MapTester::testAssignations() {
