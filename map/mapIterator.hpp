@@ -5,12 +5,12 @@
 
 namespace ft
 {
-	template <typename T, typename Key>
+	template <typename Key, typename T>
 	class MapIterator
 	{
 	public:
 		typedef T value_type;
-		typedef std::pair<Key, T> pair_type;
+		typedef T pair_type;
 		typedef pair_type *pointer;
 		typedef pair_type &reference;
 		typedef TreeNode<Key, T> node_type;
@@ -25,7 +25,11 @@ namespace ft
 		 MapIterator(node_pointer p) 	: _node(p) {}
 
 		MapIterator & operator=(const MapIterator &src) { _node = src._node; return (*this); }
-		reference & operator*() const { return (_node->element); }
+
+		reference & operator*() const {
+		    return (_node->dataValue);
+		}
+
 		MapIterator & operator++() {
 			_node = _tree.successor(_node);
 			return (*this);
@@ -56,7 +60,7 @@ namespace ft
 	};
 
 
-    template <typename T, typename Key>
+    template <typename Key, typename T>
     class ConstMapIterator
     {
     public:
@@ -72,7 +76,7 @@ namespace ft
         tree_type _tree;
 
     public:
-        MapIterator() 					: _node(nullptr) {}
+        ConstMapIterator() 					: _node(nullptr) {}
         ConstMapIterator(node_pointer p) 	: _node(p) {}
 
         ConstMapIterator & operator=(const ConstMapIterator &src) { _node = src._node; return (*this); }

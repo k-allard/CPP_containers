@@ -15,7 +15,7 @@ namespace ft
 	template < typename Key,
 				typename T,
 				typename Compare = std::less<Key>,
-				typename Alloc = std::allocator<std::pair<const Key, T> > >	
+				typename Alloc = std::allocator<ft::pair<const Key, T> > >
 	class RBTree {
 	public:
 		typedef TreeNode<Key,T> *NodePtr;
@@ -38,10 +38,12 @@ namespace ft
 		void deleteNodeHelper(NodePtr node, key_type key);
 		void fixInsert(NodePtr k);
 		void printHelper(NodePtr root, string indent, bool last) const;
+        std::size_t _size;
 
 	public:
 		RBTree();
         ~RBTree();
+        size_t size() const { return _size ; }
 		void preorder();
 		void inorder();
 		void postorder();
@@ -243,6 +245,7 @@ namespace ft
 		if (y_original_color == 0){
 			fixDelete(x);
 		}
+		_size--;
 	}
 	
 	// fix the red-black tree
@@ -320,6 +323,7 @@ namespace ft
 
 	template <typename Key, typename Type, typename Compare, typename Alloc>
 	RBTree<Key, Type, Compare, Alloc>::RBTree() {
+        _size = 0;
 		TNULL = new TreeNode<Key, Type>;
 		TNULL->color = 0;
 		TNULL->left = TNULL;
@@ -506,6 +510,7 @@ namespace ft
 
 		// Fix the tree
 		fixInsert(node);
+		_size++;
 	}
 
 	template <typename Key, typename Type, typename Compare, typename Alloc>

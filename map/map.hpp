@@ -49,18 +49,18 @@ namespace ft
 		typedef value_type * 			pointer;
 		typedef const value_type * 		const_pointer;
 
-		typedef MapIterator<T, Key>		iterator;
-        typedef MapIterator<T, Key>		const_iterator;
 
-		typedef RBTree<Key, T, Compare>	tree_type;
-        typedef TreeNode<Key, T>		_node;
+
+		typedef RBTree<Key, value_type, Compare, allocator_type>	tree_type;
+        typedef TreeNode<Key, value_type>		_node;
 		typedef _node *					_node_pointer;
 		allocator_type					_allocator;
 		key_compare				    	_compare;
 		tree_type						_tree;
 		value_compare					_value_comp;
     public:
-
+        typedef MapIterator<Key, value_type>		iterator;
+        typedef MapIterator<Key, value_type>		const_iterator;
 	//
 	//  C O N S T R U C T O R S  &  D E S T R U C T O R
 	//
@@ -102,12 +102,12 @@ namespace ft
 	// **                                  Capacity
 	// ** --------------------------------------------------------------------------------
 	// */
-	// 	bool					empty() const		{return (_tree._size == 0);}
-	// 	size_type				size() const		{return (_tree._size);}
-	// 	size_type				max_size() const
-	// 	{
-	// 		return (std::numeric_limits<size_type>::max() / (sizeof(TreeNode<Key, T>)));
-	// 	}
+	 	bool				empty() const		{return (_tree.size() == 0);}
+	 	size_t				size() const		{return (_tree.size());}
+	 	size_t				max_size() const
+	 	{
+	 		return (std::numeric_limits<size_t>::max() / (sizeof(TreeNode<Key, T>)));
+	 	}
 
 	// /*
 	// ** --------------------------------------------------------------------------------

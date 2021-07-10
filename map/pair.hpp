@@ -21,7 +21,6 @@ namespace ft
            	pair (const T1& x, const T2& y) : first(x), second(y) { } // Creates a pair of types T1 and T2, making  the  necessary conversions in x and y.
             template <class V, class U> 
 			pair(const ft::pair <V, U>& p) : first(p.first), second(p.second) { } // Copies first and second from the  corresponding  elements of p.
-            ~pair();
      };
 
 // N O N - M E M B E R   O P E R A T O R S

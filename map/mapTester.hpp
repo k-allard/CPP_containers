@@ -24,11 +24,11 @@ public:
 	void testSwap();
 	void testRelationalOperators();
 
-// private:
-// 	std::stringstream stdString;
-// 	std::stringstream ftString;
-// 	static void passed();
-// 	template <class T> int compareStdFtmaps(std::map<T> &std_map, ft::map<T> &ft_map);
+ private:
+ 	std::stringstream stdString;
+ 	std::stringstream ftString;
+ 	static void passed();
+ 	template <class Key, class T> int compareStdFtmaps(std::map<Key,T> &std_map, ft::map<Key,T> &ft_map);
 // 	template <class T> void printStdFtmaps(std::map<T> &std_map, ft::map<T> &ft_map);
 // 	template <class T> void printStdmap(std::map<T> &std_map);
 // 	template <class T> void printFtmap(ft::map<T> &ft_map);
@@ -56,9 +56,9 @@ void MapTester::testConstructors() {
 	//  ft::map<int, string> ft_third (ft_second.begin(),ft_second.end());
 	ft::map<int, std::string> ft_fourth (ft_second);
 
-	// std::cout << "Default constructor - ";
-	// if (!compareStdFtmaps(first, ft_first))
-	// 	passed();
+	 std::cout << "Default constructor - ";
+	 if (!compareStdFtmaps(first, ft_first))
+	 	passed();
 	// std::cout << "Fill constructor -    ";
 	// if (!compareStdFtmaps(second, ft_second))
 	// 	passed();
@@ -662,37 +662,39 @@ void MapTester::testRelationalOperators() {
 	// 	std::cout << RED << "FAIL ❌\n" << NC;
 }
 
-// void MapTester::passed() {
-// 	const unsigned int microseconds = 250000; //1000000 microseconds = 1 sec
-// 	std::cout << GREEN << "PASSED ✅" << NC << "\n\n";
-// 	usleep(microseconds);
-// }
+ void MapTester::passed() {
+ 	const unsigned int microseconds = 250000; //1000000 microseconds = 1 sec
+ 	std::cout << GREEN << "PASSED ✅" << NC << "\n\n";
+ 	usleep(microseconds);
+ }
 
-// template <class T>
-// int MapTester::compareStdFtmaps(std::map<T> &std_map, ft::map<T> &ft_map) {
-// 	int fail = 0;
+ template <class Key, class T>
+ int MapTester::compareStdFtmaps(std::map<Key,T> &std_map, ft::map<Key,T> &ft_map) {
+ 	int fail = 0;
 
-// 	for (typename std::map<T>::iterator it = std_map.begin(); it != std_map.end(); it++) {
-// 		stdString << *it << ' ';
-// 	}
-// 	for (typename ft::map<T>::iterator ft_it = ft_map.begin(); ft_it != ft_map.end(); ft_it++) {
-// 		ftString << *ft_it << ' ';
-// 	}
-// 	if (ftString.str().compare(stdString.str())) {
-// 		std::cout << RED << "FAIL ❌\n" << "Ft map : " << ftString.str() \
-// 		<< "\nStd map: " << stdString.str() << NC << "\n";
-// 		fail = 1;
-// 	}
+ 	for (typename std::map<Key,T>::iterator it = std_map.begin(); it != std_map.end(); it++) {
+ 		stdString << (*it).first << ':';
+        stdString << (*it).second << ' ';
+ 	}
+ 	for (typename ft::map<Key,T>::iterator ft_it = ft_map.begin(); ft_it != ft_map.end(); ft_it++) {
+ 		ftString << (*ft_it).first << ':';
+        ftString << (*ft_it).second << ' ';
+ 	}
+ 	if (ftString.str().compare(stdString.str())) {
+ 		std::cout << RED << "FAIL ❌\n" << "Ft map : " << ftString.str() \
+ 		<< "\nStd map: " << stdString.str() << NC << "\n";
+ 		fail = 1;
+ 	}
 
-// 	if (std_map.size() != ft_map.size()) {
-// 		std::cout << RED << "SIZE FAIL ❌\n" << "Ft map size: " << ft_map.size() \
-// 		<< "\nStd map size: " << std_map.size() << NC << "\n";
-// 		fail = 1;
-// 	}
-// 	stdString.str(std::string());
-// 	ftString.str(std::string());
-// 	return fail;
-// }
+ 	if (std_map.size() != ft_map.size()) {
+ 		std::cout << RED << "SIZE FAIL ❌\n" << "Ft map size: " << ft_map.size() \
+ 		<< "\nStd map size: " << std_map.size() << NC << "\n";
+ 		fail = 1;
+ 	}
+ 	stdString.str(std::string());
+ 	ftString.str(std::string());
+ 	return fail;
+ }
 
 // template <class T>
 // void MapTester::printStdFtmaps(std::map<T> &std_map, ft::map<T> &ft_map) {
