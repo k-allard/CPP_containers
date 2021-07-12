@@ -189,16 +189,30 @@ namespace ft
 	}
 
 	// ERASE
+	 void erase (iterator position) {
+	 	_node_pointer tmp = _tree.searchTree((*position).first);
+	 	if (tmp == nullptr)
+	 			return ;
+	 	_tree.deleteNode((*position).first);
+	 }
 
+	 size_t erase(const key_type &k)
+	 	{
+	 		_node_pointer tmp = _tree.searchTree(k);
+	 		if (tmp == nullptr)
+	 			return 0;
+	 		_tree.deleteNode(k);
+	 		return 1;
+	 	}
 
 		// CLEAR
 		void clear()
 		{
-			 iterator it = begin();
-			 while (it != end())
-             {
-                 //erase(it++);
-             }
+			  iterator it = begin();
+			  while (it != end())
+              {
+                  erase(it++);
+              }
 		}
 
 	// 	// SWAP
