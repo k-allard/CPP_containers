@@ -1,4 +1,4 @@
-// a sorted associative container 
+// a sorted associative container
 // contains key-value pairs with unique keys
 // implemented as a red-black tree
 // keys are sorted by using the comparison function Compare
@@ -66,14 +66,15 @@ namespace ft
 	//
 		explicit
 		map(const key_compare &comp = key_compare(), const allocator_type &allocator = allocator_type()) : _allocator(allocator), _compare(comp), _value_comp(comp) { }
-		
+
         template <class InputIterator>
   		map (InputIterator first, InputIterator last,
        			const key_compare& comp = key_compare(),
-       			const allocator_type& alloc = allocator_type())
+       			const allocator_type& alloc = allocator_type()) : _allocator(alloc), _compare(comp), _value_comp (comp)
 		{
-			_allocator = alloc;
-			_compare = comp;
+//			_allocator = alloc;
+//			_compare = comp;
+//			_value_comp = comp;
 			insert(first, last);
 		}
 
@@ -123,13 +124,26 @@ namespace ft
 	// 	reverse_iterator		rend() 				{return (reverse_iterator(_tree._end));}
 	// 	const_reverse_iterator	rend()const  		{return (const_reverse_iterator(_tree._end));}
 
-	// /*
-	// ** --------------------------------------------------------------------------------
-	// **                               Element access
-	// ** --------------------------------------------------------------------------------
-	// */
-	// 	mapped_type &			 operator[](const key_type &k)
-	// 	{
+	// **       Element access
+
+	// если ключа нет - то function inserts a new element with that key and returns a reference to its mapped value
+		// если ключ есть - то function returns a reference to its mapped value
+		mapped_type &			 operator[](const key_type &k)
+	 	{
+			_node_pointer node = _tree.searchTree(k);
+			if (!node) {
+				_tree.insert(k, nullptr);
+				node = _tree.searchTree(k);
+				if (node)
+					return (node->dataValue.second);
+				else {
+					std::cout << "Something went wrong with insert()" << std::endl;
+					exit (6);
+				}
+			}
+			else {
+				return (node->dataValue.second);
+			}
 	// 		_node_pointer curr = _tree.find_place(k, _tree._root);
 	// 		if (!curr)
 	// 		{
@@ -137,30 +151,45 @@ namespace ft
 	// 			curr = _tree.find_place(k, _tree._root);
 	// 		}
 	// 		return (curr->element.second);
-	// 	}
+	 	}
 
 	// /*
 	// **                                  Modifiers
 	// */
 
 	// insert single element (1)
-	ft::pair<iterator,bool> insert (const value_type& val) { 
-		_tree.insert(val.first, val.second); 
+	ft::pair<iterator,bool> insert (const value_type& val) {
+			// returns a pair, with its member pair::first set to an iterator pointing to either the newly inserted element or
+			// 		to the element with an equivalent key in the map.
+			// The pair::second element in the pair is set to true if a new element was inserted or
+			// 		false if an equivalent key already existed.
+		_node_pointer node = _tree.searchTree(val.first);
+		if (!node) {
+			_tree.insert(val.first, val);
+			return (ft::make_pair(iterator(_tree.searchTree(val.first)), true));
+		}
+		else {
+			return (ft::make_pair(iterator(node), false));
+		}
 	}
 
-	// insert with hint (2)	
+	// insert with hint (2)
 	iterator insert (iterator position, const value_type& val) {
 
 	}
 
-	// insert range (3)	
+	// insert range (3)
 	template <class InputIterator>
 	void insert (InputIterator first, InputIterator last) {
-
+		while (first != last)
+		{
+			insert(*first);
+			first++;
+		}
 	}
 
 	// ERASE
-	
+
 
 		// CLEAR
 		void clear()

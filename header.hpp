@@ -32,25 +32,39 @@ struct TreeNode {
 	TreeNode *right; 				// pointer to right child
 	int color; 					// 1 -> Red, 0 -> Black
 
-	
+	TreeNode()
+	{
+		parent = nullptr;
+		left = nullptr;
+		right = nullptr;
+		color = 1;
+	}
+
+	TreeNode(Key key, NodeDataType value, TreeNode<Key,NodeDataType> *tnull) : data(key), dataValue(value)
+	{
+		parent = tnull;
+		left = tnull;
+		right = tnull;
+		color = 1;
+	}
 };
 
-const                         /* this is a const object...     */
-class nullptr_t
-{
-public:
- template<class T>          /* convertible to any type       */
- operator T*() const        /* of null non-member            */
- { return 0; }           /* pointer...                    */
-
- template<class C, class T> /* or any type of null           */
- operator T C::*() const /* member pointer...             */
- { return 0; }
-
-private:
- void operator&() const;    /* Can't take address of nullptr */
-
-} nullptr = {};               /* and whose name is nullptr     */
+//const                         /* this is a const object...     */
+//class nullptr_t
+//{
+//public:
+// template<class T>          /* convertible to any type       */
+// operator T*() const        /* of null non-member            */
+// { return 0; }           /* pointer...                    */
+//
+// template<class C, class T> /* or any type of null           */
+// operator T C::*() const /* member pointer...             */
+// { return 0; }
+//
+//private:
+// void operator&() const;    /* Can't take address of nullptr */
+//
+//} nullptr = {};               /* and whose name is nullptr     */
 
 #include "ifInteger.hpp"
 #include "vector/vectorIterator.hpp"
