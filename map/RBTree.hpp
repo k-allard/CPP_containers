@@ -22,7 +22,7 @@ namespace ft
 		typedef Key key_type;
 		typedef T value_type;
 		typedef std::pair<const key_type, value_type> pair;
-		
+
 	private:
 		Compare	compare;
 		NodePtr root;
@@ -58,6 +58,7 @@ namespace ft
 		NodePtr getRoot() const;
 		void deleteNode(key_type key);
 		void prettyPrint() const;
+//		int isNull(NodePtr x) const { return (x == TNULL); };
 
 	};
 
@@ -78,7 +79,7 @@ namespace ft
 			cout<<node->data<<" ";
 			preOrderHelper(node->left);
 			preOrderHelper(node->right);
-		} 
+		}
 	}
 
 	template <typename Key, typename Type, typename Compare, typename Alloc>
@@ -87,7 +88,7 @@ namespace ft
 			inOrderHelper(node->left);
 			cout<<node->data<<" ";
 			inOrderHelper(node->right);
-		} 
+		}
 	}
 
 	template <typename Key, typename Type, typename Compare, typename Alloc>
@@ -96,18 +97,20 @@ namespace ft
 			postOrderHelper(node->left);
 			postOrderHelper(node->right);
 			cout<<node->data<<" ";
-		} 
+		}
 	}
 
 	template <typename Key, typename Type, typename Compare, typename Alloc>
 	typename RBTree<Key, Type, Compare, Alloc>::NodePtr RBTree<Key, Type, Compare, Alloc>::searchTreeHelper(NodePtr node, key_type key) const {
-		if (node == TNULL || key == node->data) {
+		if (node == TNULL) {
+			return nullptr;
+		}
+		if (key == node->data) {
 			return node;
 		}
-
 		if (key < node->data) {
 			return searchTreeHelper(node->left, key);
-		} 
+		}
 		return searchTreeHelper(node->right, key);
 	}
 
@@ -137,7 +140,7 @@ namespace ft
 						s->color = 1;
 						rightRotate(s);
 						s = x->parent->right;
-					} 
+					}
 
 					// case 3.4
 					s->color = x->parent->color;
@@ -167,7 +170,7 @@ namespace ft
 						s->color = 1;
 						leftRotate(s);
 						s = x->parent->left;
-					} 
+					}
 
 					// case 3.4
 					s->color = x->parent->color;
@@ -176,7 +179,7 @@ namespace ft
 					rightRotate(x->parent);
 					x = root;
 				}
-			} 
+			}
 		}
 		x->color = 0;
 	}
@@ -214,7 +217,7 @@ namespace ft
 		if (z == TNULL) {
 			cout<<"Couldn't find key in the tree"<<endl;
 			return;
-		} 
+		}
 
 		y = z;
 		int y_original_color = y->color;
@@ -247,7 +250,7 @@ namespace ft
 		}
 		_size--;
 	}
-	
+
 	// fix the red-black tree
 	template <typename Key, typename Type, typename Compare, typename Alloc>
 	void RBTree<Key, Type, Compare, Alloc>::fixInsert(NodePtr k){
@@ -280,7 +283,7 @@ namespace ft
 					u->color = 0;
 					k->parent->color = 0;
 					k->parent->parent->color = 1;
-					k = k->parent->parent;	
+					k = k->parent->parent;
 				} else {
 					if (k == k->parent->right) {
 						// mirror case 3.2.2
@@ -312,7 +315,7 @@ namespace ft
 			cout<<"L----";
 			indent += "|    ";
 		}
-			
+
 		string sColor = root->color?"RED":"BLACK";
 		cout<<root->data<<"("<<sColor<<")"<<endl;
 		printHelper(root->left, indent, false);
@@ -407,7 +410,7 @@ namespace ft
 	template <typename Key, typename Type, typename Compare, typename Alloc>
 	typename RBTree<Key, Type, Compare, Alloc>::NodePtr RBTree<Key, Type, Compare, Alloc>::predecessor(NodePtr x) const {
 		// if the left subtree is not null,
-		// the predecessor is the rightmost node in the 
+		// the predecessor is the rightmost node in the
 		// left subtree
 		if (x->left != TNULL) {
 			return maximum(x->left);
@@ -467,13 +470,16 @@ namespace ft
 	template <typename Key, typename Type, typename Compare, typename Alloc>
 	void RBTree<Key, Type, Compare, Alloc>::insert(key_type key, value_type value) {
 		// Ordinary Binary Search Insertion
-		NodePtr node = new TreeNode<Key, Type>;
-		node->parent = TNULL;
-		node->data = key;
-		node->dataValue = value;
-		node->left = TNULL;
-		node->right = TNULL;
-		node->color = 1; // new node must be red
+
+		//TreeNode<Key, Type> tree_node = { key, value, TNULL, TNULL, TNULL, 1};
+		//NodePtr node = &tree_node;
+		NodePtr node = new TreeNode<Key, Type>(key, value, TNULL);
+//		node->data = key;
+//		node->dataValue = value;
+//		node->parent = TNULL;
+//		node->left = TNULL;
+//		node->right = TNULL;
+//		node->color = 1; // new node must be red
 
 		NodePtr y = TNULL;
 		NodePtr x = this->root;

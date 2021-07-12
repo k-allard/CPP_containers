@@ -48,12 +48,12 @@ public:
 void MapTester::testConstructors() {
 	std::map<int, std::string> first;
 	std::map<int, std::string> second;
-	//  std::map<int, string> third (second.begin(),second.end());
+	  std::map<int, std::string> third (second.begin(),second.end());
 	std::map<int, std::string> fourth (second);
 
 	ft::map<int, std::string> ft_first;
 	ft::map<int, std::string> ft_second;
-	//  ft::map<int, string> ft_third (ft_second.begin(),ft_second.end());
+	ft::map<int, std::string> ft_third (ft_second.begin(),ft_second.end());
 	ft::map<int, std::string> ft_fourth (ft_second);
 
 	 std::cout << "Default constructor - ";
@@ -62,9 +62,9 @@ void MapTester::testConstructors() {
 	 std::cout << "Fill constructor -    ";
 	 if (!compareStdFtmaps(second, ft_second))
 	 	passed();
-//    std::cout << "Range constructor -   ";
-//    if (!compareStdFtmaps(third, ft_third))
-//        passed();
+	  std::cout << "Range constructor -   ";
+	  if (!compareStdFtmaps(third, ft_third))
+	  	passed();
 	 std::cout << "Copy constructor -    ";
 	 if (!compareStdFtmaps(fourth, ft_fourth))
 	 	passed();
