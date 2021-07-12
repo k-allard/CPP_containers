@@ -59,8 +59,8 @@ namespace ft
 		tree_type						_tree;
 		value_compare					_value_comp;
     public:
-        typedef MapIterator<Key, value_type>		iterator;
-        typedef MapIterator<Key, value_type>		const_iterator;
+        typedef MapIterator<Key, value_type, Compare, Alloc>		iterator;
+        typedef ConstMapIterator<Key, value_type, Compare, Alloc>		const_iterator;
 	//
 	//  C O N S T R U C T O R S  &  D E S T R U C T O R
 	//
@@ -85,11 +85,11 @@ namespace ft
 		 	insert(x.begin(), x.end());
 		 }
 
-//		~map()
-//		{
-//			clear();
-//			//delete _tree.maximum(_tree.getRoot());
-//		}
+		~map()
+		{
+			clear();
+			//delete _tree.maximum(_tree.getRoot());
+		}
 
 		map &operator=(const map &x)
 		{
@@ -115,10 +115,10 @@ namespace ft
 	// **                                Iterators
 	// ** --------------------------------------------------------------------------------
 	// */
-		iterator				begin() 			{return (iterator(_tree.minimum(_tree.getRoot())));}
-	 	const_iterator			begin() const 		{return (const_iterator(_tree.minimum(_tree.getRoot())));}
-		iterator				end() 				{return (iterator(_tree.maximum(_tree.getRoot())));}
-	 	const_iterator			end() const 		{return (const_iterator(_tree.maximum(_tree.getRoot())));}
+		iterator				begin() 			{return (iterator(_tree.minimum(_tree.getRoot()), &_tree));}
+	 	const_iterator			begin() const 		{return (const_iterator(_tree.minimum(_tree.getRoot()), &_tree));}
+		iterator				end() 				{return (iterator(_tree.maximum(_tree.getRoot()), &_tree));}
+	 	const_iterator			end() const 		{return (const_iterator(_tree.maximum(_tree.getRoot()), &_tree));}
 	// 	reverse_iterator		rbegin() 			{return (reverse_iterator(_tree._end->parent ? _tree._end->parent : _tree._end));}
 	// 	const_reverse_iterator	rbegin() const 		{return (const_reverse_iterator(_tree._end->parent ? _tree._end->parent : _tree._end));}
 	// 	reverse_iterator		rend() 				{return (reverse_iterator(_tree._end));}
@@ -131,8 +131,8 @@ namespace ft
 		mapped_type &			 operator[](const key_type &k)
 	 	{
 			_node_pointer node = _tree.searchTree(k);
-			if (!node) {
-				_tree.insert(k, nullptr);
+			if (node == nullptr) {
+				_tree.insert(k);
 				node = _tree.searchTree(k);
 				if (node)
 					return (node->dataValue.second);
@@ -166,10 +166,10 @@ namespace ft
 		_node_pointer node = _tree.searchTree(val.first);
 		if (!node) {
 			_tree.insert(val.first, val);
-			return (ft::make_pair(iterator(_tree.searchTree(val.first)), true));
+			return (ft::make_pair(iterator(_tree.searchTree(val.first), &_tree), true));
 		}
 		else {
-			return (ft::make_pair(iterator(node), false));
+			return (ft::make_pair(iterator(node, &_tree), false));
 		}
 	}
 
@@ -194,9 +194,11 @@ namespace ft
 		// CLEAR
 		void clear()
 		{
-			// iterator it = begin();
-			// while (it != end())
-			// 	erase(it++);
+			 iterator it = begin();
+			 while (it != end())
+             {
+                 //erase(it++);
+             }
 		}
 
 	// 	// SWAP

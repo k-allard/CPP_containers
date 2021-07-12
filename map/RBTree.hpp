@@ -21,10 +21,11 @@ namespace ft
 		typedef TreeNode<Key,T> *NodePtr;
 		typedef Key key_type;
 		typedef T value_type;
-		typedef std::pair<const key_type, value_type> pair;
+		typedef ft::pair<const key_type, value_type> pair;
 
 	private:
 		Compare	compare;
+        Alloc alloc;
 		NodePtr root;
 		NodePtr TNULL;
 
@@ -55,6 +56,8 @@ namespace ft
 		void leftRotate(NodePtr x);
 		void rightRotate(NodePtr x);
 		void insert(key_type key, value_type value);
+        void insert(key_type key);
+        void insert(NodePtr x);
 		NodePtr getRoot() const;
 		void deleteNode(key_type key);
 		void prettyPrint() const;
@@ -338,6 +341,7 @@ namespace ft
     template <typename Key, typename Type, typename Compare, typename Alloc>
     RBTree<Key, Type, Compare, Alloc>::~RBTree() {
         delete TNULL;
+
     }
 
 	// Pre-Order traversal
@@ -465,6 +469,70 @@ namespace ft
 		x->parent = y;
 	}
 
+    // insert the key to the tree in its appropriate position
+    // and fix the tree
+    template <typename Key, typename Type, typename Compare, typename Alloc>
+    void RBTree<Key, Type, Compare, Alloc>::insert(NodePtr node) {
+        // Ordinary Binary Search Insertion
+
+
+        NodePtr y = TNULL;
+        NodePtr x = this->root;
+
+        while (x != TNULL) {
+            y = x;
+            if (node->data < x->data) {
+                x = x->left;
+            } else {
+                x = x->right;
+            }
+        }
+
+        // y is parent of x
+        node->parent = y;
+        if (y == TNULL) {
+            root = node;
+        } else if (node->data < y->data) {
+            y->left = node;
+        } else {
+            y->right = node;
+        }
+
+        // if new node is a root node, simply return
+        if (node->parent == TNULL){
+            node->color = 0;
+            return;
+        }
+
+        // if the grandparent is null, simply return
+        if (node->parent->parent == TNULL) {
+            return;
+        }
+
+        // Fix the tree
+        fixInsert(node);
+        _size++;
+    }
+
+    // insert the key to the tree in its appropriate position
+    // and fix the tree
+    template <typename Key, typename Type, typename Compare, typename Alloc>
+    void RBTree<Key, Type, Compare, Alloc>::insert(key_type key) {
+        // Ordinary Binary Search Insertion
+
+        //TreeNode<Key, Type> tree_node = { key, value, TNULL, TNULL, TNULL, 1};
+        //NodePtr node = &tree_node;
+        NodePtr node = new TreeNode<Key, Type>();
+        node->data = key;
+        //NodePtr ptr = alloc.allocate(1);
+        //node->dataValue = *ptr;
+        node->parent = TNULL;
+        node->left = TNULL;
+        node->right = TNULL;
+        node->color = 1; // new node must be red
+        insert(node);
+    }
+
 	// insert the key to the tree in its appropriate position
 	// and fix the tree
 	template <typename Key, typename Type, typename Compare, typename Alloc>
@@ -480,43 +548,7 @@ namespace ft
 //		node->left = TNULL;
 //		node->right = TNULL;
 //		node->color = 1; // new node must be red
-
-		NodePtr y = TNULL;
-		NodePtr x = this->root;
-
-		while (x != TNULL) {
-			y = x;
-			if (node->data < x->data) {
-				x = x->left;
-			} else {
-				x = x->right;
-			}
-		}
-
-		// y is parent of x
-		node->parent = y;
-		if (y == TNULL) {
-			root = node;
-		} else if (node->data < y->data) {
-			y->left = node;
-		} else {
-			y->right = node;
-		}
-
-		// if new node is a root node, simply return
-		if (node->parent == TNULL){
-			node->color = 0;
-			return;
-		}
-
-		// if the grandparent is null, simply return
-		if (node->parent->parent == TNULL) {
-			return;
-		}
-
-		// Fix the tree
-		fixInsert(node);
-		_size++;
+        insert(node);
 	}
 
 	template <typename Key, typename Type, typename Compare, typename Alloc>

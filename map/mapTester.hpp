@@ -47,11 +47,14 @@ public:
 
 void MapTester::testConstructors() {
 	std::map<int, std::string> first;
+    first[1]="test";
 	std::map<int, std::string> second;
 	  std::map<int, std::string> third (second.begin(),second.end());
 	std::map<int, std::string> fourth (second);
 
+
 	ft::map<int, std::string> ft_first;
+    ft_first[1]="test";
 	ft::map<int, std::string> ft_second;
 	ft::map<int, std::string> ft_third (ft_second.begin(),ft_second.end());
 	ft::map<int, std::string> ft_fourth (ft_second);
