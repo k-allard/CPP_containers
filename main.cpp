@@ -29,7 +29,7 @@ int main()
 	MapTester *mapTester = new MapTester;
 	mapTester->testConstructors();
 	 mapTester->testAssignations();
-//	 mapTester->testIterators();
+	 mapTester->testIterators();
 //	 mapTester->testCapacity();
 //	 mapTester->testElementAccess();
 //	 mapTester->testModifiers() ;

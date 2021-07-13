@@ -112,7 +112,7 @@ void MapTester::testAssignations() {
 }
 
 void MapTester::testIterators() {
-// 				std::cout << "--- observers ---\n";
+ 				std::cout << "--- iterators ---\n";
 // -------------------------------------------------------------------------
 //				public member functions:
 //	begin - Return iterator to beginning

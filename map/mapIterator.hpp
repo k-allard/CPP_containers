@@ -112,5 +112,62 @@ namespace ft
         bool operator!=(const ConstMapIterator & second) const
         { return (_node != second._node); }
     };
-} //ft:: end
+
+	template <typename Key, typename T, typename Compare, typename Alloc>
+	class RevMapIterator
+	{
+	public:
+		typedef T value_type;
+		typedef T pair_type;
+		typedef pair_type *pointer;
+		typedef pair_type &reference;
+		typedef TreeNode<Key, T> node_type;
+		typedef node_type * node_pointer;
+		typedef RBTree<Key, T, Compare, Alloc> tree_type;
+		typedef tree_type * tree_pointer;
+		node_pointer _node;
+
+		tree_pointer _tree;
+
+	public:
+		RevMapIterator() 					: _node(nullptr), _tree(nullptr) {}
+		RevMapIterator(node_pointer p, tree_pointer t) 	: _node(p), _tree(t) {}
+
+		RevMapIterator & operator=(const RevMapIterator &src) { _node = src._node; return (*this); }
+
+		reference & operator*() const {
+			return (_node->dataValue);
+		}
+
+		RevMapIterator & operator++() {
+			_node = _tree->predecessor(_node);
+			return (*this);
+		}
+
+		RevMapIterator & operator--() {
+			_node = _tree->successor(_node);
+			return (*this);
+		}
+
+		RevMapIterator operator++(int) {
+			RevMapIterator curr = *this;
+			_node = _tree->predecessor(_node);
+			return (curr);
+		}
+
+		RevMapIterator operator--(int) {
+			RevMapIterator curr = *this;
+			_node = _tree->predecessor(_node);
+			return (curr);
+		}
+
+		bool operator==(const RevMapIterator & second) const
+		{ return (_node == second._node); }
+
+		bool operator!=(const RevMapIterator & second) const
+		{ return (_node != second._node); }
+	};
+
+
+} //ft::end
 #endif
