@@ -84,20 +84,31 @@ void MapTester::testAssignations() {
 //	operator= - Copy container content (public member function )
 // -------------------------------------------------------------------------
 
-	// std::map<int> first(3,0);
-	// std::map<int> second(5,0);
-	// std::map<int> third;
+	std::map<std::string, int> first;
+	first["test1"] = 1;
+	first["test2"] = 2;
+	std::map<std::string, int> second;
+	second["test3"] = 3;
+	second["test4"] = 4;
 
-	// ft::map<int> ft_first(3,0);
-	// ft::map<int> ft_second(5,0);
-	// ft::map<int> ft_third;
+	ft::map<std::string, int> ft_first;
+	ft_first["test1"] = 1;
+	ft_first["test2"] = 2;
+	ft::map<std::string, int> ft_second;
+	ft_second["test3"] = 3;
+	ft_second["test4"] = 4;
 
-	// first = second;
-	// ft_first = ft_second;
+	printStdmap(first);
+	printFtmap(ft_first);
+	std::cout << "	* assigning . . . *	\n";
+	first = second;
+	ft_first = ft_second;
+	printStdmap(first);
+	printFtmap(ft_first);
 
-	// std::cout << "operator= -           ";
-	// if (!compareStdFtmaps(first, ft_first))
-	// 	passed();
+	std::cout << "operator= -           ";
+	if (!compareStdFtmaps(first, ft_first) && !compareStdFtmaps(second, ft_second))
+		passed();
 }
 
 void MapTester::testIterators() {

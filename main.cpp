@@ -28,7 +28,7 @@ int main()
 
 	MapTester *mapTester = new MapTester;
 	mapTester->testConstructors();
-//	 mapTester->testAssignations();
+	 mapTester->testAssignations();
 //	 mapTester->testIterators();
 //	 mapTester->testCapacity();
 //	 mapTester->testElementAccess();
