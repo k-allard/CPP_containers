@@ -58,7 +58,7 @@ namespace ft
 		void insert(key_type key, value_type value);
         void insert(key_type key);
         void insert(NodePtr x);
-        void size();
+//        void size() const;
 		NodePtr getRoot() const;
 		void deleteNode(key_type key);
 		void prettyPrint() const;
@@ -498,7 +498,7 @@ namespace ft
         } else {
             y->right = node;
         }
-
+		_size++;
         // if new node is a root node, simply return
         if (node->parent == TNULL){
             node->color = 0;
@@ -512,7 +512,6 @@ namespace ft
 
         // Fix the tree
         fixInsert(node);
-        _size++;
     }
 
     // insert the key to the tree in its appropriate position

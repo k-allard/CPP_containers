@@ -57,7 +57,6 @@ void MapTester::testConstructors() {
 	ft::map<int, std::string> ft_first;
     ft_first[1]="test";
 	ft_first[2]="test2";
-
 	ft_first.printTree();
 	ft::map<int, std::string> ft_second;
 	ft::map<int, std::string> ft_third (ft_second.begin(),ft_second.end());
@@ -678,12 +677,11 @@ void MapTester::testRelationalOperators() {
  template <class Key, class T>
  int MapTester::compareStdFtmaps(std::map<Key,T> &std_map, ft::map<Key,T> &ft_map) {
  	int fail = 0;
-
 //	 std::cout <<"\n first std_map element is: "<< (*std_map.begin()).first << ":" << (*std_map.begin()).second << std::endl;
-	 std::cout <<"\n first ft_map element is: "<< (*ft_map.begin()).first << ":" << (*ft_map.begin()).second << std::endl;
+//	 std::cout <<"\n first ft_map element is: "<< (*ft_map.begin()).first << ":" << (*ft_map.begin()).second << std::endl;
 
 //	 std::cout <<" last std_map element is: "<< (*std_map.end()).first << ":" << (*std_map.end()).second << std::endl;
-	 std::cout <<" last ft_map element is: "<< (*ft_map.end()).first << ":" << (*ft_map.end()).second << std::endl;
+//	 std::cout <<" last ft_map element is: "<< (*ft_map.end()).first << ":" << (*ft_map.end()).second << std::endl;
 
 	 for (typename std::map<Key,T>::iterator it = std_map.begin(); it != std_map.end(); it++) {
  		stdString << (*it).first << ':';
@@ -698,7 +696,6 @@ void MapTester::testRelationalOperators() {
  		<< "\nStd map: " << stdString.str() << NC << "\n";
  		fail = 1;
  	}
-
  	if (std_map.size() != ft_map.size()) {
  		std::cout << RED << "SIZE FAIL ❌\n" << "Ft map size: " << ft_map.size() \
  		<< "\nStd map size: " << std_map.size() << NC << "\n";

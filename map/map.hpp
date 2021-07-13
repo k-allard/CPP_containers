@@ -117,8 +117,8 @@ namespace ft
 	// */
 		iterator				begin() 			{return (iterator(_tree.minimum(_tree.getRoot()), &_tree));}
 	 	const_iterator			begin() const 		{return (const_iterator(_tree.minimum(_tree.getRoot()), &_tree));}
-		iterator				end() 				{return (iterator(_tree.maximum(_tree.getRoot()), &_tree));}
-	 	const_iterator			end() const 		{return (const_iterator(_tree.maximum(_tree.getRoot()), &_tree));}
+		iterator				end() 				{return (++iterator(_tree.maximum(_tree.getRoot()), &_tree));}
+	 	const_iterator			end() const 		{return (++const_iterator(_tree.maximum(_tree.getRoot()), &_tree));}
 	// 	reverse_iterator		rbegin() 			{return (reverse_iterator(_tree._end->parent ? _tree._end->parent : _tree._end));}
 	// 	const_reverse_iterator	rbegin() const 		{return (const_reverse_iterator(_tree._end->parent ? _tree._end->parent : _tree._end));}
 	// 	reverse_iterator		rend() 				{return (reverse_iterator(_tree._end));}
