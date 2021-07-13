@@ -48,13 +48,17 @@ public:
 void MapTester::testConstructors() {
 	std::map<int, std::string> first;
     first[1]="test";
+	first[2]="test2";
 	std::map<int, std::string> second;
-	  std::map<int, std::string> third (second.begin(),second.end());
+	std::map<int, std::string> third (second.begin(),second.end());
 	std::map<int, std::string> fourth (second);
 
 
 	ft::map<int, std::string> ft_first;
     ft_first[1]="test";
+	ft_first[2]="test2";
+
+	ft_first.printTree();
 	ft::map<int, std::string> ft_second;
 	ft::map<int, std::string> ft_third (ft_second.begin(),ft_second.end());
 	ft::map<int, std::string> ft_fourth (ft_second);
@@ -675,7 +679,13 @@ void MapTester::testRelationalOperators() {
  int MapTester::compareStdFtmaps(std::map<Key,T> &std_map, ft::map<Key,T> &ft_map) {
  	int fail = 0;
 
- 	for (typename std::map<Key,T>::iterator it = std_map.begin(); it != std_map.end(); it++) {
+//	 std::cout <<"\n first std_map element is: "<< (*std_map.begin()).first << ":" << (*std_map.begin()).second << std::endl;
+	 std::cout <<"\n first ft_map element is: "<< (*ft_map.begin()).first << ":" << (*ft_map.begin()).second << std::endl;
+
+//	 std::cout <<" last std_map element is: "<< (*std_map.end()).first << ":" << (*std_map.end()).second << std::endl;
+	 std::cout <<" last ft_map element is: "<< (*ft_map.end()).first << ":" << (*ft_map.end()).second << std::endl;
+
+	 for (typename std::map<Key,T>::iterator it = std_map.begin(); it != std_map.end(); it++) {
  		stdString << (*it).first << ':';
         stdString << (*it).second << ' ';
  	}

@@ -124,24 +124,37 @@ namespace ft
 	// 	reverse_iterator		rend() 				{return (reverse_iterator(_tree._end));}
 	// 	const_reverse_iterator	rend()const  		{return (const_reverse_iterator(_tree._end));}
 
-	// **       Element access
+		void printTree() {
+			_tree.prettyPrint();
+		}
 
-	// если ключа нет - то function inserts a new element with that key and returns a reference to its mapped value
+
+		// **       Element access
+		// если ключа нет - то function inserts a new element with that key and returns a reference to its mapped value
 		// если ключ есть - то function returns a reference to its mapped value
 		mapped_type &			 operator[](const key_type &k)
 	 	{
+			std::cout << "operator[] : Looking for a [" << k << "] key" << std::endl;
 			_node_pointer node = _tree.searchTree(k);
 			if (node == nullptr) {
-				_tree.insert(k);
+				std::cout << "operator[] : Key [" << k << "] not found" << std::endl;
+				ft::pair<const Key, T> *val = new ft::pair<const Key, T>(k, T()); //можно и на стеке
+				_tree.insert(k, *val);
+				delete val;
 				node = _tree.searchTree(k);
-				if (node)
+				std::cout << "operator[] : Inserted new node with key [" << node->data << "] and value [" << node->dataValue.second << "]" << std::endl;
+				if (node) {
+					std::cout << "operator[] : Returning value" << std::endl;
 					return (node->dataValue.second);
+				}
 				else {
 					std::cout << "Something went wrong with insert()" << std::endl;
 					exit (6);
 				}
 			}
 			else {
+				std::cout << "operator[] : Key [" << k << "] found" << std::endl;
+				std::cout << "operator[] : Returning its value [" << node->dataValue.second << "]" << std::endl;
 				return (node->dataValue.second);
 			}
 	// 		_node_pointer curr = _tree.find_place(k, _tree._root);

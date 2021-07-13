@@ -58,6 +58,7 @@ namespace ft
 		void insert(key_type key, value_type value);
         void insert(key_type key);
         void insert(NodePtr x);
+        void size();
 		NodePtr getRoot() const;
 		void deleteNode(key_type key);
 		void prettyPrint() const;
@@ -320,7 +321,7 @@ namespace ft
 		}
 
 		string sColor = root->color?"RED":"BLACK";
-		cout<<root->data<<"("<<sColor<<")"<<endl;
+		cout << "[" << root->data << "]:[" << root->dataValue.second << "]("<<sColor<<")" <<  endl;
 		printHelper(root->left, indent, false);
 		printHelper(root->right, indent, true);
 		}
@@ -524,8 +525,9 @@ namespace ft
         //NodePtr node = &tree_node;
         NodePtr node = new TreeNode<Key, Type>();
         node->data = key;
-        //NodePtr ptr = alloc.allocate(1);
-        //node->dataValue = *ptr;
+        NodePtr ptr = alloc.allocate(1);
+        node->dataValue = *ptr;
+
         node->parent = TNULL;
         node->left = TNULL;
         node->right = TNULL;
