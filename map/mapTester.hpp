@@ -20,19 +20,18 @@ public:
 	void testElementAccess();
 	void testModifiers() ;
 	void testObservers();
-
-	void testSwap();
+	void testOperations();
 	void testRelationalOperators();
+	void testSwap();
 
  private:
  	std::stringstream stdString;
  	std::stringstream ftString;
  	static void passed();
  	template <class Key, class T> int compareStdFtmaps(std::map<Key,T> &std_map, ft::map<Key,T> &ft_map);
-// 	template <class T> void printStdFtmaps(std::map<T> &std_map, ft::map<T> &ft_map);
-// 	template <class T> void printStdmap(std::map<T> &std_map);
-// 	template <class T> void printFtmap(ft::map<T> &ft_map);
-
+ 	template <class Key, class T> void printStdFtmaps(std::map<Key, T> &std_map, ft::map<Key, T> &ft_map);
+	template <class Key, class T> void printStdmap(std::map<Key,T> &std_map);
+	template <class Key, class T> void printFtmap(ft::map<Key, T> &ft_map);
 // 	// a predicate implemented as a class:
 // 	struct is_odd {
 // 		bool operator() (const int& value) { return (value % 2) == 1; }
@@ -47,36 +46,44 @@ public:
 
 void MapTester::testConstructors() {
 	std::map<int, std::string> first;
-    first[1]="test";
-	first[2]="test2";
 	std::map<int, std::string> second;
+	second[1]="test";
+	second[2]="test2";
 	std::map<int, std::string> third (second.begin(),second.end());
 	std::map<int, std::string> fourth (second);
 
 
 	ft::map<int, std::string> ft_first;
-    ft_first[1]="test";
-	ft_first[2]="test2";
-	ft_first.printTree();
+//	ft_first.printTree();
 	ft::map<int, std::string> ft_second;
+	ft_second[1]="test";
+	ft_second[2]="test2";
 	ft::map<int, std::string> ft_third (ft_second.begin(),ft_second.end());
 	ft::map<int, std::string> ft_fourth (ft_second);
 
 	 std::cout << "Default constructor - ";
 	 if (!compareStdFtmaps(first, ft_first))
 	 	passed();
-	 std::cout << "Fill constructor -    ";
-	 if (!compareStdFtmaps(second, ft_second))
+	printStdFtmaps(second, ft_second);
+	std::cout << "Fill constructor -    ";
+	if (!compareStdFtmaps(second, ft_second))
 	 	passed();
-	  std::cout << "Range constructor -   ";
-	  if (!compareStdFtmaps(third, ft_third))
+	printStdFtmaps(third, ft_third);
+	std::cout << "Range constructor -   ";
+	if (!compareStdFtmaps(third, ft_third))
 	  	passed();
-	 std::cout << "Copy constructor -    ";
-	 if (!compareStdFtmaps(fourth, ft_fourth))
+	printStdFtmaps(fourth, ft_fourth);
+	std::cout << "Copy constructor -    ";
+	if (!compareStdFtmaps(fourth, ft_fourth))
 	 	passed();
 }
 
 void MapTester::testAssignations() {
+// 				std::cout << "--- assignation ---\n";
+// -------------------------------------------------------------------------
+//	operator= - Copy container content (public member function )
+// -------------------------------------------------------------------------
+
 	// std::map<int> first(3,0);
 	// std::map<int> second(5,0);
 	// std::map<int> third;
@@ -91,22 +98,22 @@ void MapTester::testAssignations() {
 	// std::cout << "operator= -           ";
 	// if (!compareStdFtmaps(first, ft_first))
 	// 	passed();
-
-	// std::cout << "Fill assignation -    ";
-	// first.assign(2, 99);
-	// ft_first.assign(2, 99);
-	// if (!compareStdFtmaps(first, ft_first))
-	// 	passed();
-
-	// std::cout << "Range assignation -   ";
-	// int myints[] = {1776,7,4};
-	// third.assign (myints, myints + 3);
-	// ft_third.assign (myints, myints + 3);
-	// if (!compareStdFtmaps(third, ft_third))
-	// 	passed();
 }
 
 void MapTester::testIterators() {
+// 				std::cout << "--- observers ---\n";
+// -------------------------------------------------------------------------
+//				public member functions:
+//	begin - Return iterator to beginning
+//	end - Return iterator to end
+//	rbegin - Return reverse iterator to reverse beginning
+//	rend - Return reverse iterator to reverse end
+//	cbegin - Return const_iterator to beginning
+//	cend - Return const_iterator to end
+//	crbegin - Return const_reverse_iterator to reverse beginning
+//	crend - Return const_reverse_iterator to reverse end
+// -------------------------------------------------------------------------
+
 	// std::map<int> first (5);  // 5 ints 0
 	// ft::map<int> ft_first (5);  // 5 ints 0
 
@@ -140,6 +147,13 @@ void MapTester::testIterators() {
 }
 
 void MapTester::testCapacity() {
+// 				std::cout << "--- capacity ---\n";
+// -------------------------------------------------------------------------
+//	empty - Test whether container is empty (public member function )
+//	size - Return container size (public member function )
+//	max_size - Return maximum size (public member function )
+// -------------------------------------------------------------------------
+
 	// int flag = 0;
 
 	// std::cout << "size() -              ";
@@ -174,6 +188,12 @@ void MapTester::testCapacity() {
  }
 
  void MapTester::testElementAccess() {
+// 				std::cout << "--- element access ---\n";
+// -------------------------------------------------------------------------
+//	 operator[] - Access element (public member function )
+//	 at - Access element (public member function )
+// -------------------------------------------------------------------------
+
  	// std::map<int> first (3, 4);   // 10 zero-initialized elements
  	// ft::map<int> ft_first (3, 4);   // 10 zero-initialized elements
  	// std::map<int>::size_type sz = first.size();
@@ -196,6 +216,16 @@ void MapTester::testCapacity() {
 }
 
 void MapTester::testModifiers() {
+// 				std::cout << "--- modifiers ---\n";
+// -------------------------------------------------------------------------
+//	insert - Insert elements (public member function )
+//	erase - Erase elements (public member function )
+//	swap - Swap content (public member function )
+//	clear - Clear content (public member function )
+//	emplace - Construct and insert element (public member function )
+//	emplace_hint - Construct and insert element with hint (public member function )
+// -------------------------------------------------------------------------
+
 	// std::map<int> first (5);  // 5 default-constructed ints
 	// ft::map<int> ft_first (5);  // 5 default-constructed ints
 
@@ -336,6 +366,12 @@ void MapTester::testModifiers() {
 }
 
 void MapTester::testObservers() {
+// 				std::cout << "--- observers ---\n";
+// -------------------------------------------------------------------------
+//	key_comp - Return key comparison object (public member function )
+//	value_comp - Return value comparison object (public member function )
+// -------------------------------------------------------------------------
+
 // 	std::map<int> first;
 // 	ft::map<int> ft_first;
 // 	for (int i = 1; i < 10; ++i) {
@@ -649,6 +685,33 @@ void MapTester::testSwap() {
 	//  	passed();
 }
 
+void MapTester::testOperations() {
+// 				std::cout << "--- operations ---\n";
+// -------------------------------------------------------------------------
+//	find - Get iterator to element (public member function )
+//	count - Count elements with a specific key (public member function )
+//	lower_bound - Return iterator to lower bound (public member function )
+//	upper_bound - Return iterator to upper bound (public member function )
+//	equal_range - Get range of equal elements (public member function )
+// -------------------------------------------------------------------------
+
+
+	// std::map<int> first (3,100);   // three ints with a value of 100
+	// std::map<int> second (2,200);   // two ints with a value of 200
+	// ft::map<int> ft_first (3,100);   // three ints with a value of 100
+	// ft::map<int> ft_second (2,200);   // two ints with a value of 200
+
+	// if ((first==second) == (ft_first==ft_second) && \
+	// 	(first!=second) == (ft_first!=ft_second) && \
+	// 	(first< second) == (ft_first< ft_second)  && \
+	// 	(first> second) == (ft_first> ft_second)  && \
+	// 	(first<=second) == (ft_first<=ft_second) && \
+	// 	(first>=second) == (ft_first>=ft_second))
+	// 		passed();
+	// else
+	// 	std::cout << RED << "FAIL ❌\n" << NC;
+}
+
 void MapTester::testRelationalOperators() {
 	// std::cout << "--- relational operators ---\n";
 
@@ -706,33 +769,32 @@ void MapTester::testRelationalOperators() {
  	return fail;
  }
 
-// template <class T>
-// void MapTester::printStdFtmaps(std::map<T> &std_map, ft::map<T> &ft_map) {
-// 	std::cout << "\nFt map : ";
-// 	for (typename ft::map<T>::iterator ft_it = ft_map.begin(); ft_it != ft_map.end(); ft_it++) {
-// 		std::cout << *ft_it << ' ';
-// 	}
-// 	std::cout << "\nStd map: ";
-// 	for (typename std::map<T>::iterator it = std_map.begin(); it != std_map.end(); it++) {
-// 		std::cout << *it << ' ';
-// 	}
-// 	std::cout << "\n";
-// }
+template <class Key, class T>
+ void MapTester::printStdFtmaps(std::map<Key,T> &std_map, ft::map<Key,T> &ft_map) {
+	printFtmap(ft_map);
+	printStdmap(std_map);
+ }
 
-// template <class T>
-// void MapTester::printStdmap(std::map<T> &std_map) {
-// 	std::cout << "\nStd map: ";
-// 	for (typename std::map<T>::iterator it = std_map.begin(); it != std_map.end(); it++) {
-// 		std::cout << *it << ' ';
-// 	}
-// }
+template <class Key, class T>
+ void MapTester::printStdmap(std::map<Key,T> &std_map) {
+	std::cout << "Std map: ";
+	for (typename std::map<Key, T>::iterator it = std_map.begin(); it != std_map.end(); it++) {
+		std::cout << '[';
+		std::cout << (*it).first << ':';
+		std::cout << (*it).second << "] ";
+	}
+	std::cout << "\n";
+ }
 
-// template <class T>
-// void MapTester::printFtmap(ft::map<T> &ft_map) {
-// 	std::cout << "\nFt map:  ";
-// 	for (typename ft::map<T>::iterator ft_it = ft_map.begin(); ft_it != ft_map.end(); ft_it++) {
-// 		std::cout << *ft_it << ' ';
-// 	}
-// }
+template <class Key, class T>
+ void MapTester::printFtmap(ft::map<Key, T> &ft_map) {
+	std::cout << "Ft map : ";
+	for (typename ft::map<Key, T>::iterator ft_it = ft_map.begin(); ft_it != ft_map.end(); ft_it++) {
+		std::cout << '[';
+		std::cout << (*ft_it).first << ':';
+		std::cout << (*ft_it).second << "] ";
+	}
+	std::cout << "\n";
+}
 
 #pragma clang diagnostic pop

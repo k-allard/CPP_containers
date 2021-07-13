@@ -134,36 +134,28 @@ namespace ft
 		// если ключ есть - то function returns a reference to its mapped value
 		mapped_type &			 operator[](const key_type &k)
 	 	{
-			std::cout << "operator[] : Looking for a [" << k << "] key" << std::endl;
+//			std::cout << "operator[] : Looking for a [" << k << "] key" << std::endl;
 			_node_pointer node = _tree.searchTree(k);
 			if (node == nullptr) {
-				std::cout << "operator[] : Key [" << k << "] not found" << std::endl;
-				ft::pair<const Key, T> *val = new ft::pair<const Key, T>(k, T()); //можно и на стеке
-				_tree.insert(k, *val);
-				delete val;
+//				std::cout << "operator[] : Key [" << k << "] not found" << std::endl;
+				ft::pair<const Key, T> val(k, T());
+				_tree.insert(k, val);
 				node = _tree.searchTree(k);
-				std::cout << "operator[] : Inserted new node with key [" << node->data << "] and value [" << node->dataValue.second << "]" << std::endl;
+//				std::cout << "operator[] : Inserted new node with key [" << node->data << "] and value [" << node->dataValue.second << "]" << std::endl;
 				if (node) {
-					std::cout << "operator[] : Returning value" << std::endl;
+//					std::cout << "operator[] : Returning value" << std::endl;
 					return (node->dataValue.second);
 				}
 				else {
-					std::cout << "Something went wrong with insert()" << std::endl;
+					std::cout << "Something went wrong with map::insert()" << std::endl;
 					exit (6);
 				}
 			}
 			else {
-				std::cout << "operator[] : Key [" << k << "] found" << std::endl;
-				std::cout << "operator[] : Returning its value [" << node->dataValue.second << "]" << std::endl;
+//				std::cout << "operator[] : Key [" << k << "] found" << std::endl;
+//				std::cout << "operator[] : Returning its value [" << node->dataValue.second << "]" << std::endl;
 				return (node->dataValue.second);
 			}
-	// 		_node_pointer curr = _tree.find_place(k, _tree._root);
-	// 		if (!curr)
-	// 		{
-	// 			insert(ft::make_pair(k, mapped_type()));
-	// 			curr = _tree.find_place(k, _tree._root);
-	// 		}
-	// 		return (curr->element.second);
 	 	}
 
 	// /*
@@ -188,14 +180,14 @@ namespace ft
 
 	// insert with hint (2)
 	iterator insert (iterator position, const value_type& val) {
-
+		(void)position;
+		insert(val);
 	}
 
 	// insert range (3)
 	template <class InputIterator>
 	void insert (InputIterator first, InputIterator last) {
-		while (first != last)
-		{
+		while (first != last) {
 			insert(*first);
 			first++;
 		}
