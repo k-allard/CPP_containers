@@ -416,36 +416,48 @@ void MapTester::testObservers() {
 }
 
 void MapTester::testSwap() {
-	// std::cout << "--- swap() ---";
+	std::map<char, int> first;
+	std::map<char, int> second;
 
-	// std::map<int> first (3,100);   // three ints with a value of 100
-	// ft::map<int> ft_first (3,100);   // three ints with a value of 100
+	ft::map<char, int> ft_first;
+	ft::map<char, int> ft_second;
 
-	// std::map<int> second (5,200);   // five ints with a value of 200
-	// ft::map<int> ft_second (5,200);   // five ints with a value of 200
-	// printStdFtmaps(first, ft_first);
-	// printStdFtmaps(second, ft_second);
+	std::cout << "--- swap() - non-member overload ---";
+	first.insert ( std::pair<char,int>('m',50) );
+	first.insert ( std::pair<char,int>('l',20) );
+	first.insert ( std::pair<char,int>('k', 90) );
 
-	// std::cout << "\n\n  *swaping . . .*\n";
-	// first.swap(second);
-	// ft_first.swap(ft_second);
+	ft_first.insert ( ft::pair<char,int>('m',50) );
+	ft_first.insert ( ft::pair<char,int>('l', 20) );
+	ft_first.insert ( ft::pair<char,int>('k', 90) );
 
-	// printStdFtmaps(first, ft_first);
-	// printStdFtmaps(second, ft_second);
+	second.insert ( std::pair<char,int>('g',5) );
+	second.insert ( std::pair<char,int>('t',2) );
 
-	// if (!compareStdFtmaps(first, ft_first) && !compareStdFtmaps(second, ft_second))
-	//  	passed();
+	ft_second.insert ( ft::pair<char,int>('g',5) );
+	ft_second.insert ( ft::pair<char,int>('t', 2) );
 
-	// std::cout << "--- swap() non-member overload ---";
-	// std::cout << "\n\n  *swaping . . .*\n";
-	// std::swap(first, second);
-	// ft::swap(ft_first, ft_second);
+	std::cout << "\n	Before swap:\n";
+	printStdmap(first);
+	printStdmap(second);
+	std::cout << "\n";
+	printFtmap(ft_first);
+	printFtmap(ft_second);
+	std::cout << "\n	* swapping . . .*\n";
 
-	// printStdFtmaps(first, ft_first);
-	// printStdFtmaps(second, ft_second);
+	std::swap(first, second);
+	ft::swap(ft_first, ft_second);
 
-	// if (!compareStdFtmaps(first, ft_first) && !compareStdFtmaps(second, ft_second))
-	//  	passed();
+	std::cout << "	After swap:\n";
+	printStdmap(first);
+	printStdmap(second);
+	std::cout << "\n";
+	printFtmap(ft_first);
+	printFtmap(ft_second);
+
+	std::cout << "swap() -              ";
+	if (!compareStdFtmaps(first, ft_first) && !compareStdFtmaps(second, ft_second))
+		passed();
 }
 
 void MapTester::testOperations() {

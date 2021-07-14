@@ -33,7 +33,8 @@ int main()
 	 mapTester->testCapacityAndElementAccess();
 	 mapTester->testModifiers() ;
 	 mapTester->testObservers();
-//	 mapTester->testSwap();
+	 mapTester->testSwap();
+	 mapTester->testOperations();
 //	 mapTester->testRelationalOperators();
     delete mapTester;
     return 0;
