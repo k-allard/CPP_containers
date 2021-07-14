@@ -220,16 +220,112 @@ void MapTester::testCapacityAndElementAccess() {
  }
 
 void MapTester::testModifiers() {
-// 				std::cout << "--- modifiers ---\n";
+ 				std::cout << "--- modifiers ---\n";
 // -------------------------------------------------------------------------
 //	insert - Insert elements (public member function )
 //	erase - Erase elements (public member function )
 //	swap - Swap content (public member function )
 //	clear - Clear content (public member function )
 // -------------------------------------------------------------------------
+	 std::map<char, int> first;
+	 ft::map<char, int> ft_first;
 
-	// std::map<int> first (5);  // 5 default-constructed ints
-	// ft::map<int> ft_first (5);  // 5 default-constructed ints
+	std::cout << "--- Insert single element ---";
+	first.insert ( std::pair<char,int>('a',100) );
+	first.insert ( std::pair<char,int>('z',200) );
+	std::cout << "\n	* inserting element with a new key *	\n";
+	ft_first.insert ( ft::pair<char,int>('a',100) );
+	ft_first.insert ( ft::pair<char,int>('z',200) );
+
+	printStdFtmaps(first, ft_first);
+	std::cout << "insert() -            ";
+	if (!compareStdFtmaps(first, ft_first)) {
+		passed();
+	}
+
+	std::pair<std::map<char,int>::iterator,bool> ret;
+	ft::pair<ft::map<char,int>::iterator,bool> ft_ret;
+
+	std::cout << "	* inserting element with existing key *	\n";
+	ret = first.insert ( std::pair<char,int>('z',500) );
+	if (ret.second == false) {
+		std::cout << "Std map: element 'z' already exists with value " << ret.first->second << '\n';
+	}
+	ft_ret = ft_first.insert ( ft::pair<char,int>('z',500) );
+	if (ft_ret.second == false) {
+		std::cout << "Ft map : element 'z' already exists with value " << ft_ret.first->second << '\n';
+	}
+	std::cout << "insert() -            ";
+	if (!compareStdFtmaps(first, ft_first)) {
+		passed();
+	}
+
+	// The function optimizes its insertion time if position points to the element that will precede the inserted element.
+	std::cout << "--- Insert with hint ---\n";
+	std::map<char,int>::iterator it = first.begin();
+	first.insert (it, std::pair<char,int>('b',300));  // max efficiency inserting
+	first.insert (it, std::pair<char,int>('c',400));  // no max efficiency inserting
+
+	ft::map<char,int>::iterator ft_it = ft_first.begin();
+	ft_first.insert (ft_it, ft::pair<char,int>('b',300));  // max efficiency inserting
+	ft_first.insert (ft_it, ft::pair<char,int>('c',400));  // no max efficiency inserting
+
+	printStdFtmaps(first, ft_first);
+	std::cout << "insert() -            ";
+	if (!compareStdFtmaps(first, ft_first))
+		passed();
+
+	std::cout << "--- Insert range ---\n";
+	std::map<char,int> second;
+	second.insert(first.begin(),first.find('c'));
+	ft::map<char,int> ft_second;
+	ft_second.insert(ft_first.begin(),ft_first.find('c'));
+
+	printStdFtmaps(second, ft_second);
+	std::cout << "insert() -            ";
+	if (!compareStdFtmaps(second, ft_second))
+		passed();
+
+//	// showing contents:
+//	std::cout << "first contains:\n";
+//	for (it=first.begin(); it!=first.end(); ++it)
+//		std::cout << it->first << " => " << it->second << '\n';
+//
+//	std::cout << "second contains:\n";
+//	for (it=second.begin(); it!=second.end(); ++it)
+//		std::cout << it->first << " => " << it->second << '\n';
+
+
+
+	// std::map<int>::iterator it;
+	// ft::map<int>::iterator ft_it;
+	//  it = first.begin();
+	//  ft_it = ft_first.begin();
+	//  ++it;
+	//  ++ft_it;
+	//  it = first.insert (it, 200 );
+	//  ft_it = ft_first.insert (ft_it, 200 );
+	// printStdFtmaps(first, ft_first);			// 99 200 99 0 0 0 0 0 0 0 0
+	//  if (!compareStdFtmaps(first, ft_first))
+	//  	passed();
+
+	//  it = first.begin();
+	//  ft_it = ft_first.begin();
+	//  first.insert (it,2,300);
+	//  ft_first.insert (ft_it,2,300);
+	// printStdFtmaps(first, ft_first);
+	//  if (!compareStdFtmaps(first, ft_first))
+	//  	passed();
+
+	//  int myarray [] = { 501,502,503 };
+	//  first.insert (first.end(), myarray, myarray + 3);
+	//  ft_first.insert (ft_first.end(), myarray, myarray + 3);
+	// printStdFtmaps(first, ft_first);
+	//  if (!compareStdFtmaps(first, ft_first))
+	//  	passed();
+
+
+
 
 	// std::cout << "--- Range assign ---";
 	// int myints[] = {1776,7,4};
@@ -292,36 +388,6 @@ void MapTester::testModifiers() {
  	// 	flag = 1;
  	// if (!flag)
  	// 	passed();
-
-	//  std::cout << "--- Insert single element ---";
-	// std::map<int>::iterator it;
-	// ft::map<int>::iterator ft_it;
-	//  it = first.begin();
-	//  ft_it = ft_first.begin();
-	//  ++it;
-	//  ++ft_it;
-	//  it = first.insert (it, 200 );
-	//  ft_it = ft_first.insert (ft_it, 200 );
-	// printStdFtmaps(first, ft_first);			// 99 200 99 0 0 0 0 0 0 0 0
-	//  if (!compareStdFtmaps(first, ft_first))
-	//  	passed();
-
-	//  std::cout << "--- Insert fill ---";
-	//  it = first.begin();
-	//  ft_it = ft_first.begin();
-	//  first.insert (it,2,300);
-	//  ft_first.insert (ft_it,2,300);
-	// printStdFtmaps(first, ft_first);
-	//  if (!compareStdFtmaps(first, ft_first))
-	//  	passed();
-
-	//  std::cout << "--- Insert range ---";
-	//  int myarray [] = { 501,502,503 };
-	//  first.insert (first.end(), myarray, myarray + 3);
-	//  ft_first.insert (ft_first.end(), myarray, myarray + 3);
-	// printStdFtmaps(first, ft_first);
-	//  if (!compareStdFtmaps(first, ft_first))
-	//  	passed();
 
 	//  std::cout << "--- Erase single element ---";
 

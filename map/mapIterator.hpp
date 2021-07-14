@@ -32,7 +32,7 @@ namespace ft
 		}
 
 		pointer operator->() const {
-			return (_node->dataValue);
+			return (&(_node->dataValue));
 		}
 
 		MapIterator & operator++() {
@@ -96,7 +96,7 @@ namespace ft
 		}
 
 		pointer operator->() const {
-			return (_node->dataValue);
+			return (&(_node->dataValue));
 		}
 
 		ConstMapIterator & operator++() {

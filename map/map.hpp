@@ -103,11 +103,7 @@ namespace ft
 			return (*this);
 		}
 
-	// 	/*
-	// ** --------------------------------------------------------------------------------
-	// **                                  Capacity
-	// ** --------------------------------------------------------------------------------
-	// */
+//capacity
 	 	bool				empty() const		{return (_tree.size() == 0);}
 	 	size_t				size() const		{return (_tree.size());}
 	 	size_t				max_size() const
@@ -115,11 +111,7 @@ namespace ft
 	 		return (std::numeric_limits<size_t>::max() / (sizeof(TreeNode<Key, T>)));
 	 	}
 
-	// /*
-	// ** --------------------------------------------------------------------------------
-	// **                                Iterators
-	// ** --------------------------------------------------------------------------------
-	// */
+//iterators
 		iterator				begin() 			{return (iterator(_tree.minimum(_tree.getRoot()), &_tree));}
 	 	const_iterator			begin() const 		{return (const_iterator(_tree.minimum(_tree.getRoot()), &_tree));}
 		iterator				end() 				{return (++iterator(_tree.maximum(_tree.getRoot()), &_tree));}
@@ -163,9 +155,7 @@ namespace ft
 			}
 	 	}
 
-	// /*
-	// **                                  Modifiers
-	// */
+//modifiers
 
 	// insert single element (1)
 	ft::pair<iterator,bool> insert (const value_type& val) {
@@ -186,7 +176,14 @@ namespace ft
 	// insert with hint (2)
 	iterator insert (iterator position, const value_type& val) {
 		(void)position;
-		insert(val);
+		_node_pointer node = _tree.searchTree(val.first);
+		if (!node) {
+			_tree.insert(val.first, val);
+			return (iterator(_tree.searchTree(val.first), &_tree));
+		}
+		else {
+			return (iterator(node, &_tree));
+		}
 	}
 
 	// insert range (3)
@@ -231,19 +228,25 @@ namespace ft
 
 	// 	}
 
-	// /*
-	// ** --------------------------------------------------------------------------------
-	// **                                  Operations
-	// ** --------------------------------------------------------------------------------
-	// */
-	// 	iterator find(const key_type &k)
 
+	//                            Operations
+		iterator find (const key_type& k) {
+			_node_pointer node = _tree.searchTree(k);
+			if (!node)
+				return (end());
+			else
+				return (iterator(node, &_tree));
+		}
 
-	/*
-	** --------------------------------------------------------------------------------
-	**                                  Observers
-	** --------------------------------------------------------------------------------
-	*/
+		const_iterator find (const key_type& k) const {
+			_node_pointer node = _tree.searchTree(k);
+			if (!node)
+				return (end());
+			else
+				return (const_iterator(node, &_tree));
+		}
+
+//observers
 		key_compare key_comp() const
 		{
 			return (_compare);
@@ -255,6 +258,5 @@ namespace ft
 		// }
 	};
 }
-
 
 #endif

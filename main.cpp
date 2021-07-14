@@ -31,7 +31,7 @@ int main()
 	 mapTester->testAssignations();
 	 mapTester->testIterators();
 	 mapTester->testCapacityAndElementAccess();
-//	 mapTester->testModifiers() ;
+	 mapTester->testModifiers() ;
 //	 mapTester->testObservers();
 //	 mapTester->testSwap();
 //	 mapTester->testRelationalOperators();
