@@ -44,6 +44,8 @@ public:
 };
 
 void MapTester::testConstructors() {
+	std::cout << "--- constructors ---\n";
+
 	std::map<int, std::string> first;
 	std::map<int, std::string> second;
 	second[1]="test";
@@ -354,289 +356,62 @@ void MapTester::testModifiers() {
 }
 
 void MapTester::testObservers() {
-// 				std::cout << "--- observers ---\n";
+ 				std::cout << "--- observers ---\n";
 // -------------------------------------------------------------------------
 //	key_comp - Return key comparison object (public member function )
 //	value_comp - Return value comparison object (public member function )
 // -------------------------------------------------------------------------
+	std::map<char, int> first;
+	ft::map<char, int> ft_first;
 
-// 	std::map<int> first;
-// 	ft::map<int> ft_first;
-// 	for (int i = 1; i < 10; ++i) {
-// 		first.push_back(i * 10);
-// 		ft_first.push_back(i * 10);
-// 	}
-// 	std::map<int> second;
-// 	ft::map<int> ft_second;
-// 	for (int i = 1; i < 8; ++i) {
-// 		second.push_back(i);
-// 		ft_second.push_back(i);
-// 	}
+	std::cout << "--- key_comp() ---\n";
 
-// 	std::cout << "\n--- splice() single element ---\n";
-// 	printStdmap(first);
-// 	printStdmap(second);
-// 	printFtmap(ft_first);
-// 	printFtmap(ft_second);
+	std::map<char,int>::key_compare mycomp = first.key_comp();
+	first['c']=100;
+	first['b']=200;
+	first['a']=300;
 
-// /// a d v a n c i n g
-// 	std::map<int>::iterator itt = first.begin();
-// 	for (int i = 0; i < 5; ++i)
-// 		++itt;
-// 	ft::map<int>::iterator ft_itt = ft_first.begin();
-// 	for (int i = 0; i < 5; ++i)
-// 		++ft_itt;
+	ft::map<char,int>::key_compare ft_mycomp = ft_first.key_comp();
+	ft_first['c']=100;
+	ft_first['b']=200;
+	ft_first['a']=300;
 
-// 	std::map<int>::iterator it = second.begin();
-// 	for (int i = 0; i < 3; ++i)
-// 		++it;
-// 	ft::map<int>::iterator ft_it = ft_second.begin();
-// 	for (int i = 0; i < 3; ++i)
-// 		++ft_it;
-// /// - - - - - - - - -
+	std::cout << "	* printing maps using key_comp() *	\n";
+	char highest_key = first.rbegin()->first;     		// key value of last element
+	char ft_highest_key = ft_first.rbegin()->first;     // key value of last element
 
-// 	std::cout << "\n\n  *splicing . . .*\n";
-// 	first.splice(itt, second, it);
-// 	ft_first.splice(ft_itt, ft_second, ft_it);
+	std::map<char,int>::iterator it = first.begin();
+	std::cout << "Std map: ";
+	do {
+		std::cout << "[" << it->first << ":" << it->second << "] ";
+	} while ( mycomp((*it++).first, highest_key) );
+	std::cout << '\n';
 
-// 	printStdmap(first);
-// 	printStdmap(second);
-// 	printFtmap(ft_first);
-// 	printFtmap(ft_second);
-// 	std::cout << "\n";
-// 	if (!compareStdFtmaps(first, ft_first) && !compareStdFtmaps(second, ft_second))
-// 		passed();
+	ft::map<char,int>::iterator ft_it = ft_first.begin();
+	std::cout << "Ft map:  ";
+	do {
+		std::cout << "[" << ft_it->first << ":" << ft_it->second << "] ";
+	} while ( ft_mycomp((*ft_it++).first, ft_highest_key) );
+	std::cout << '\n';
 
-// 	std::cout << "--- splice() range ---\n";
+	std::cout << "--- value_comp() ---\n";
+	std::cout << "	* printing maps using value_comp() *	\n";
+	std::pair<char,int> highest_elem = *first.rbegin();          	// last element
+	ft::pair<char,int> ft_highest_elem = *ft_first.rbegin();          // last element
 
-// 	/// a d v a n c i n g
-// 	//	source iterators
-// 	itt = first.end();
-// 	for (int i = 0; i < 7; ++i)
-// 		--itt;
-// 	ft_itt = ft_first.end();
-// 	for (int i = 0; i < 7; ++i)
-// 		--ft_itt;
+	it = first.begin();
+	std::cout << "Std map: ";
+	do {
+		std::cout << "[" << it->first << ":" << it->second << "] ";
+	} while ( first.value_comp()(*it++, highest_elem) );
+	std::cout << '\n';
 
-// 	it = first.end();
-// 	for (int i = 0; i < 4; ++i)
-// 		--it;
-// 	ft_it = ft_first.end();
-// 	for (int i = 0; i < 4; ++i)
-// 		--ft_it;
-// 	//	destination iterators
-// 	std::map<int>::iterator it_dest = second.begin();
-// 	for (int i = 0; i < 3; ++i)
-// 		++it_dest;
-// 	ft::map<int>::iterator ft_it_dest = ft_second.begin();
-// 	for (int i = 0; i < 3; ++i)
-// 		++ft_it_dest;
-
-// 	//	std::cout << "*it_dest is at [" << *it_dest << "] and *ft_it_dest is at [" << *ft_it_dest << "]\n";
-// 	//	std::cout << "*itt is at [" << *itt << "] and *ft_itt is at [" << *ft_itt << "]\n";
-// 	//	std::cout << "*it is at [" << *it << "] and *ft_it is at [" << *ft_it << "]\n";
-// 	/// - - - - - - - - -
-
-
-// 	std::cout << "\n  *splicing . . .*\n";
-// 	second.splice(it_dest, first, itt, it);
-// 	ft_second.splice(ft_it_dest, ft_first, ft_itt, ft_it);
-
-// 	printStdmap(first);
-// 	printStdmap(second);
-// 	printFtmap(ft_first);
-// 	printFtmap(ft_second);
-// 	std::cout << "\n";
-// 	if (!compareStdFtmaps(first, ft_first) && !compareStdFtmaps(second, ft_second))
-// 		passed();
-
-
-// 	std::cout << "\n--- splice() entire map ---\n";
-// 	std::cout << "\n  *splicing . . .*\n";
-// 	second.splice(second.begin(), first);
-// 	ft_second.splice(ft_second.begin(), ft_first);
-
-// 	printStdmap(first);
-// 	printStdmap(second);
-// 	printFtmap(ft_first);
-// 	printFtmap(ft_second);
-// 	std::cout << "\n";
-// 	if (!compareStdFtmaps(first, ft_first) && !compareStdFtmaps(second, ft_second))
-// 		passed();
-
-// 	std::cout << "--- remove() ---\n";
-
-// 	second.remove(90);
-// 	second.remove(4);
-// 	ft_second.remove(90);
-// 	ft_second.remove(4);
-
-// 	printStdFtmaps(second, ft_second);
-// 	if (!compareStdFtmaps(second, ft_second))
-// 		passed();
-
-// 	std::cout << "--- remove_if() ---";
-
-// 	int myints[] = {15, 36, 7, 17, 20, 39, 4, 1};
-// 	std::map<int> third (myints, myints + 8);   // 15 36 7 17 20 39 4 1
-// 	ft::map<int> ft_third (myints, myints + 8);
-// 	printStdmap(third);
-// 	printFtmap(ft_third);
-
-// 	third.remove_if(single_digit);        		   // 15 36 17 20 39
-// 	third.remove_if(is_odd());               // 36 20
-// 	ft_third.remove_if(single_digit);        		   // 15 36 17 20 39
-// 	ft_third.remove_if(is_odd());               // 36 20
-
-// 	printStdmap(third);
-// 	printFtmap(ft_third);
-// 	std::cout << "\n";
-// 	if (!compareStdFtmaps(third, ft_third))
-// 		passed();
-
-// 	std::cout << "--- unique() ---";
-// 	int myints2[] = {15, 15, 7, 17, 17, 17, 4, 3};
-// 	std::map<int> fourth (myints2, myints2 + 8);
-// 	ft::map<int> ft_fourth (myints2, myints2 + 8);
-// 	printStdmap(fourth);
-// 	printFtmap(ft_fourth);
-
-// 	fourth.unique();
-// 	ft_fourth.unique();
-
-// 	printStdmap(fourth);
-// 	printFtmap(ft_fourth);
-// 	std::cout << "\n";
-// 	if (!compareStdFtmaps(fourth, ft_fourth))
-// 		passed();
-
-// 	std::cout << "--- sort() ---";
-
-// 	double mydoubles[] = { 12.15,  2.72, 73.0,  12.77,  3.14,
-// 						 12.77, 73.35, 72.25, 15.3,  72.25 };
-// 	std::map<double> fifth (mydoubles,mydoubles+10);
-// 	ft::map<double> ft_fifth (mydoubles,mydoubles+10);
-// 	printStdFtmaps(fifth, ft_fifth);
-
-// 	fifth.sort();             		//  2.72,  3.14, 12.15, 12.77, 12.77, 15.3,  72.25, 72.25, 73.0,  73.35
-// 	ft_fifth.sort();             	//  2.72,  3.14, 12.15, 12.77, 12.77, 15.3,  72.25, 72.25, 73.0,  73.35
-// 	printStdFtmaps(fifth, ft_fifth);
-// 	if (!compareStdFtmaps(fifth, ft_fifth))
-// 		passed();
-// 	std::cout << "--- unique() ---";
-
-// 	fifth.unique();          		 //  2.72,  3.14, 12.15, 12.77, 15.3,  72.25, 73.0,  73.35
-// 	ft_fifth.unique();        		 //  2.72,  3.14, 12.15, 12.77, 15.3,  72.25, 73.0,  73.35
-// 	printStdFtmaps(fifth, ft_fifth);
-// 	if (!compareStdFtmaps(fifth, ft_fifth))
-// 		passed();
-// 	std::cout << "\n--- unique(BinaryPredicate) ---";
-// 	std::cout << "\n\t--- (same_integral_part) ---";
-// 	fifth.unique (same_integral_part); 		 	//  2.72,  3.14, 12.15, 15.3,  72.25, 73.0
-// 	ft_fifth.unique (same_integral_part); 		 //  2.72,  3.14, 12.15, 15.3,  72.25, 73.0
-// 	printStdFtmaps(fifth, ft_fifth);
-// 	std::cout << "\n\t--- (is_near) ---";
-// 	fifth.unique (is_near());         	  //  2.72, 12.15, 72.25
-// 	ft_fifth.unique (is_near());           //  2.72, 12.15, 72.25
-// 	printStdFtmaps(fifth, ft_fifth);
-// 	if (!compareStdFtmaps(fifth, ft_fifth))
-// 		passed();
-
-// 	std::cout << "--- merge(map) ---";
-//   	std::map<double> std_d_first, std_d_second;
-//   	ft::map<double> ft_d_first, ft_d_second;
-
-// 	std_d_first.push_back (3.1);
-// 	std_d_first.push_back (2.2);
-// 	std_d_first.push_back (2.9);
-// 	std_d_second.push_back (3.7);
-// 	std_d_second.push_back (7.1);
-// 	std_d_second.push_back (1.4);
-
-// 	ft_d_first.push_back (3.1);
-// 	ft_d_first.push_back (2.2);
-// 	ft_d_first.push_back (2.9);
-// 	ft_d_second.push_back (3.7);
-// 	ft_d_second.push_back (7.1);
-// 	ft_d_second.push_back (1.4);
-
-// 	printStdmap(std_d_first);
-// 	printStdmap(std_d_second);
-// 	printFtmap(ft_d_first);
-// 	printFtmap(ft_d_second);
-
-// 	std::cout << "\n\n  *sorting . . .*\n";
-
-// 	std_d_first.sort();
-// 	std_d_second.sort();
-// 	ft_d_first.sort();
-// 	ft_d_second.sort();
-
-// 	printStdmap(std_d_first);
-// 	printStdmap(std_d_second);
-// 	printFtmap(ft_d_first);
-// 	printFtmap(ft_d_second);
-
-// 	std::cout << "\n\n  *merging . . .*\n";
-// 	std_d_first.merge(std_d_second);
-// 	ft_d_first.merge(ft_d_second);
-// 	printStdmap(std_d_first);
-// 	printStdmap(std_d_second);
-// 	printFtmap(ft_d_first);
-// 	printFtmap(ft_d_second);
-
-// 	std::cout << std::endl;
-// 	if (!compareStdFtmaps(std_d_first, ft_d_first) && !compareStdFtmaps(std_d_second, ft_d_second))
-// 		passed();
-
-// 	std::cout << "\n--- merge(map, Compare) ---";
-// 	std_d_second.push_back (2.1);
-// 	ft_d_second.push_back (2.1);
-
-// 	printStdmap(std_d_first);
-// 	printStdmap(std_d_second);
-// 	printFtmap(ft_d_first);
-// 	printFtmap(ft_d_second);
-// 	std::cout << "\n\n  *merging . . .*\n";
-
-// 	std_d_first.merge(std_d_second, mycomparison);
-// 	ft_d_first.merge(ft_d_second, mycomparison);
-// 	printStdmap(std_d_first);
-// 	printStdmap(std_d_second);
-// 	printFtmap(ft_d_first);
-// 	printFtmap(ft_d_second);
-
-// 	std::cout << std::endl;
-// 	if (!compareStdFtmaps(std_d_first, ft_d_first) && !compareStdFtmaps(std_d_second, ft_d_second))
-// 		passed();
-
-// 	std::cout << "--- sort(Compare) ---";
-// 	std_d_first.clear();
-// 	ft_d_first.clear();
-
-// 	std_d_first.push_back (3.1);
-// 	std_d_first.push_back (2.9);
-// 	std_d_first.push_back (2.2);
-
-// 	ft_d_first.push_back (3.1);
-// 	ft_d_first.push_back (2.9);
-// 	ft_d_first.push_back (2.2);
-
-// 	printStdFtmaps(std_d_first, ft_d_first);
-// 	std::cout << "\n\n  *sorting . . .*\n";
-// 	std_d_first.sort(mycomparison);
-// 	ft_d_first.sort(mycomparison);
-// 	printStdFtmaps(std_d_first, ft_d_first);
-// 	if (!compareStdFtmaps(std_d_first, ft_d_first))
-// 		passed();
-
-
-// 	std::cout << "--- reverse() ---";
-// 	std_d_first.reverse();
-// 	ft_d_first.reverse();
-// 	printStdFtmaps(std_d_first, ft_d_first);
-// 	if (!compareStdFtmaps(std_d_first, ft_d_first))
-// 		passed();
+	ft_it = ft_first.begin();
+	std::cout << "Ft map:  ";
+	do {
+		std::cout << "[" << ft_it->first << ":" << ft_it->second << "] ";
+	} while ( ft_first.value_comp()(*ft_it++, ft_highest_elem) );
+	std::cout << '\n';
 
 }
 

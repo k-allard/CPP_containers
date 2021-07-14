@@ -26,7 +26,9 @@ namespace ft
         typedef Key 					key_type;
 		typedef T 						mapped_type;
 		typedef ft::pair<const Key, T>	value_type;
+	public:
 		typedef Compare					key_compare;
+	private:
 		// Nested function class to compare elements
 		class value_compare : public binary_function<value_type, value_type, bool>
 		{   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
@@ -38,8 +40,7 @@ namespace ft
 				typedef bool 		result_type;
 				typedef value_type	first_argument_type;
 				typedef value_type	second_argument_type;
-				bool operator() (const value_type& x, const value_type& y) const
-				{
+				bool operator() (const value_type& x, const value_type& y) const {
 					return comp(x.first, y.first);
 				}
 		};
@@ -248,15 +249,13 @@ namespace ft
 		}
 
 //observers
-		key_compare key_comp() const
-		{
+		key_compare key_comp() const {
 			return (_compare);
 		}
 
-		// value_compare value_comp() const
-		// {
-		// 	return _value_comp;
-		// }
+		 value_compare value_comp() const {
+		 	return (_value_comp);
+		 }
 	};
 
 	//
