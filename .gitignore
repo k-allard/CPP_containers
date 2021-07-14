@@ -8,3 +8,5 @@ result
 .idea/
 .DS_Store
 tempCodeRunnerFile
+CMakeLists.txt
+cmake-build-debug/

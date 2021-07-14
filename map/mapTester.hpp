@@ -312,6 +312,37 @@ void MapTester::testModifiers() {
 	std::cout << "erase() -             ";
 	if (!compareStdFtmaps(first, ft_first))
 		passed();
+
+	std::cout << "--- Swap ---\n";
+	second.insert ( std::pair<char,int>('m',50) );
+	second.insert ( std::pair<char,int>('l',20) );
+	second.insert ( std::pair<char,int>('k', 90) );
+
+	ft_second.insert ( ft::pair<char,int>('m',50) );
+	ft_second.insert ( ft::pair<char,int>('l', 20) );
+	ft_second.insert ( ft::pair<char,int>('k', 90) );
+
+	std::cout << "	Before swap:\n";
+	printStdmap(first);
+	printStdmap(second);
+	std::cout << "\n";
+	printFtmap(ft_first);
+	printFtmap(ft_second);
+	std::cout << "	* swapping . . .*\n";
+
+	first.swap(second);
+	ft_first.swap(ft_second);
+
+	std::cout << "	After swap:\n";
+	printStdmap(first);
+	printStdmap(second);
+	std::cout << "\n";
+	printFtmap(ft_first);
+	printFtmap(ft_second);
+
+	std::cout << "swap() -              ";
+	if (!compareStdFtmaps(first, ft_first) && !compareStdFtmaps(second, ft_second))
+		passed();
 }
 
 void MapTester::testObservers() {

@@ -48,12 +48,10 @@ namespace ft
 		typedef const value_type & 		const_reference;
 		typedef value_type * 			pointer;
 		typedef const value_type * 		const_pointer;
-
-
-
 		typedef RBTree<Key, value_type, Compare, allocator_type>	tree_type;
         typedef TreeNode<Key, value_type>		_node;
 		typedef _node *					_node_pointer;
+
 		allocator_type					_allocator;
 		key_compare				    	_compare;
 		tree_type						_tree;
@@ -195,7 +193,6 @@ namespace ft
 		}
 	}
 
-	// ERASE
 	 void erase (iterator position) {
 	 	_node_pointer tmp = _tree.searchTree((*position).first);
 	 	if (tmp == nullptr)
@@ -217,21 +214,20 @@ namespace ft
 				erase(first++);
 		}
 
-		// CLEAR
 		void clear()
 		{
 			  iterator it = begin();
-			  while (it != end())
-              {
+			  while (it != end()) {
                   erase(it++);
               }
 		}
 
-	// 	// SWAP
-	// 	void swap (map& x)
-	// 	{
-
-	// 	}
+	 	void swap (map& x) {
+			map<Key, T> temp = *this;
+			*this = x;
+			x = temp;
+			temp.clear();
+	 	}
 
 
 	//                            Operations
@@ -262,6 +258,13 @@ namespace ft
 		// 	return _value_comp;
 		// }
 	};
+
+	//
+	//  N O N - M E M B E R S
+	//
+
+	template <class Key, class T>
+	void swap (ft::map<Key, T>& x, ft::map<Key, T>& y) { x.swap(y); }
 }
 
 #endif
