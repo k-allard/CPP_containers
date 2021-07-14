@@ -16,8 +16,7 @@ public:
 	void testConstructors();
 	void testAssignations();
 	void testIterators();
-	void testCapacity();
-	void testElementAccess();
+	void testCapacityAndElementAccess();
 	void testModifiers() ;
 	void testObservers();
 	void testOperations();
@@ -164,9 +163,13 @@ void MapTester::testIterators() {
 
 }
 
-void MapTester::testCapacity() {
- 				std::cout << "--- capacity ---\n";
+void MapTester::testCapacityAndElementAccess() {
+				std::cout << "--- element access ---\n";
 // -------------------------------------------------------------------------
+//	 operator[] - Access element (public member function )
+// -------------------------------------------------------------------------
+// -------------------------------------------------------------------------
+//				std::cout << "--- capacity ---\n";
 //	empty - Test whether container is empty (public member function )
 //	size - Return container size (public member function )
 //	max_size - Return maximum size (public member function )
@@ -180,12 +183,20 @@ void MapTester::testCapacity() {
 	first['x'] = "xoor";
 	first['y'] = "yooh";
 	first['x'] = "zoom";
+
+	std::cout << "	* inserting element with a new key *	\n";
 	ft_first['x'] = "xoor";
 	ft_first['y'] = "yooh";
-	std::cout << "	* inserting element with existing key *	\n";
+	std::cout << "	* changing element with existing key *	\n";
 	ft_first['x'] = "zoom";
 
 	printStdFtmaps(first, ft_first);
+	std::cout << "operator[] -          ";
+	if (!compareStdFtmaps(first, ft_first))
+		passed();
+
+
+	std::cout << "--- capacity ---\n";
 	std::cout << "empty() -             ";
 	bool empty2 = first.empty();
 	bool ft_empty2 = ft_first.empty();
@@ -207,33 +218,6 @@ void MapTester::testCapacity() {
 	else
 		std::cout << RED << "FAIL ❌\n" << NC << "\n";
  }
-
- void MapTester::testElementAccess() {
-// 				std::cout << "--- element access ---\n";
-// -------------------------------------------------------------------------
-//	 operator[] - Access element (public member function )
-// -------------------------------------------------------------------------
-
- 	// std::map<int> first (3, 4);   // 10 zero-initialized elements
- 	// ft::map<int> ft_first (3, 4);   // 10 zero-initialized elements
- 	// std::map<int>::size_type sz = first.size();
- 	// ft::map<int>::size_type ft_sz = ft_first.size();
-	// first.resize(5);
-	//  ft_first.resize(5);
-
-	//  printStdFtmaps(first, ft_first);
-
- 	// std::cout << "front() -             ";
- 	// if (first.front() == ft_first.front())
- 	// 		passed();
- 	// else
- 	// 	std::cout << RED << "FAIL ❌\n" << NC;
- 	// std::cout << "back() -              ";
- 	// if (first.back() == ft_first.back())
- 	// 		passed();
- 	// else
- 	// 	std::cout << RED << "FAIL ❌\n" << NC;
-}
 
 void MapTester::testModifiers() {
 // 				std::cout << "--- modifiers ---\n";
