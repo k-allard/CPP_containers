@@ -286,151 +286,32 @@ void MapTester::testModifiers() {
 	if (!compareStdFtmaps(second, ft_second))
 		passed();
 
-//	// showing contents:
-//	std::cout << "first contains:\n";
-//	for (it=first.begin(); it!=first.end(); ++it)
-//		std::cout << it->first << " => " << it->second << '\n';
-//
-//	std::cout << "second contains:\n";
-//	for (it=second.begin(); it!=second.end(); ++it)
-//		std::cout << it->first << " => " << it->second << '\n';
+	  std::cout << "--- Erase by iterator ---\n";
+	second.erase(second.find('b'));
+	ft_second.erase(ft_second.find('b'));
+	printStdFtmaps(second, ft_second);
+	std::cout << "erase() -             ";
+	if (!compareStdFtmaps(second, ft_second))
+		passed();
 
+	std::cout << "--- Erase by key ---\n";
+	second.erase('a');
+	ft_second.erase('a');
+	printStdFtmaps(second, ft_second);
+	std::cout << "erase() -             ";
+	if (!compareStdFtmaps(second, ft_second))
+		passed();
 
-
-	// std::map<int>::iterator it;
-	// ft::map<int>::iterator ft_it;
-	//  it = first.begin();
-	//  ft_it = ft_first.begin();
-	//  ++it;
-	//  ++ft_it;
-	//  it = first.insert (it, 200 );
-	//  ft_it = ft_first.insert (ft_it, 200 );
-	// printStdFtmaps(first, ft_first);			// 99 200 99 0 0 0 0 0 0 0 0
-	//  if (!compareStdFtmaps(first, ft_first))
-	//  	passed();
-
-	//  it = first.begin();
-	//  ft_it = ft_first.begin();
-	//  first.insert (it,2,300);
-	//  ft_first.insert (ft_it,2,300);
-	// printStdFtmaps(first, ft_first);
-	//  if (!compareStdFtmaps(first, ft_first))
-	//  	passed();
-
-	//  int myarray [] = { 501,502,503 };
-	//  first.insert (first.end(), myarray, myarray + 3);
-	//  ft_first.insert (ft_first.end(), myarray, myarray + 3);
-	// printStdFtmaps(first, ft_first);
-	//  if (!compareStdFtmaps(first, ft_first))
-	//  	passed();
-
-
-
-
-	// std::cout << "--- Range assign ---";
-	// int myints[] = {1776,7,4};
-	// first.assign (myints,myints + 3);
-	// ft_first.assign(myints,myints + 3);
-	// printStdFtmaps(first, ft_first);
-	// if (!compareStdFtmaps(first, ft_first))
-	// 	passed();
-
-	// std::cout << "--- Fill assign ---";
-	// first.assign (2,99);
-	// ft_first.assign(2,99);
-	// printStdFtmaps(first, ft_first);
-	// if (!compareStdFtmaps(first, ft_first))
-	// 	passed();
-
-	// std::cout << "--- push_front() ---";
-	// first.push_front(1);
-	// first.push_front(0);
-	// ft_first.push_front(1);
-	// ft_first.push_front(0);
-	// printStdFtmaps(first, ft_first);
-	// if (!compareStdFtmaps(first, ft_first))
-	// 	passed();
-
-	// std::cout << "--- pop_front() ---";
-	// first.pop_front();
-	// ft_first.pop_front();
-	// printStdFtmaps(first, ft_first);
-	// if (!compareStdFtmaps(first, ft_first))
-	// 	passed();
-
-	// std::cout << "--- push_back() ---";
-	// first.push_back(7);
-	// first.push_back(14);
-	// ft_first.push_back(7);
-	// ft_first.push_back(14);
-	// printStdFtmaps(first, ft_first);
-	// if (!compareStdFtmaps(first, ft_first))
-	// 	passed();
-
-	// std::cout << "--- pop_back() ---";
-	// first.pop_back();
-	// ft_first.pop_back();
-	// printStdFtmaps(first, ft_first);
-	// if (!compareStdFtmaps(first, ft_first))
-	// 	passed();
-
-	// std::cout << "--- resize() ---";
- 	// first.resize(2);
- 	// ft_first.resize(2);
-	// printStdFtmaps(first, ft_first);
-	// int flag = 0;
- 	// if (compareStdFtmaps(first, ft_first))
- 	// 	flag = 1;
- 	// first.resize(10);
- 	// ft_first.resize(10);
-	// printStdFtmaps(first, ft_first);			// 99 99 0 0 0 0 0 0 0 0
-	// if (compareStdFtmaps(first, ft_first))
- 	// 	flag = 1;
- 	// if (!flag)
- 	// 	passed();
-
-	//  std::cout << "--- Erase single element ---";
-
-	// std::map<int> second;
-	// std::map<int>::iterator it1, it2;
-
-	// ft::map<int> ft_second;
-	// ft::map<int>::iterator ft_it1, ft_it2;
-
-	// for (int i=1; i<10; ++i) {
-	// 	second.push_back(i * 10);
-	// 	ft_second.push_back(i * 10);
-	// }
-	// 											// 10 20 30 40 50 60 70 80 90
-	// it1 = it2 = second.begin();
-	// ft_it1 = ft_it2 = ft_second.begin();
-	// ++it1;
-	// ++ft_it1;
-	// for (int i=0; i<6; ++i) {
-	// 	++it2;
-	// 	++ft_it2;
-	// }
-	// printStdFtmaps(second, ft_second);
-	// it1 = second.erase (it1);
-	// ft_it1 = ft_second.erase (ft_it1);   // 10 30 40 50 60 70 80 90
-
-	// it2 = second.erase (it2);
-	// ft_it2 = ft_second.erase (ft_it2);   // 10 30 40 50 60 80 90
-	// printStdFtmaps(second, ft_second);
-	// if (!compareStdFtmaps(second, ft_second))
-	// 	passed();
-	// ++it1;
-	// ++ft_it1;
-
-	// --it2;
-	// --ft_it2;
-	// std::cout << "--- Erase range ---";
-	// second.erase (it1, it2);
-	// ft_second.erase (ft_it1,ft_it2);     // 10 30 60 80 90
-
-	// printStdFtmaps(second, ft_second);
-	// if (!compareStdFtmaps(second, ft_second))
-	// 	passed();
+	printStdFtmaps(first, ft_first);
+	std::cout << "\n--- Erase by range ---\n";
+	it = first.find ('c');
+	ft_it = ft_first.find ('c');
+	first.erase ( it, first.end() );
+	ft_first.erase ( ft_it, ft_first.end() );
+	printStdFtmaps(first, ft_first);
+	std::cout << "erase() -             ";
+	if (!compareStdFtmaps(first, ft_first))
+		passed();
 }
 
 void MapTester::testObservers() {

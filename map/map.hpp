@@ -212,6 +212,11 @@ namespace ft
 	 		return 1;
 	 	}
 
+		void erase (iterator first, iterator last) {
+			while (first != last)
+				erase(first++);
+		}
+
 		// CLEAR
 		void clear()
 		{
