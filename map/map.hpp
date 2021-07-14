@@ -248,7 +248,85 @@ namespace ft
 				return (const_iterator(node, &_tree));
 		}
 
-//observers
+		size_t count (const key_type& k) const {
+			_node_pointer node = _tree.searchTree(k);
+			if (!node)
+				return (0);
+			else
+				return (1);
+		}
+
+		// the first element in the container whose key is not considered to go before k
+		// 		(i.e., either it is equivalent or goes after).
+		iterator lower_bound (const key_type& k) {
+			iterator tmp = iterator(_tree.minimum(_tree.getRoot()), &_tree);
+			iterator last = iterator(_tree.maximum(_tree.getRoot()), &_tree);
+
+			while (tmp != last)
+			{
+				if (k == tmp._node->dataValue.first)
+					return tmp;
+				if (_compare(k, tmp._node->dataValue.first))
+					return tmp;
+				tmp++;
+			}
+			return (end());
+		}
+
+		const_iterator lower_bound (const key_type& k) const {
+			const_iterator tmp = const_iterator(_tree.minimum(_tree.getRoot()), &_tree);
+			const_iterator last = const_iterator(_tree.maximum(_tree.getRoot()), &_tree);
+
+			while (tmp != last)
+			{
+				if (k == tmp._node->dataValue.first)
+					return tmp;
+				if (_compare(k, tmp._node->dataValue.first))
+					return tmp;
+				tmp++;
+			}
+			return (end());
+		}
+
+		iterator upper_bound (const key_type& k) {
+			iterator tmp = iterator(_tree.minimum(_tree.getRoot()), &_tree);
+			iterator last = iterator(_tree.maximum(_tree.getRoot()), &_tree);
+
+			while (tmp != last)
+			{
+				if (k == tmp._node->dataValue.first)
+					return (++tmp);
+				if (_compare(k, tmp._node->dataValue.first))
+					return tmp;
+				tmp++;
+			}
+			return (end());
+		}
+
+		const_iterator upper_bound (const key_type& k) const {
+			const_iterator tmp = const_iterator(_tree.minimum(_tree.getRoot()), &_tree);
+			const_iterator last = const_iterator(_tree.maximum(_tree.getRoot()), &_tree);
+
+			while (tmp != last)
+			{
+				if (k == tmp._node->dataValue.first)
+					return (++tmp);
+				if (_compare(k, tmp._node->dataValue.first))
+					return tmp;
+				tmp++;
+			}
+			return (end());
+		}
+
+		pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
+
+		}
+
+		pair<iterator,iterator>             equal_range (const key_type& k) {
+
+		}
+
+		//observers
 		key_compare key_comp() const {
 			return (_compare);
 		}

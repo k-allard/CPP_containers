@@ -461,7 +461,7 @@ void MapTester::testSwap() {
 }
 
 void MapTester::testOperations() {
-// 				std::cout << "--- operations ---\n";
+ 				std::cout << "--- operations ---\n";
 // -------------------------------------------------------------------------
 //	find - Get iterator to element (public member function )
 //	count - Count elements with a specific key (public member function )
@@ -470,21 +470,68 @@ void MapTester::testOperations() {
 //	equal_range - Get range of equal elements (public member function )
 // -------------------------------------------------------------------------
 
+	std::map<char,int> first;
+	std::map<char,int>::iterator it;
 
-	// std::map<int> first (3,100);   // three ints with a value of 100
-	// std::map<int> second (2,200);   // two ints with a value of 200
-	// ft::map<int> ft_first (3,100);   // three ints with a value of 100
-	// ft::map<int> ft_second (2,200);   // two ints with a value of 200
+	first['a']=150;
+	first['b']=50;
+	first['c']=100;
 
-	// if ((first==second) == (ft_first==ft_second) && \
-	// 	(first!=second) == (ft_first!=ft_second) && \
-	// 	(first< second) == (ft_first< ft_second)  && \
-	// 	(first> second) == (ft_first> ft_second)  && \
-	// 	(first<=second) == (ft_first<=ft_second) && \
-	// 	(first>=second) == (ft_first>=ft_second))
-	// 		passed();
-	// else
-	// 	std::cout << RED << "FAIL ❌\n" << NC;
+	it = first.find('b');
+	if (it != first.end())
+		first.erase (it);
+
+	ft::map<char,int> ft_first;
+	ft::map<char,int>::iterator ft_it;
+
+	ft_first['a']=150;
+	ft_first['b']=50;
+	ft_first['c']=100;
+
+	ft_it = ft_first.find('b');
+	if (ft_it != ft_first.end())
+		ft_first.erase (ft_it);
+
+	printStdFtmaps(first, ft_first);
+	std::cout << "find() -              ";
+	if (!compareStdFtmaps(first, ft_first))
+		passed();
+
+	std::cout << "count() -             ";
+	if (first.count('c') == ft_first.count('c') && first.count('q') == ft_first.count('q'))
+		passed();
+
+	std::cout << "lower&upper_bound() - ";
+	std::map<char,int> second;
+	std::map<char,int>::iterator itlow, itup;
+	ft::map<char,int> ft_second;
+	ft::map<char,int>::iterator ft_itlow, ft_itup;
+
+	second['a']=20;
+	second['b']=40;
+	second['c']=60;
+	second['d']=80;
+	second['e']=100;
+
+	ft_second['a']=20;
+	ft_second['b']=40;
+	ft_second['c']=60;
+	ft_second['d']=80;
+	ft_second['e']=100;
+
+	itlow = second.lower_bound ('b');  // itlow points to b
+	itup = second.upper_bound ('d');   // itup points to e (not d!)
+	ft_itlow = ft_second.lower_bound ('b');  // itlow points to b
+	ft_itup = ft_second.upper_bound ('d');   // itup points to e (not d!)
+
+	second.erase(itlow, itup);       	 // erases [itlow,itup)
+	ft_second.erase(ft_itlow, ft_itup);        // erases [itlow,itup)
+
+	if (!compareStdFtmaps(second, ft_second))
+		passed();
+
+	std::cout << "equal_range() -       ";
+
 }
 
 void MapTester::testRelationalOperators() {
