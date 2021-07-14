@@ -119,42 +119,49 @@ void MapTester::testIterators() {
 //	end - Return iterator to end
 //	rbegin - Return reverse iterator to reverse beginning
 //	rend - Return reverse iterator to reverse end
-//	cbegin - Return const_iterator to beginning
-//	cend - Return const_iterator to end
-//	crbegin - Return const_reverse_iterator to reverse beginning
-//	crend - Return const_reverse_iterator to reverse end
 // -------------------------------------------------------------------------
 
-	// std::map<int> first (5);  // 5 ints 0
-	// ft::map<int> ft_first (5);  // 5 ints 0
+	 std::map<char, int> first;
+	first['x'] = 100;
+	first['y'] = 200;
+	first['z'] = 300;
+	 ft::map<char, int> ft_first;
+	ft_first['x'] = 100;
+	ft_first['y'] = 200;
+	ft_first['z'] = 300;
 
-	// std::cout << "rbegin() and rend() - ";
+	printStdFtmaps(first, ft_first);
 
-	// std::map<int>::reverse_iterator rit = first.rbegin();
-	// ft::map<int>::reverse_iterator ft_rit = ft_first.rbegin();
+	 std::map<char, int>::iterator it = --(first.end());
+	 ft::map<char, int>::iterator ft_it = --(ft_first.end());
+	 std::cout << "\nStd map: last element is [" << (*it).first << ":" << (*it).second << "]" << std::endl;
+	std::cout << "Ft map : last element is [" << (*ft_it).first << ":" << (*ft_it).second << "]" << std::endl;
 
-	// int i = 0;
-	// for (; rit != first.rend(); ++rit)
-	// 	*rit = ++i;
+	it = first.begin();
+	ft_it = ft_first.begin();
+	std::cout << "\nStd map: first element is [" << (*it).first << ":" << (*it).second << "]" << std::endl;
+	std::cout << "Ft map : first element is [" << (*ft_it).first << ":" << (*ft_it).second << "]" << std::endl;
+	std::cout << "begin() and end() -   ";
+	if (!compareStdFtmaps(first, ft_first))
+	 	passed();
 
-	// int k = 0;
-	// for (; ft_rit != ft_first.rend(); ++ft_rit)
-	// 	*ft_rit = ++k;
+	std::map<char,int>::reverse_iterator rit;
+	ft::map<char,int>::reverse_iterator ft_rit;
 
-	// printStdFtmaps(first, ft_first);
-	// if (!compareStdFtmaps(first, ft_first))
-	// 	passed();
+	int i = 0;
+	for (rit = first.rbegin(); rit != first.rend(); ++rit)
+		rit->second += ++i;
+	printStdmap(first);
 
-	// std::cout << "begin() and end() -   ";
-	// for (std::map<int>::iterator it = first.begin(); it != first.end(); ++it)
-	// 	*(it) += 1;
+	i = 0;
+	for (ft_rit = ft_first.rbegin(); ft_rit != ft_first.rend(); ++ft_rit)
+		ft_rit->second += ++i;
+	printFtmap(ft_first);
+	std::cout << "rbegin() and rend() - ";
+	if (!compareStdFtmaps(first, ft_first))
+		passed();
 
-	// for (ft::map<int>::iterator ft_it = ft_first.begin(); ft_it != ft_first.end(); ++ft_it)
-	// 	*(ft_it) += 1;
 
-	// printStdFtmaps(first, ft_first);
-	// if (!compareStdFtmaps(first, ft_first))
-	// 	passed();
 }
 
 void MapTester::testCapacity() {

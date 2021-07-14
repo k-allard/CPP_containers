@@ -62,7 +62,7 @@ namespace ft
 		NodePtr getRoot() const;
 		void deleteNode(key_type key);
 		void prettyPrint() const;
-//		int isNull(NodePtr x) const { return (x == TNULL); };
+		int isNull(NodePtr x) const { return (x == TNULL); };
 
 	};
 

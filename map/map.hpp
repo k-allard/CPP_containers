@@ -66,7 +66,10 @@ namespace ft
 	//  C O N S T R U C T O R S  &  D E S T R U C T O R
 	//
 		explicit
-		map(const key_compare &comp = key_compare(), const allocator_type &allocator = allocator_type()) : _allocator(allocator), _compare(comp), _value_comp(comp) { }
+		map(const key_compare &comp = key_compare(), const allocator_type &allocator = allocator_type()) :
+			_allocator(allocator),
+			_compare(comp),
+			_value_comp(comp) { }
 
         template <class InputIterator>
   		map (InputIterator first, InputIterator last,
@@ -122,8 +125,8 @@ namespace ft
 	 	const_iterator			end() const 		{return (++const_iterator(_tree.maximum(_tree.getRoot()), &_tree));}
 	 	reverse_iterator		rbegin() 			{return (reverse_iterator(_tree.maximum(_tree.getRoot()), &_tree));}
 	// 	const_reverse_iterator	rbegin() const 		{return (const_reverse_iterator(_tree._end->parent ? _tree._end->parent : _tree._end));}
-	// 	reverse_iterator		rend() 				{return (reverse_iterator(_tree._end));}
-	// 	const_reverse_iterator	rend()const  		{return (const_reverse_iterator(_tree._end));}
+	 	reverse_iterator		rend() 				{return (++reverse_iterator(_tree.minimum(_tree.getRoot()), &_tree)); }
+	// 	const_reverse_iterator	rend()const  		{return (++const_reverse_iterator(_tree.minimum(_tree.getRoot()), &_tree));}
 
 		void printTree() {
 			_tree.prettyPrint();
