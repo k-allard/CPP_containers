@@ -343,6 +343,14 @@ void MapTester::testModifiers() {
 	std::cout << "swap() -              ";
 	if (!compareStdFtmaps(first, ft_first) && !compareStdFtmaps(second, ft_second))
 		passed();
+
+	std::cout << "--- Clear ---\n";
+	first.clear();
+	ft_first.clear();
+	printStdFtmaps(first, ft_first);
+	std::cout << "clear() -             ";
+	if (!compareStdFtmaps(first, ft_first))
+		passed();
 }
 
 void MapTester::testObservers() {
