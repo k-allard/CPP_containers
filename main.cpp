@@ -30,7 +30,7 @@ int main()
 	mapTester->testConstructors();
 	 mapTester->testAssignations();
 	 mapTester->testIterators();
-//	 mapTester->testCapacity();
+	 mapTester->testCapacity();
 //	 mapTester->testElementAccess();
 //	 mapTester->testModifiers() ;
 //	 mapTester->testObservers();

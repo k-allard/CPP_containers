@@ -60,8 +60,9 @@ namespace ft
 		value_compare					_value_comp;
     public:
         typedef MapIterator<Key, value_type, Compare, Alloc>		iterator;
-        typedef ConstMapIterator<Key, value_type, Compare, Alloc>		const_iterator;
-		typedef RevMapIterator<Key, value_type, Compare, Alloc> reverse_iterator;
+		typedef ConstMapIterator<Key, value_type, Compare, Alloc>	const_iterator;
+		typedef RevMapIterator<Key, value_type, Compare, Alloc> 	reverse_iterator;
+		typedef ConstRevMapIterator<Key, value_type, Compare, Alloc> 	const_reverse_iterator;
 	//
 	//  C O N S T R U C T O R S  &  D E S T R U C T O R
 	//
@@ -124,9 +125,9 @@ namespace ft
 		iterator				end() 				{return (++iterator(_tree.maximum(_tree.getRoot()), &_tree));}
 	 	const_iterator			end() const 		{return (++const_iterator(_tree.maximum(_tree.getRoot()), &_tree));}
 	 	reverse_iterator		rbegin() 			{return (reverse_iterator(_tree.maximum(_tree.getRoot()), &_tree));}
-	// 	const_reverse_iterator	rbegin() const 		{return (const_reverse_iterator(_tree._end->parent ? _tree._end->parent : _tree._end));}
+	 	const_reverse_iterator	rbegin() const 		{return (const_reverse_iterator(_tree.maximum(_tree.getRoot()), &_tree));}
 	 	reverse_iterator		rend() 				{return (++reverse_iterator(_tree.minimum(_tree.getRoot()), &_tree)); }
-	// 	const_reverse_iterator	rend()const  		{return (++const_reverse_iterator(_tree.minimum(_tree.getRoot()), &_tree));}
+	 	const_reverse_iterator	rend()const  		{return (++const_reverse_iterator(_tree.minimum(_tree.getRoot()), &_tree));}
 
 		void printTree() {
 			_tree.prettyPrint();

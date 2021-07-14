@@ -70,7 +70,6 @@ namespace ft
 
 	};
 
-
     template <typename Key, typename T, typename Compare, typename Alloc>
     class ConstMapIterator
     {
@@ -161,7 +160,7 @@ namespace ft
 
 		RevMapIterator & operator++() {
 			_node = _tree->predecessor(_node);
-			return (*this);
+ 			return (*this);
 		}
 
 		RevMapIterator & operator--() {
@@ -185,6 +184,65 @@ namespace ft
 		{ return (_node == second._node); }
 
 		bool operator!=(const RevMapIterator & second) const
+		{ return (_node != second._node); }
+	};
+
+	template <typename Key, typename T, typename Compare, typename Alloc>
+	class ConstRevMapIterator
+	{
+	public:
+		typedef T value_type;
+		typedef T pair_type;
+		typedef pair_type *pointer;
+		typedef pair_type &reference;
+		typedef TreeNode<Key, T> node_type;
+		typedef node_type * node_pointer;
+		typedef const RBTree<Key, T, Compare, Alloc> tree_type;
+		typedef tree_type * tree_pointer;
+		node_pointer _node;
+
+		tree_pointer _tree;
+
+	public:
+		ConstRevMapIterator() 					: _node(nullptr), _tree(nullptr) {}
+		ConstRevMapIterator(node_pointer p, tree_pointer t) 	: _node(p), _tree(t) {}
+
+		ConstRevMapIterator & operator=(const ConstRevMapIterator &src) { _node = src._node; _tree = src._tree; return (*this); }
+
+		reference operator*() const {
+			return (_node->dataValue);
+		}
+
+		pointer operator->() const {
+			return (&(_node->dataValue));
+		}
+
+		ConstRevMapIterator & operator++() {
+			_node = _tree->predecessor(_node);
+			return (*this);
+		}
+
+		ConstRevMapIterator & operator--() {
+			_node = _tree->successor(_node);
+			return (*this);
+		}
+
+		ConstRevMapIterator operator++(int) {
+			ConstRevMapIterator curr = *this;
+			_node = _tree->predecessor(_node);
+			return (curr);
+		}
+
+		ConstRevMapIterator operator--(int) {
+			ConstRevMapIterator curr = *this;
+			_node = _tree->successor(_node);
+			return (curr);
+		}
+
+		bool operator==(const ConstRevMapIterator & second) const
+		{ return (_node == second._node); }
+
+		bool operator!=(const ConstRevMapIterator & second) const
 		{ return (_node != second._node); }
 	};
 

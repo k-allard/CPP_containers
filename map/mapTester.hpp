@@ -121,20 +121,20 @@ void MapTester::testIterators() {
 //	rend - Return reverse iterator to reverse end
 // -------------------------------------------------------------------------
 
-	 std::map<char, int> first;
+	std::map<char, int> first;
 	first['x'] = 100;
 	first['y'] = 200;
 	first['z'] = 300;
-	 ft::map<char, int> ft_first;
+	ft::map<char, int> ft_first;
 	ft_first['x'] = 100;
 	ft_first['y'] = 200;
 	ft_first['z'] = 300;
 
 	printStdFtmaps(first, ft_first);
 
-	 std::map<char, int>::iterator it = --(first.end());
-	 ft::map<char, int>::iterator ft_it = --(ft_first.end());
-	 std::cout << "\nStd map: last element is [" << (*it).first << ":" << (*it).second << "]" << std::endl;
+	std::map<char, int>::iterator it = --(first.end());
+	ft::map<char, int>::iterator ft_it = --(ft_first.end());
+	std::cout << "\nStd map: last element is [" << (*it).first << ":" << (*it).second << "]" << std::endl;
 	std::cout << "Ft map : last element is [" << (*ft_it).first << ":" << (*ft_it).second << "]" << std::endl;
 
 	it = first.begin();
@@ -165,14 +165,45 @@ void MapTester::testIterators() {
 }
 
 void MapTester::testCapacity() {
-// 				std::cout << "--- capacity ---\n";
+ 				std::cout << "--- capacity ---\n";
 // -------------------------------------------------------------------------
 //	empty - Test whether container is empty (public member function )
 //	size - Return container size (public member function )
 //	max_size - Return maximum size (public member function )
 // -------------------------------------------------------------------------
+	std::cout << "empty() -             ";
 
-	// int flag = 0;
+	std::map<char, std::string> first;
+	ft::map<char, std::string> ft_first;
+	bool empty = first.empty();
+	bool ft_empty = ft_first.empty();
+
+	first['x'] = "xoor";
+	first['y'] = "yooh";
+	first['z'] = "zoom";
+	ft_first['x'] = "xoor";
+	ft_first['y'] = "yooh";
+	ft_first['z'] = "zoom";
+
+	bool empty2 = first.empty();
+	bool ft_empty2 = ft_first.empty();
+
+	if (empty == ft_empty && empty2 == ft_empty2)
+	 	passed();
+	 else
+	 	std::cout << RED << "FAIL ❌\n" << NC;
+
+	std::cout << "size() -              ";
+	if (first.size() == ft_first.size())
+		passed();
+	else
+		std::cout << RED << "FAIL ❌\n" << NC << "\n";
+
+	std::cout << "max_size() -          ";
+	if (first.max_size() == ft_first.max_size())
+		passed();
+	else
+		std::cout << RED << "FAIL ❌\n" << NC << "\n";
 
 	// std::cout << "size() -              ";
 	// std::map<int> first (6, 7);
@@ -188,12 +219,7 @@ void MapTester::testCapacity() {
 	// 	std::cout << RED << "FAIL ❌\n" << "Ft map size: " << ft_first.size() \
 	// 	<< "\nStd map size: " << first.size() << NC << "\n";
 
- 	// std::cout << "max_size() -          ";
- 	// if (first.max_size() == ft_first.max_size())
- 	// 	passed();
- 	// else
- 	// 	std::cout << RED << "FAIL ❌\n" << "Ft map size: " << ft_first.size() \
- 	// 	<< "\nStd map size: " << first.size() << NC << "\n";
+
 
 
  	// std::cout << "empty() -             ";
@@ -209,7 +235,6 @@ void MapTester::testCapacity() {
 // 				std::cout << "--- element access ---\n";
 // -------------------------------------------------------------------------
 //	 operator[] - Access element (public member function )
-//	 at - Access element (public member function )
 // -------------------------------------------------------------------------
 
  	// std::map<int> first (3, 4);   // 10 zero-initialized elements
@@ -240,8 +265,6 @@ void MapTester::testModifiers() {
 //	erase - Erase elements (public member function )
 //	swap - Swap content (public member function )
 //	clear - Clear content (public member function )
-//	emplace - Construct and insert element (public member function )
-//	emplace_hint - Construct and insert element with hint (public member function )
 // -------------------------------------------------------------------------
 
 	// std::map<int> first (5);  // 5 default-constructed ints
