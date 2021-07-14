@@ -171,7 +171,6 @@ void MapTester::testCapacity() {
 //	size - Return container size (public member function )
 //	max_size - Return maximum size (public member function )
 // -------------------------------------------------------------------------
-	std::cout << "empty() -             ";
 
 	std::map<char, std::string> first;
 	ft::map<char, std::string> ft_first;
@@ -180,11 +179,14 @@ void MapTester::testCapacity() {
 
 	first['x'] = "xoor";
 	first['y'] = "yooh";
-	first['z'] = "zoom";
+	first['x'] = "zoom";
 	ft_first['x'] = "xoor";
 	ft_first['y'] = "yooh";
-	ft_first['z'] = "zoom";
+	std::cout << "	* inserting element with existing key *	\n";
+	ft_first['x'] = "zoom";
 
+	printStdFtmaps(first, ft_first);
+	std::cout << "empty() -             ";
 	bool empty2 = first.empty();
 	bool ft_empty2 = ft_first.empty();
 
@@ -204,31 +206,6 @@ void MapTester::testCapacity() {
 		passed();
 	else
 		std::cout << RED << "FAIL ❌\n" << NC << "\n";
-
-	// std::cout << "size() -              ";
-	// std::map<int> first (6, 7);
-	// ft::map<int> ft_first (6, 7);
-	// int myints[] = { 12, 10, 8, 6, 4, 2, 1 };
-
-
-	// first.assign (myints, myints + 7);
-	// ft_first.assign (myints, myints + 7);
-	// if (first.size() == ft_first.size())
-	// 	passed();
-	// else
-	// 	std::cout << RED << "FAIL ❌\n" << "Ft map size: " << ft_first.size() \
-	// 	<< "\nStd map size: " << first.size() << NC << "\n";
-
-
-
-
- 	// std::cout << "empty() -             ";
- 	// std::map<int> second;
- 	// ft::map<int> ft_second;
- 	// if (first.empty() == ft_first.empty() && second.empty() == ft_second.empty())
- 	// 	passed();
- 	// else
- 	// 	std::cout << RED << "FAIL ❌\n" << NC;
  }
 
  void MapTester::testElementAccess() {
