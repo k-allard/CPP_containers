@@ -1,5 +1,4 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "modernize-use-auto"
+#pragma once
 #include "../header.hpp"
 #include <cmath>
 
@@ -114,8 +113,6 @@ void ListTester::testAssignations() {
 }
 
 void ListTester::testCapacity() {
-	int flag = 0;
-
 	std::cout << "size() -              ";
 	std::list<int> first (6, 7);
 	ft::list<int> ft_first (6, 7);
@@ -150,8 +147,8 @@ void ListTester::testCapacity() {
  void ListTester::testElementAccess() {
  	std::list<int> first (3, 4);   // 10 zero-initialized elements
  	ft::list<int> ft_first (3, 4);   // 10 zero-initialized elements
- 	std::list<int>::size_type sz = first.size();
- 	ft::list<int>::size_type ft_sz = ft_first.size();
+// 	std::list<int>::size_type sz = first.size();
+// 	ft::list<int>::size_type ft_sz = ft_first.size();
 	first.resize(5);
 	 ft_first.resize(5);
 
@@ -738,5 +735,3 @@ void ListTester::printFtlist(ft::list<T> &ft_list) {
 		std::cout << *ft_it << ' ';
 	}
 }
-
-#pragma clang diagnostic pop

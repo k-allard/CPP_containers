@@ -1,5 +1,4 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "modernize-use-auto"
+#pragma once
 #include "../header.hpp"
 
 #define GREEN "\033[0;32m"
@@ -707,5 +706,3 @@ template <class Key, class T>
 	}
 	std::cout << "\n";
 }
-
-#pragma clang diagnostic pop

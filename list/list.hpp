@@ -150,7 +150,7 @@ namespace ft
 	template <typename T, typename Allocator>
 	list<T, Allocator>::list (size_type n, const value_type& val, const allocator_type& alloc) { 	// fill constructor
 		defaultListBuild(alloc);
-		for (int i = 0; i < n; i++)
+		for (size_t i = 0; i < n; i++)
 			push_back(val);
 	}
 
@@ -204,7 +204,7 @@ namespace ft
 	}
 
 	template <typename T, typename Allocator>
-	template <typename InputIt> 
+	template <typename InputIt>
 	void list<T, Allocator>::_assign(InputIt first, InputIt last, ft::not_int) {
 		while (first != last) {
 			push_back(*first);
@@ -213,8 +213,8 @@ namespace ft
 	}
 
 	template <typename T, typename Allocator>
-	template <class InputIterator> 
-	void list<T, Allocator>::assign(InputIterator first, InputIterator last) {   
+	template <class InputIterator>
+	void list<T, Allocator>::assign(InputIterator first, InputIterator last) {
 		typedef typename ft::is_integer<InputIterator>::type res;
 		clear();
 		_assign(first, last, res());
@@ -649,7 +649,7 @@ namespace ft
 			lhs_begin++;
 			rhs_begin++;
 		}
-			
+
 		return (true);
 	}
 
@@ -676,7 +676,7 @@ namespace ft
 				return (false);
 			else if (*lhs_begin > *rhs_begin)
 				return (true);
-			lhs_begin++; 
+			lhs_begin++;
 			rhs_begin++;
 		}
 		if (lhs.size() < rhs.size())
