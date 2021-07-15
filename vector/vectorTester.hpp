@@ -25,8 +25,8 @@ private:
 	std::stringstream stdString;
 	std::stringstream ftString;
 	void passed();
-	int compareCustomVectors(std::vector<int> &std_vetor, ft::vector<int> &ft_vector);
-	void printCustomVectors(std::vector<int> &std_vetor, ft::vector<int> &ft_vector);
+	int compareCustomVectors(std::vector<int> &std_vector, ft::vector<int> &ft_vector);
+	void printCustomVectors(std::vector<int> &std_vector, ft::vector<int> &ft_vector);
 };
 
 void VectorTester::testConstructors() {
@@ -74,7 +74,7 @@ void VectorTester::testAssignations() {
 	ft_first.assign(2, 99);
 	if (!compareCustomVectors(first, ft_first))
 		passed();
-	
+
 	std::cout << "Range assignation -   ";
 	int myints[] = {1776,7,4};
 	third.assign (myints, myints + 3);
@@ -111,7 +111,7 @@ void VectorTester::testCapacity() {
 	else
 		std::cout << RED << "FAIL ❌\n" << "Ft vector capacity: " << ft_first.capacity() \
 		<< "\nStd vector capacity: " << first.capacity() << NC << "\n";
-	
+
 	std::cout << "empty() -             ";
 	std::vector<int> second;
 	ft::vector<int> ft_second;
@@ -127,7 +127,7 @@ void VectorTester::testCapacity() {
 		passed();
 	else
 		std::cout << RED << "FAIL ❌\n" << NC;
-	
+
 	std::cout << "resize() -            ";
 	first.resize(3);
 	ft_first.resize(3);
@@ -172,7 +172,7 @@ void VectorTester::testElementAccess() {
 	}
 	if (!compareCustomVectors(first, ft_first))
 		passed();
-	
+
 	std::cout << "front() -             ";
 	if (first.front() == ft_first.front())
 			passed();
@@ -204,14 +204,14 @@ void VectorTester::testIterators() {
 
 	if (!compareCustomVectors(first, ft_first))
 		passed();
-	
+
 	std::cout << "begin() and end() -   ";
 	for (std::vector<int>::iterator it = first.begin(); it != first.end(); ++it)
 		*(it) += 1;
 
 	for (ft::vector<int>::iterator ft_it = ft_first.begin(); ft_it != ft_first.end(); ++ft_it)
 		*(ft_it) += 1;
-		
+
 	if (!compareCustomVectors(first, ft_first))
 		passed();
 
@@ -232,7 +232,7 @@ void VectorTester::testModifiers() {
 	std::cout << "--- Fill assign ---";
 	first.assign (2,99);
 	ft_first.assign(2,99);
-	printCustomVectors(first,ft_first);                                                     
+	printCustomVectors(first,ft_first);
 	if (!compareCustomVectors(first, ft_first))
 		passed();
 
@@ -241,14 +241,14 @@ void VectorTester::testModifiers() {
 	first.push_back(14);
 	ft_first.push_back(7);
 	ft_first.push_back(14);
-	printCustomVectors(first,ft_first);    
+	printCustomVectors(first,ft_first);
 	if (!compareCustomVectors(first, ft_first))
 		passed();
 
 	std::cout << "--- pop_back() ---";
 	first.pop_back();
 	ft_first.pop_back();
-	printCustomVectors(first,ft_first);    
+	printCustomVectors(first,ft_first);
 	if (!compareCustomVectors(first, ft_first))
 		passed();
 
@@ -341,10 +341,10 @@ void VectorTester::passed() {
 	usleep(microseconds);
 }
 
-int VectorTester::compareCustomVectors(std::vector<int> &std_vetor, ft::vector<int> &ft_vector) {
+int VectorTester::compareCustomVectors(std::vector<int> &std_vector, ft::vector<int> &ft_vector) {
 	int fail = 0;
-	for (std::vector<int>::size_type i = 0; i < std_vetor.size(); i++) {
-		stdString << std_vetor.at(i) << " ";
+	for (std::vector<int>::size_type i = 0; i < std_vector.size(); i++) {
+		stdString << std_vector.at(i) << " ";
 	}
 	for (ft::vector<int>::size_type i = 0; i < ft_vector.size(); i++) {
 		ftString << ft_vector.at(i) << " ";
@@ -359,10 +359,10 @@ int VectorTester::compareCustomVectors(std::vector<int> &std_vetor, ft::vector<i
 	return fail;
 }
 
-void VectorTester::printCustomVectors(std::vector<int> &std_vetor, ft::vector<int> &ft_vector) {
+void VectorTester::printCustomVectors(std::vector<int> &std_vector, ft::vector<int> &ft_vector) {
 	std::cout << "\nFt vector : ";
-	for (std::vector<int>::size_type i = 0; i < std_vetor.size(); i++) {
-		std::cout << std_vetor.at(i) << " ";
+	for (std::vector<int>::size_type i = 0; i < std_vector.size(); i++) {
+		std::cout << std_vector.at(i) << " ";
 	}
 	std::cout << "\nStd vector: ";
 	for (ft::vector<int>::size_type i = 0; i < ft_vector.size(); i++) {

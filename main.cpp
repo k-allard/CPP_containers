@@ -26,18 +26,27 @@ int main()
 //	 listTester->testRelationalOperators();
 //	 delete listTester;
 
-	MapTester *mapTester = new MapTester;
-	mapTester->testRBTree();
-	mapTester->testConstructors();
-	 mapTester->testAssignations();
-	 mapTester->testIterators();
-	 mapTester->testCapacityAndElementAccess();
-	 mapTester->testModifiers() ;
-	 mapTester->testObservers();
-	 mapTester->testSwap();
-	 mapTester->testOperations();
-	 mapTester->testRelationalOperators();
+//	MapTester *mapTester = new MapTester;
+//	mapTester->testRBTree();
+//	mapTester->testConstructors();
+//	 mapTester->testAssignations();
+//	 mapTester->testIterators();
+//	 mapTester->testCapacityAndElementAccess();
+//	 mapTester->testModifiers() ;
+//	 mapTester->testObservers();
+//	 mapTester->testSwap();
+//	 mapTester->testOperations();
+//	 mapTester->testRelationalOperators();
+//	delete mapTester;
 
-	delete mapTester;
+	StackTester *stackTester = new StackTester;
+	stackTester->testConstructors();
+	stackTester->testCapacity();
+	stackTester->testElementAccess();
+	stackTester->testModifiers();
+	stackTester->testRelationalOperators();
+
+	delete stackTester;
+
     return 0;
 }

@@ -81,3 +81,7 @@ struct TreeNode {
 #include "map/mapIterator.hpp"
 #include "map/map.hpp"
 #include "map/mapTester.hpp"
+
+#include "stack/stack.hpp"
+#include "stack/stackTester.hpp"
+

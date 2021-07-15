@@ -13,7 +13,7 @@ all: $(NAME)
 
 $(NAME):
 	@echo "\x1b[33m Preparing $(NAME)...\x1b[0m"
-	@clang++ -o $(NAME) $(SRCS) $(FLAGS) $(FLAGS2)
+	@clang++ -o $(NAME) $(SRCS) $(FLAGS)
 	@echo "\x1b[32m $(NAME) are ready!\x1b[0m"
 
 clean:
