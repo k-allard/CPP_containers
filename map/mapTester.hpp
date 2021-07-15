@@ -556,22 +556,51 @@ void MapTester::testOperations() {
 }
 
 void MapTester::testRelationalOperators() {
-	// std::cout << "--- relational operators ---\n";
+	 std::cout << "\n--- relational operators - non-member overloads ---\n";
+	std::map<char,int> foo,bar;
+	foo['a']=100;
+	foo['b']=200;
+	bar['a']=10;
+	bar['z']=1000;
 
-	// std::map<int> first (3,100);   // three ints with a value of 100
-	// std::map<int> second (2,200);   // two ints with a value of 200
-	// ft::map<int> ft_first (3,100);   // three ints with a value of 100
-	// ft::map<int> ft_second (2,200);   // two ints with a value of 200
+	ft::map<char,int> ft_foo,ft_bar;
+	ft_foo['a']=100;
+	ft_foo['b']=200;
+	ft_bar['a']=10;
+	ft_bar['z']=1000;
 
-	// if ((first==second) == (ft_first==ft_second) && \
-	// 	(first!=second) == (ft_first!=ft_second) && \
-	// 	(first< second) == (ft_first< ft_second)  && \
-	// 	(first> second) == (ft_first> ft_second)  && \
-	// 	(first<=second) == (ft_first<=ft_second) && \
-	// 	(first>=second) == (ft_first>=ft_second))
-	// 		passed();
-	// else
-	// 	std::cout << RED << "FAIL ❌\n" << NC;
+	std::cout << "Foo : ";
+	printStdmap(foo);
+	std::cout << "Bar : ";
+	printStdmap(bar);
+
+	// foo ({{a,100},{b,200}}) vs bar ({a,10},{z,1000}}):
+	std::cout << "		Std :\n";
+	if (foo==bar) std::cout << "foo and bar are equal\n";
+	if (foo!=bar) std::cout << "foo and bar are not equal\n";
+	if (foo< bar) std::cout << "foo is less than bar\n";
+	if (foo> bar) std::cout << "foo is greater than bar\n";
+	if (foo<=bar) std::cout << "foo is less than or equal to bar\n";
+	if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
+
+	std::cout << "		Ft  :\n";
+	if (ft_foo==ft_bar) std::cout << "foo and bar are equal\n";
+	if (ft_foo!=ft_bar) std::cout << "foo and bar are not equal\n";
+	if (ft_foo< ft_bar) std::cout << "foo is less than bar\n";
+	if (ft_foo> ft_bar) std::cout << "foo is greater than bar\n";
+	if (ft_foo<=ft_bar) std::cout << "foo is less than or equal to bar\n";
+	if (ft_foo>=ft_bar) std::cout << "foo is greater than or equal to bar\n";
+	std::cout << "relat operators -     ";
+
+	 if ((foo==bar) == (ft_foo==ft_bar) && \
+	 	(foo!=bar) == (ft_foo!=ft_bar) && \
+	 	(foo< bar) == (ft_foo< ft_bar)  && \
+	 	(foo> bar) == (ft_foo> ft_bar)  && \
+	 	(foo<=bar) == (ft_foo<=ft_bar) && \
+	 	(foo>=bar) == (ft_foo>=ft_bar))
+	 		passed();
+	 else
+	 	std::cout << RED << "FAIL ❌\n" << NC;
 }
 
  void MapTester::passed() {

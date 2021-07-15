@@ -35,7 +35,7 @@ int main()
 	 mapTester->testObservers();
 	 mapTester->testSwap();
 	 mapTester->testOperations();
-//	 mapTester->testRelationalOperators();
+	 mapTester->testRelationalOperators();
     delete mapTester;
     return 0;
 }

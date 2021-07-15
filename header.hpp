@@ -7,7 +7,7 @@
 #include <sstream>
 #include <unistd.h>
 
-
+#include "lexicographical_compare.hpp"
 #include <vector>
 
 // const                         /* this is a const object...     */
