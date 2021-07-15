@@ -105,8 +105,7 @@ namespace ft
 //capacity
 	 	bool				empty() const		{return (_tree.size() == 0);}
 	 	size_t				size() const		{return (_tree.size());}
-	 	size_t				max_size() const
-	 	{
+	 	size_t				max_size() const {
 	 		return (std::numeric_limits<size_t>::max() / (sizeof(TreeNode<Key, T>)));
 	 	}
 

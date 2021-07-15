@@ -18,14 +18,16 @@ namespace ft
 				typename Alloc = std::allocator<ft::pair<const Key, T> > >
 	class RBTree {
 	public:
-		typedef TreeNode<Key,T> *NodePtr;
-		typedef Key key_type;
-		typedef T value_type;
-		typedef ft::pair<const key_type, value_type> pair;
+		typedef TreeNode<Key,T> *						NodePtr;
+		typedef std::allocator<TreeNode<Key,T> >		Allocator_type;
+		typedef Key										key_type;
+		typedef T										value_type;
+		typedef ft::pair<const key_type, value_type>	pair;
 
 	private:
 		Compare	compare;
         Alloc alloc;
+		Allocator_type allocator;
 		NodePtr root;
 		NodePtr TNULL;
 
@@ -248,7 +250,8 @@ namespace ft
 			y->left->parent = y;
 			y->color = z->color;
 		}
-		delete z;
+		allocator.deallocate(z, 1);
+
 		if (y_original_color == 0){
 			fixDelete(x);
 		}
@@ -331,7 +334,8 @@ namespace ft
 	template <typename Key, typename Type, typename Compare, typename Alloc>
 	RBTree<Key, Type, Compare, Alloc>::RBTree() {
         _size = 0;
-		TNULL = new TreeNode<Key, Type>;
+		TNULL = allocator.allocate(1);
+//		allocator.construct(TNULL, )
 		TNULL->color = 0;
 		TNULL->left = TNULL;
 		TNULL->right = TNULL;
@@ -341,9 +345,11 @@ namespace ft
 
     template <typename Key, typename Type, typename Compare, typename Alloc>
     RBTree<Key, Type, Compare, Alloc>::~RBTree() {
-        delete TNULL;
+//        delete TNULL;
 
-    }
+		allocator.deallocate(TNULL, 1);
+
+	}
 
 	// Pre-Order traversal
 	// Node->Left Subtree->Right Subtree
@@ -522,7 +528,9 @@ namespace ft
 
         //TreeNode<Key, Type> tree_node = { key, value, TNULL, TNULL, TNULL, 1};
         //NodePtr node = &tree_node;
-        NodePtr node = new TreeNode<Key, Type>();
+
+        NodePtr node = allocator.allocate(1);
+//       was: NodePtr node = new TreeNode<Key, Type>();
         node->data = key;
         NodePtr ptr = alloc.allocate(1);
         node->dataValue = *ptr;
@@ -542,7 +550,8 @@ namespace ft
 
 		//TreeNode<Key, Type> tree_node = { key, value, TNULL, TNULL, TNULL, 1};
 		//NodePtr node = &tree_node;
-		NodePtr node = new TreeNode<Key, Type>(key, value, TNULL);
+		NodePtr node = allocator.allocate(1);// new TreeNode<Key, Type>(key, value, TNULL);
+		allocator.construct(node, TreeNode<Key, Type>(key, value, TNULL));
 //		node->data = key;
 //		node->dataValue = value;
 //		node->parent = TNULL;

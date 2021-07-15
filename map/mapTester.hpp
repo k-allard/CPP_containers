@@ -9,9 +9,17 @@
 class MapTester {
 public:
 	MapTester() {
-		std::cout << " - - - - - - - - - - - - - - - - - - - - - - - -";
-		std::cout << "\n" << " - - - - - - - - - - M A P - - - - - - - - - - - " << "\n";
-		std::cout << " - - - - - - - - - - - - - - - - - - - - - - - -\n";
+		std:: cout << "  .-----------------------------------------------------------------.\n" <<
+				   " /  .-.                     M A P   W I T H                     .-.  \\\n" <<
+				   "|  /   \\               R E D - B L A C K   T R E E             /   \\  |\n" <<
+				   "| |\\_.  |                                                     |    /| |\n" <<
+				   "|\\|  | /|                                                     |\\  | |/|\n" <<
+				   "| `---' |                                                     | `---' |\n" <<
+				   "|       |                                         by KALLARD  |       |\n" <<
+				   "|       |-----------------------------------------------------|       |\n" <<
+				   "\\       |                                                     |       /\n" <<
+				   " \\     /                                                       \\     /\n" <<
+				   "  `---'                                                         `---'\n\n";
 	}
 	void testConstructors();
 	void testAssignations();
@@ -22,6 +30,7 @@ public:
 	void testOperations();
 	void testRelationalOperators();
 	void testSwap();
+	void testRBTree();
 
  private:
  	std::stringstream stdString;
@@ -548,7 +557,7 @@ void MapTester::testOperations() {
 	std::cout << "Std map: upper bound of 'c' is ";
 	std::cout << "[" << ret.second->first << ":" << ret.second->second << "]\n";
 
-	std::cout << "Ft map:  lower bound 'c' is ";
+	std::cout << "Ft map:  lower bound of 'c' is ";
 	std::cout << "[" << ft_ret.first->first << ":" << ft_ret.first->second << "]\n";
 
 	std::cout << "Ft map:  upper bound of 'c' is ";
@@ -601,6 +610,36 @@ void MapTester::testRelationalOperators() {
 	 		passed();
 	 else
 	 	std::cout << RED << "FAIL ❌\n" << NC;
+}
+
+void MapTester::testRBTree() {
+
+	ft::map<int,char> ft_map;
+	ft_map[11]='a';
+	ft_map[13]='b';
+	ft_map[27]='c';
+	ft_map[15]='d';
+	ft_map[6]='e';
+	ft_map[1]='f';
+	ft_map[22]='g';
+	ft_map[25]='h';
+	ft_map[17]='i';
+	ft_map[8]='j';
+
+	printFtmap(ft_map);
+	std::cout << "\n";
+//	ft_map.printTree();
+
+	std:: cout << "R----[13]:[b](BLACK)\n" <<
+"     L----[6]:[e](RED)\n" <<
+"     |    L----[1]:[f](BLACK)\n" <<
+"     |    R----[11]:[a](BLACK)\n" <<
+"     |         L----[8]:[j](RED)\n" <<
+"     R----[22]:[g](RED)\n" <<
+"          L----[15]:[d](BLACK)\n" <<
+"          |    R----[17]:[i](RED)\n" <<
+"          R----[27]:[c](BLACK)\n" <<
+"               L----[25]:[h](RED)\n\n";
 }
 
  void MapTester::passed() {

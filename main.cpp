@@ -27,6 +27,7 @@ int main()
 //	 delete listTester;
 
 	MapTester *mapTester = new MapTester;
+	mapTester->testRBTree();
 	mapTester->testConstructors();
 	 mapTester->testAssignations();
 	 mapTester->testIterators();
@@ -36,6 +37,7 @@ int main()
 	 mapTester->testSwap();
 	 mapTester->testOperations();
 	 mapTester->testRelationalOperators();
-    delete mapTester;
+
+	delete mapTester;
     return 0;
 }
