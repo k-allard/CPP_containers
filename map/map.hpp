@@ -256,74 +256,71 @@ namespace ft
 				return (1);
 		}
 
-		// the first element in the container whose key is not considered to go before k
-		// 		(i.e., either it is equivalent or goes after).
+		// the first element in the container whose key is equivalent or goes after.
+		// returning an iterator to the first element for which key_comp(element_key,k) would return false
 		iterator lower_bound (const key_type& k) {
 			iterator tmp = iterator(_tree.minimum(_tree.getRoot()), &_tree);
-			iterator last = iterator(_tree.maximum(_tree.getRoot()), &_tree);
+			iterator last = end();
 
-			while (tmp != last)
-			{
+			while (tmp != last) {
 				if (k == tmp._node->dataValue.first)
 					return tmp;
 				if (_compare(k, tmp._node->dataValue.first))
 					return tmp;
 				tmp++;
 			}
-			return (end());
+			return (last);
 		}
 
 		const_iterator lower_bound (const key_type& k) const {
-			const_iterator tmp = const_iterator(_tree.minimum(_tree.getRoot()), &_tree);
-			const_iterator last = const_iterator(_tree.maximum(_tree.getRoot()), &_tree);
+			const_iterator tmp = iterator(_tree.minimum(_tree.getRoot()), &_tree);
+			const_iterator last = end();
 
-			while (tmp != last)
-			{
+			while (tmp != last) {
 				if (k == tmp._node->dataValue.first)
 					return tmp;
 				if (_compare(k, tmp._node->dataValue.first))
 					return tmp;
 				tmp++;
 			}
-			return (end());
+			return (last);
 		}
 
 		iterator upper_bound (const key_type& k) {
 			iterator tmp = iterator(_tree.minimum(_tree.getRoot()), &_tree);
-			iterator last = iterator(_tree.maximum(_tree.getRoot()), &_tree);
+			iterator last = end();
 
-			while (tmp != last)
-			{
+			while (tmp != last) {
 				if (k == tmp._node->dataValue.first)
 					return (++tmp);
 				if (_compare(k, tmp._node->dataValue.first))
 					return tmp;
 				tmp++;
 			}
-			return (end());
+			return (last);
 		}
 
+		// returning an iterator to the first element for which key_comp(k,element_key) would return true
 		const_iterator upper_bound (const key_type& k) const {
-			const_iterator tmp = const_iterator(_tree.minimum(_tree.getRoot()), &_tree);
-			const_iterator last = const_iterator(_tree.maximum(_tree.getRoot()), &_tree);
+			const_iterator tmp = iterator(_tree.minimum(_tree.getRoot()), &_tree);
+			const_iterator last = end();
 
-			while (tmp != last)
-			{
+			while (tmp != last) {
 				if (k == tmp._node->dataValue.first)
 					return (++tmp);
 				if (_compare(k, tmp._node->dataValue.first))
 					return tmp;
 				tmp++;
 			}
-			return (end());
+			return (last);
 		}
 
-		pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
-
+		ft::pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
+			return (ft::make_pair(lower_bound(k), upper_bound(k)));
 		}
 
-		pair<iterator,iterator>             equal_range (const key_type& k) {
-
+		ft::pair<iterator,iterator>             equal_range (const key_type& k) {
+			return (ft::make_pair(lower_bound(k), upper_bound(k)));
 		}
 
 		//observers

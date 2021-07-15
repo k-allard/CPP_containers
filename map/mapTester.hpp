@@ -530,8 +530,29 @@ void MapTester::testOperations() {
 	if (!compareStdFtmaps(second, ft_second))
 		passed();
 
-	std::cout << "equal_range() -       ";
+	second['c']=60;
+	ft_second['c']=60;
 
+	printStdFtmaps(second, ft_second);
+	std::cout << "\nequal_range() -       ";
+
+	std::pair<std::map<char,int>::iterator, std::map<char,int>::iterator> ret;
+	ft::pair<ft::map<char,int>::iterator, ft::map<char,int>::iterator> ft_ret;
+
+	ret = second.equal_range('c');
+	ft_ret = ft_second.equal_range('c');
+
+	std::cout << "\nStd map: lower bound of 'c' is ";
+	std::cout << "[" << ret.first->first << ":" << ret.first->second << "]\n";
+
+	std::cout << "Std map: upper bound of 'c' is ";
+	std::cout << "[" << ret.second->first << ":" << ret.second->second << "]\n";
+
+	std::cout << "Ft map:  lower bound 'c' is ";
+	std::cout << "[" << ft_ret.first->first << ":" << ft_ret.first->second << "]\n";
+
+	std::cout << "Ft map:  upper bound of 'c' is ";
+	std::cout << "[" << ft_ret.second->first << ":" << ft_ret.second->second << "]\n";
 }
 
 void MapTester::testRelationalOperators() {
