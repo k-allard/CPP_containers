@@ -301,7 +301,9 @@ void VectorTester::testSwap() {
 	std::cout << "--- swap() ---";
 //	std::cout << "\n\nstd vectors before swap:";
 	std::vector<int> first (3,100);   // three ints with a value of 100
+	first.push_back(101);
 	std::vector<int> second (5,200);   // five ints with a value of 200
+	second.push_back(201);
 //	printStdVector(first);
 //	printStdVector(second);
 	first.swap(second);
@@ -311,7 +313,10 @@ void VectorTester::testSwap() {
 
 	std::cout << "\n\nft vectors before swap:";
 	ft::vector<int> ft_first (3,100);   // three ints with a value of 100
+	ft_first.push_back(101);
 	ft::vector<int> ft_second (5,200);   // five ints with a value of 200
+	ft_second.push_back(201);
+
 	printFtVector(ft_first);
 	printFtVector(ft_second);
 	ft_first.swap(ft_second);
@@ -323,20 +328,18 @@ void VectorTester::testSwap() {
 		passed();
 
 	std::cout << "\n--- non-member swap() ---\n";
-	std::cout << "\n--- testing iterators persistence ---\n";
+	std::cout << "\n------ testing iterators persistence ------\n";
 	ft::vector<int>::iterator ft_it = ft_first.begin();
 	ft::vector<int>::iterator ft_ite = --ft_first.end();
 
 	ft::vector<int>::iterator ft_it2 = ft_second.begin();
 	ft::vector<int>::iterator ft_ite2 = --ft_second.end();
 
-	for (; ft_it != ft_ite; ++ft_it)
-		std::cout << ' ' << *ft_it;
-	std::cout << '\n';
-
-	for (; ft_it2 != ft_ite2; ++ft_it2)
-		std::cout << ' ' << *ft_it2;
-	std::cout << "\n-------------------------------------\n";
+	std::cout << "ft_vector 1: iterator returned by begin() points to [" << *ft_it << "]\n";
+	std::cout << "ft_vector 1: iterator returned by --end() points to [" << *ft_ite << "]\n";
+	std::cout << "ft_vector 2: iterator returned by begin() points to [" << *ft_it2 << "]\n";
+	std::cout << "ft_vector 2: iterator returned by --end() points to [" << *ft_ite2 << "]\n";
+	std::cout << "\n-------------------------------------------\n";
 
 
 	std::swap(first, second);
@@ -351,14 +354,12 @@ void VectorTester::testSwap() {
 	if (!compareCustomVectors(first, ft_first) && !compareCustomVectors(second, ft_second))
 		passed();
 
-	std::cout << "\n\n--- testing iterators persistence ---\n";
-	for (; ft_it != ft_ite; ++ft_it)
-		std::cout << ' ' << *ft_it;
-	std::cout << '\n';
-
-	for (; ft_it2 != ft_ite2; ++ft_it2)
-		std::cout << ' ' << *ft_it2;
-	std::cout << "\n-------------------------------------\n";
+	std::cout << "\n\n------ testing iterators persistence ------\n";
+	std::cout << "ft_vector 1: iterator returned by begin() points to [" << *ft_it << "]\n";
+	std::cout << "ft_vector 1: iterator returned by --end() points to [" << *ft_ite << "]\n";
+	std::cout << "ft_vector 2: iterator returned by begin() points to [" << *ft_it2 << "]\n";
+	std::cout << "ft_vector 2: iterator returned by --end() points to [" << *ft_ite2 << "]\n";
+	std::cout << "\n-------------------------------------------\n";
 
 }
 

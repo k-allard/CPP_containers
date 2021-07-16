@@ -29,7 +29,6 @@ namespace ft
 		typedef vectorConstRevIterator<T>					const_reverse_iterator;
 
 	private:
-		void copydata(vector& x);
 
 		allocator_type						_allocator;
 		pointer								_ptr;
@@ -114,7 +113,8 @@ private:
 		template <typename InputIt> void _assign(InputIt first, InputIt last, ft::not_int);
 		void _insert(iterator pos, size_type count, const T &value, ft::is_int);
 	 	template <typename InputIt> void _insert(iterator pos, InputIt first, InputIt last, ft::not_int);
-    };
+		void copydata(vector& x);
+	};
 
 	//
 	//  C O N S T R U C T O R S  &  D E S T R U C T O R
