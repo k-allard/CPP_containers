@@ -12,7 +12,7 @@ all: $(NAME)
 
 $(NAME):
 	@echo "\x1b[33m Preparing $(NAME)...\x1b[0m"
-	@clang++ -o $(NAME) $(SRCS) $(FLAGS) $(FLAGS2)
+	clang++ -o $(NAME) $(SRCS) $(FLAGS) $(FLAGS2)
 	@echo "\x1b[32m $(NAME) are ready!\x1b[0m"
 
 clean:
@@ -25,6 +25,11 @@ re: fclean all
 
 test: re
 	@./my_containers
+
+performance: fclean
+	@echo "\x1b[33m Preparing $(NAME)...\x1b[0m"
+	clang++ -D PERFORMANCE -o $(NAME) $(SRCS) $(FLAGS) $(FLAGS2)
+	@echo "\x1b[32m $(NAME) are ready for performance testing!\x1b[0m"
 
 %.o: %.cpp
 	@clang++ $(FLAGS) -c $< -o $@

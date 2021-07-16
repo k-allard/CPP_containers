@@ -3,6 +3,9 @@
 
 int main()
 {
+#if defined(PERFORMANCE)
+	std::cout << "received PERFORMANCE" << std::endl;
+#else
 	 VectorTester *vectorTester = new VectorTester;
      vectorTester->testConstructors();
 	 vectorTester->testAssignations();
@@ -15,17 +18,17 @@ int main()
 	 vectorTester->testIteratorsComparability();
 	 delete vectorTester;
 
-//	 ListTester *listTester = new ListTester;
-//	 listTester->testConstructors();
-//	 listTester->testAssignations();
-//	 listTester->testCapacity();
-//	 listTester->testElementAccess();
-//	 listTester->testIterators();
-//	 listTester->testModifiers();
-//	 listTester->testOperations();
-//	 listTester->testSwap();
-//	 listTester->testRelationalOperators();
-//	 delete listTester;
+	 ListTester *listTester = new ListTester;
+	 listTester->testConstructors();
+	 listTester->testAssignations();
+	 listTester->testCapacity();
+	 listTester->testElementAccess();
+	 listTester->testIterators();
+	 listTester->testModifiers();
+	 listTester->testOperations();
+	 listTester->testSwap();
+	 listTester->testRelationalOperators();
+	 delete listTester;
 
 	MapTester *mapTester = new MapTester;
 	mapTester->testRBTree();
@@ -47,6 +50,6 @@ int main()
 	stackTester->testModifiers();
 	stackTester->testRelationalOperators();
 	delete stackTester;
-
+#endif
     return 0;
 }
