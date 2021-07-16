@@ -3,41 +3,42 @@
 
 int main()
 {
-//	 VectorTester *vectorTester = new VectorTester;
-//     vectorTester->testConstructors();
-//	 vectorTester->testAssignations();
-//	 vectorTester->testCapacity();
-//	 vectorTester->testElementAccess();
-//	 vectorTester->testIterators();
-//	 vectorTester->testModifiers();
-//	 vectorTester->testSwap();
-//	 vectorTester->testRelationalOperators();
-//	 delete vectorTester;
-//
+	 VectorTester *vectorTester = new VectorTester;
+     vectorTester->testConstructors();
+	 vectorTester->testAssignations();
+	 vectorTester->testCapacity();
+	 vectorTester->testElementAccess();
+	 vectorTester->testIterators();
+	 vectorTester->testModifiers();
+	 vectorTester->testSwap();
+	 vectorTester->testRelationalOperators();
+	 vectorTester->testIteratorsComparability();
+	 delete vectorTester;
+
 //	 ListTester *listTester = new ListTester;
-////	 listTester->testConstructors();
+//	 listTester->testConstructors();
 //	 listTester->testAssignations();
 //	 listTester->testCapacity();
 //	 listTester->testElementAccess();
 //	 listTester->testIterators();
-////	 listTester->testModifiers();
-////	 listTester->testOperations();
+//	 listTester->testModifiers();
+//	 listTester->testOperations();
 //	 listTester->testSwap();
 //	 listTester->testRelationalOperators();
 //	 delete listTester;
 
-//	MapTester *mapTester = new MapTester;
-//	mapTester->testRBTree();
-//	mapTester->testConstructors();
-//	 mapTester->testAssignations();
-//	 mapTester->testIterators();
-//	 mapTester->testCapacityAndElementAccess();
-//	 mapTester->testModifiers() ;
-//	 mapTester->testObservers();
-//	 mapTester->testSwap();
-//	 mapTester->testOperations();
-//	 mapTester->testRelationalOperators();
-//	delete mapTester;
+	MapTester *mapTester = new MapTester;
+	mapTester->testRBTree();
+	mapTester->testConstructors();
+	 mapTester->testAssignations();
+	 mapTester->testIterators();
+	 mapTester->testCapacityAndElementAccess();
+	 mapTester->testModifiers() ;
+	 mapTester->testObservers();
+	 mapTester->testSwap();
+	 mapTester->testOperations();
+	 mapTester->testRelationalOperators();
+	delete mapTester;
 
 	StackTester *stackTester = new StackTester;
 	stackTester->testConstructors();
@@ -45,7 +46,6 @@ int main()
 	stackTester->testElementAccess();
 	stackTester->testModifiers();
 	stackTester->testRelationalOperators();
-
 	delete stackTester;
 
     return 0;

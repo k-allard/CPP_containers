@@ -1,5 +1,4 @@
 #include "../header.hpp"
-
 #define GREEN "\033[0;32m"
 #define RED "\033[0;31m"
 #define NC "\033[0m"
@@ -20,13 +19,16 @@ public:
 	void testModifiers() ;
 	void testSwap();
 	void testRelationalOperators();
+	void testIteratorsComparability();
 
 private:
 	std::stringstream stdString;
 	std::stringstream ftString;
 	void passed();
-	int compareCustomVectors(std::vector<int> &std_vector, ft::vector<int> &ft_vector);
-	void printCustomVectors(std::vector<int> &std_vector, ft::vector<int> &ft_vector);
+	template <class T> int compareCustomVectors(std::vector<T> &std_vector, ft::vector<T> &ft_vector);
+	template <class T> void printCustomVectors(std::vector<T> &std_vector, ft::vector<T> &ft_vector);
+	template <class T> void printStdVector(std::vector<T> &std_vector);
+	template <class T> void printFtVector(ft::vector<T> &ft_vector);
 };
 
 void VectorTester::testConstructors() {
@@ -296,24 +298,68 @@ void VectorTester::testModifiers() {
 }
 
 void VectorTester::testSwap() {
-	std::cout << "--- non-member swap() ---";
-
+	std::cout << "--- swap() ---";
+//	std::cout << "\n\nstd vectors before swap:";
 	std::vector<int> first (3,100);   // three ints with a value of 100
-	ft::vector<int> ft_first (3,100);   // three ints with a value of 100
-
 	std::vector<int> second (5,200);   // five ints with a value of 200
-	ft::vector<int> ft_second (5,200);   // five ints with a value of 200
-	printCustomVectors(first, ft_first);
-	printCustomVectors(second, ft_second);
-
+//	printStdVector(first);
+//	printStdVector(second);
 	first.swap(second);
-	ft_first.swap(ft_second);
+//	std::cout << "\n\nstd vectors after swap:";
+//	printStdVector(first);
+//	printStdVector(second);
 
-	printCustomVectors(first, ft_first);
-	printCustomVectors(second, ft_second);
+	std::cout << "\n\nft vectors before swap:";
+	ft::vector<int> ft_first (3,100);   // three ints with a value of 100
+	ft::vector<int> ft_second (5,200);   // five ints with a value of 200
+	printFtVector(ft_first);
+	printFtVector(ft_second);
+	ft_first.swap(ft_second);
+	std::cout << "\n\nft vectors after swap:";
+	printFtVector(ft_first);
+	printFtVector(ft_second);
 
 	if (!compareCustomVectors(first, ft_first) && !compareCustomVectors(second, ft_second))
 		passed();
+
+	std::cout << "\n--- non-member swap() ---\n";
+	std::cout << "\n--- testing iterators persistence ---\n";
+	ft::vector<int>::iterator ft_it = ft_first.begin();
+	ft::vector<int>::iterator ft_ite = --ft_first.end();
+
+	ft::vector<int>::iterator ft_it2 = ft_second.begin();
+	ft::vector<int>::iterator ft_ite2 = --ft_second.end();
+
+	for (; ft_it != ft_ite; ++ft_it)
+		std::cout << ' ' << *ft_it;
+	std::cout << '\n';
+
+	for (; ft_it2 != ft_ite2; ++ft_it2)
+		std::cout << ' ' << *ft_it2;
+	std::cout << "\n-------------------------------------\n";
+
+
+	std::swap(first, second);
+//	std::cout << "\n\nstd vectors after 2nd swap:";
+//	printStdVector(first);
+//	printStdVector(second);
+
+	ft::swap(ft_first, ft_second);
+	std::cout << "\nft vectors after 2nd swap:";
+	printFtVector(ft_first);
+	printFtVector(ft_second);
+	if (!compareCustomVectors(first, ft_first) && !compareCustomVectors(second, ft_second))
+		passed();
+
+	std::cout << "\n\n--- testing iterators persistence ---\n";
+	for (; ft_it != ft_ite; ++ft_it)
+		std::cout << ' ' << *ft_it;
+	std::cout << '\n';
+
+	for (; ft_it2 != ft_ite2; ++ft_it2)
+		std::cout << ' ' << *ft_it2;
+	std::cout << "\n-------------------------------------\n";
+
 }
 
 void VectorTester::testRelationalOperators() {
@@ -335,18 +381,62 @@ void VectorTester::testRelationalOperators() {
 		std::cout << RED << "FAIL ❌\n" << NC;
 }
 
+void VectorTester::testIteratorsComparability() {
+	std::cout << "--- testIteratorsComparability() ---\n";
+
+
+//	const std::vector<int> const_first(4, 100);	//константный вектор
+//	std::vector<int>::const_iterator const_it;			//константный итератор
+//
+//	const_it = const_first.begin();						//begin() вернул константный итератор так как вызван у конст_вектора
+//	passed();											//можно проверить: const_it сделать не константным - код не скомпилиться
+//
+//	std::vector<int> first(4, 100);				//non-const вектор
+//	std::vector<int>::iterator it;						//non-const итератор
+//	std::vector<int>::const_iterator ite;				//const итератор
+//
+//	it = first.begin();
+//	ite = first.end();
+//
+//	if (ite>it)											//testing comparability of const and non_const iterators
+//		passed();
+
+	std::cout << "* Testing that if the vector object is const-qualified, \n\t" <<
+			  "the function returns a const_iterator. \n\tOtherwise, it returns an iterator *\n";
+	const ft::vector<int> ft_const_first(4, 100);	//константный вектор
+	ft::vector<int>::const_iterator ft_const_it;			//константный итератор
+
+	ft_const_it = ft_const_first.begin();						//begin() вернул константный итератор так как вызван у конст_вектора
+	passed();											//можно проверить: const_it сделать не константным - код не скомпилиться
+
+	std::cout << "* Testing comparability of const and non_const iterators *\n";
+	ft::vector<int> ft_first(4, 100);				//non-const вектор
+	ft::vector<int>::iterator ft_it;						//non-const итератор
+	ft::vector<int>::const_iterator ft_ite;				//const итератор
+
+	ft_it = ft_first.begin();
+	ft_ite = ft_first.end();
+
+	if (ft_ite > ft_it)
+		passed();
+
+	if (ft_it < ft_ite)
+		passed();
+}
+
 void VectorTester::passed() {
 	const unsigned int microseconds = 250000; //1000000 microseconds = 1 sec
 	std::cout << GREEN << "PASSED ✅" << NC << "\n\n";
 	usleep(microseconds);
 }
 
-int VectorTester::compareCustomVectors(std::vector<int> &std_vector, ft::vector<int> &ft_vector) {
+template <class T>
+int VectorTester::compareCustomVectors(std::vector<T> &std_vector, ft::vector<T> &ft_vector) {
 	int fail = 0;
-	for (std::vector<int>::size_type i = 0; i < std_vector.size(); i++) {
+	for (typename std::vector<T>::size_type i = 0; i < std_vector.size(); i++) {
 		stdString << std_vector.at(i) << " ";
 	}
-	for (ft::vector<int>::size_type i = 0; i < ft_vector.size(); i++) {
+	for (typename ft::vector<T>::size_type i = 0; i < ft_vector.size(); i++) {
 		ftString << ft_vector.at(i) << " ";
 	}
 	if (ftString.str().compare(stdString.str())) {
@@ -359,14 +449,31 @@ int VectorTester::compareCustomVectors(std::vector<int> &std_vector, ft::vector<
 	return fail;
 }
 
-void VectorTester::printCustomVectors(std::vector<int> &std_vector, ft::vector<int> &ft_vector) {
-	std::cout << "\nFt vector : ";
-	for (std::vector<int>::size_type i = 0; i < std_vector.size(); i++) {
+template <class T>
+void VectorTester::printCustomVectors(std::vector<T> &std_vector, ft::vector<T> &ft_vector) {
+	std::cout << "\nStd vector : ";
+	for (typename std::vector<T>::size_type i = 0; i < std_vector.size(); i++) {
 		std::cout << std_vector.at(i) << " ";
 	}
-	std::cout << "\nStd vector: ";
-	for (ft::vector<int>::size_type i = 0; i < ft_vector.size(); i++) {
+	std::cout << "\nFt vector: ";
+	for (typename ft::vector<T>::size_type i = 0; i < ft_vector.size(); i++) {
 		std::cout << ft_vector.at(i) << " ";
 	}
 	std::cout << "\n";
+}
+
+template <class T>
+void VectorTester::printStdVector(std::vector<T> &std_vector) {
+	std::cout << "\nStd vector: ";
+	for (typename std::vector<T>::size_type i = 0; i < std_vector.size(); i++) {
+		std::cout << std_vector.at(i) << " ";
+	}
+}
+
+template <class T>
+void VectorTester::printFtVector(ft::vector<T> &ft_vector) {
+	std::cout << "\nFt vector: ";
+	for (typename ft::vector<T>::size_type i = 0; i < ft_vector.size(); i++) {
+		std::cout << ft_vector.at(i) << " ";
+	}
 }

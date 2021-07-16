@@ -29,11 +29,13 @@ namespace ft
 		typedef vectorConstRevIterator<T>					const_reverse_iterator;
 
 	private:
+		void copydata(vector& x);
+
 		allocator_type						_allocator;
 		pointer								_ptr;
 		size_type							_size;
 		size_type							_capacity;
-		const static size_type 				_growthRate = 2;
+//		const static size_type 				_growthRate = 2;
 
 	public:
 
@@ -127,10 +129,10 @@ private:
 	}
 
   	// fill
-	// Создаёт вектор с n объектами. Если val объявлена, то каждый из этих объектов будет инициализирован её значением; 
-	// в противном случае объекты получат значение конструктора по умолчанию типа T.	
+	// Создаёт вектор с n объектами. Если val объявлена, то каждый из этих объектов будет инициализирован её значением;
+	// в противном случае объекты получат значение конструктора по умолчанию типа T.
 	template <typename T, typename Allocator>
-	vector<T, Allocator>::vector (size_type n, const value_type& val, const allocator_type& alloc) {  
+	vector<T, Allocator>::vector (size_type n, const value_type& val, const allocator_type& alloc) {
 		_allocator = alloc;
 		_capacity 	= 0;
 		_ptr		= nullptr;
@@ -141,11 +143,11 @@ private:
 	}
 
 	// 		range
-	// Constructs a container with as many elements as the range [first,last), 
+	// Constructs a container with as many elements as the range [first,last),
 	// 		with each element constructed from its corresponding element in that range, in the same order.
 	template <typename T, typename Alloc>
 	template <typename InputIterator>
-	vector<T, Alloc>::vector (InputIterator first, InputIterator last, const allocator_type& alloc) {    
+	vector<T, Alloc>::vector (InputIterator first, InputIterator last, const allocator_type& alloc) {
 		_allocator = alloc;
 		_capacity 	= 0;
 		_ptr		= nullptr;
@@ -165,10 +167,10 @@ private:
 		}
 		else
 			_ptr = nullptr;
-	}  
+	}
 
 	template <typename T, typename Allocator>
-	vector<T, Allocator>::~vector() { 
+	vector<T, Allocator>::~vector() {
 		for (size_type i = 0; i < _size; i++)
 			_allocator.destroy(_ptr + i);			// destructs an object in allocated storage
 		if (_capacity > 0)
@@ -194,7 +196,7 @@ private:
 		return (*this);
 	}
 
- // assign - fill 
+ // assign - fill
 	template <typename T, typename Alloc>
 	void vector<T, Alloc>::assign (size_type n, const value_type& val) {
 		clear();
@@ -214,7 +216,7 @@ private:
 	}
 
 	template <typename T, typename Alloc>
-	template <typename InputIt> 
+	template <typename InputIt>
 	void vector<T, Alloc>::_assign(InputIt first, InputIt last, ft::not_int) {
 		clear();
 		while (first != last) {
@@ -224,7 +226,7 @@ private:
 	}
 
 	template <typename T, typename Alloc>
-	template <class InputIterator> 
+	template <class InputIterator>
 	void vector<T, Alloc>::assign(InputIterator first, InputIterator last) {
 		typedef typename ft::is_integer<InputIterator>::type res;
 		_assign(first, last, res());
@@ -520,13 +522,23 @@ template <typename T, typename Alloc>
 	}
 
 	template <class T, class Alloc>
-	void vector<T, Alloc>::swap (vector& x){
-		std::swap(_allocator, x._allocator);
-		std::swap(_ptr, x._ptr);
-		std::swap(_size, x._size);
-		std::swap(_capacity, x._capacity);
+	void vector<T, Alloc>::copydata(vector& x) {
+		_ptr = x._ptr;
+		_size = x._size;
 	}
-	
+	template <class T, class Alloc>
+	void vector<T, Alloc>::swap (vector& x){
+		vector<T, Alloc> tmp;
+		tmp.copydata(*this);
+		copydata(x);
+		x.copydata(tmp);
+
+//		std::swap(_allocator, x._allocator);
+//		std::swap(_ptr, x._ptr);
+//		std::swap(_size, x._size);
+//		std::swap(_capacity, x._capacity);
+	}
+
 	template <class T, class Alloc>
 	void vector<T, Alloc>::clear () {
 	while (_size)

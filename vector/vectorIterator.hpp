@@ -81,7 +81,7 @@ namespace ft
 		typedef T1&						reference;
 		typedef T1*						pointer;
 		pointer							node;
-		
+
 		vectorRevIterator(): node(nullptr) {}
 		vectorRevIterator(pointer p) : node(p) {}
 		vectorRevIterator(const vectorRevIterator& rhs): node(rhs.node) {}
@@ -111,7 +111,7 @@ namespace ft
 		typedef const T1&						reference;
 		typedef const T1*						pointer;
 		pointer									node;
-		
+
 		vectorConstRevIterator(): node(nullptr) {}
 		vectorConstRevIterator(pointer p) : node(p) {}
 		vectorConstRevIterator(const vectorConstRevIterator& rhs): node(rhs.node) {}
@@ -138,48 +138,48 @@ namespace ft
 
 // vectorIterator
 	// перегрузка оператора присваивания
-	template <typename T1> 
+	template <typename T1>
 	vectorIterator<T1> &vectorIterator<T1>::operator=(const vectorIterator &src) {
-		node = src.node; 
-		return (*this); 
+		node = src.node;
+		return (*this);
 	}
 
 	// dereference iterator returns a reference to the element pointed to by the iterator
-	template <typename T1> 
-	typename vectorIterator<T1>::reference vectorIterator<T1>::operator*() { 
+	template <typename T1>
+	typename vectorIterator<T1>::reference vectorIterator<T1>::operator*() {
 		return (*node);
 	}
 
 	// dereference iterator returns a pointer to the element pointed to by the iterator (in order to access one of its members)
-	template <typename T1> 
-	typename vectorIterator<T1>::pointer vectorIterator<T1>::operator->() { 
-		return (node); 
+	template <typename T1>
+	typename vectorIterator<T1>::pointer vectorIterator<T1>::operator->() {
+		return (node);
 	}
 
 	// pre-increment - перемещение итератора вперед для обращения к следующему элементу
-	template <typename T1> 
-	vectorIterator<T1> &vectorIterator<T1>::operator++() { 
-		node++; 
-		return (*this); 
+	template <typename T1>
+	vectorIterator<T1> &vectorIterator<T1>::operator++() {
+		node++;
+		return (*this);
 	}
 
 	// post-increment - returns the value *this had before the call
-	template <typename T1> 
-	vectorIterator<T1> vectorIterator<T1>::operator++(int)	{ 
+	template <typename T1>
+	vectorIterator<T1> vectorIterator<T1>::operator++(int)	{
 		vectorIterator temp = *this;
 		node++;
 		return (temp);
 	}
 
 	// pre-decrement - перемещение итератора назад для обращения к предыдущему элементу
-	template <typename T1> 
-	vectorIterator<T1> &vectorIterator<T1>::operator--() { 
-		node--; 
-		return (*this); 
+	template <typename T1>
+	vectorIterator<T1> &vectorIterator<T1>::operator--() {
+		node--;
+		return (*this);
 	}
 
 	// post-decrement
-	template <typename T1> 
+	template <typename T1>
 	vectorIterator<T1>	vectorIterator<T1>::operator--(int) {
 		vectorIterator temp = *this;
 		node--;
@@ -187,19 +187,19 @@ namespace ft
 	}
 
 	// два итератора равны, если они указывают на один и тот же элемент
-	template <typename T1> 
-	bool vectorIterator<T1>::operator==(const vectorIterator & second) const { 
-		return (node == second.node); 
+	template <typename T1>
+	bool vectorIterator<T1>::operator==(const vectorIterator & second) const {
+		return (node == second.node);
 	}
 
 	// два итератора не равны, если они указывают на разные элементы
-	template <typename T1> 
-	bool vectorIterator<T1>::operator!=(const vectorIterator & second) const { 
-		return (node != second.node); 
+	template <typename T1>
+	bool vectorIterator<T1>::operator!=(const vectorIterator & second) const {
+		return (node != second.node);
 	}
 
 	// возвращает итератор, который смещен от итератора iter на n позиций вперед
-	template <typename T1> 
+	template <typename T1>
 	vectorIterator<T1> vectorIterator<T1>::operator+(int n) const {
 		vectorIterator temp = *this;
 		temp.node += n;
@@ -207,7 +207,7 @@ namespace ft
 	}
 
 	// возвращает итератор, который смещен от итератора iter на n позиций назад
-	template <typename T1> 
+	template <typename T1>
 	vectorIterator<T1>	vectorIterator<T1>::operator-(int n) const {
 		vectorIterator temp = *this;
 		temp.node -= n;
@@ -215,75 +215,82 @@ namespace ft
 	}
 
 	// перемещает итератор на n позиций вперед
-	template <typename T1> 
-	vectorIterator<T1> &vectorIterator<T1>::operator+=(int n) { 
-		node += n; 
-		return (*this); 
+	template <typename T1>
+	vectorIterator<T1> &vectorIterator<T1>::operator+=(int n) {
+		node += n;
+		return (*this);
 	}
 
 	// перемещает итератор на n позиций назад
-	template <typename T1> 
-	vectorIterator<T1> &vectorIterator<T1>::operator-=(int n) { 
-		node -= n; 
-		return (*this); 
+	template <typename T1>
+	vectorIterator<T1> &vectorIterator<T1>::operator-=(int n) {
+		node -= n;
+		return (*this);
 	}
 
 	// dereference iterator with offset accesses the element located n positions away from the element currently pointed to
-	template <typename T1> 
-	typename vectorIterator<T1>::reference vectorIterator<T1>::operator[](size_t n) { 
-		return (*(node + n)); 
+	template <typename T1>
+	typename vectorIterator<T1>::reference vectorIterator<T1>::operator[](size_t n) {
+		return (*(node + n));
 	}
 
 	// возвращает количество позиций между итераторами iter1 и iter2
-	template <typename T1> 
-	size_t vectorIterator<T1>::operator-(vectorIterator & iter2) const { 
-		return (node - iter2.node); 
+	template <typename T1>
+	size_t vectorIterator<T1>::operator-(vectorIterator & iter2) const {
+		return (node - iter2.node);
 	}
 
 // vectorConstIterator
 	// перегрузка оператора присваивания
-	template <typename T1> 
+	template <typename T1>
 	vectorConstIterator<T1> &vectorConstIterator<T1>::operator=(const vectorConstIterator &src) {
-		node = src.node; 
-		return (*this); 
+		node = src.node;
+		return (*this);
+	}
+
+	// перегрузка оператора присваивания
+	template <typename T1>
+	vectorConstIterator<T1> &vectorConstIterator<T1>::operator=(const vectorIterator<T1> &src) {
+		node = src.node;
+		return (*this);
 	}
 
 	// dereference iterator returns a reference to the element pointed to by the iterator
-	template <typename T1> 
-	typename vectorConstIterator<T1>::reference vectorConstIterator<T1>::operator*() { 
+	template <typename T1>
+	typename vectorConstIterator<T1>::reference vectorConstIterator<T1>::operator*() {
 		return (*node);
 	}
 
 	// dereference iterator returns a pointer to the element pointed to by the iterator (in order to access one of its members)
-	template <typename T1> 
-	typename vectorConstIterator<T1>::pointer vectorConstIterator<T1>::operator->() { 
-		return (node); 
+	template <typename T1>
+	typename vectorConstIterator<T1>::pointer vectorConstIterator<T1>::operator->() {
+		return (node);
 	}
 
 	// pre-increment - перемещение итератора вперед для обращения к следующему элементу
-	template <typename T1> 
-	vectorConstIterator<T1> &vectorConstIterator<T1>::operator++() { 
-		node++; 
-		return (*this); 
+	template <typename T1>
+	vectorConstIterator<T1> &vectorConstIterator<T1>::operator++() {
+		node++;
+		return (*this);
 	}
 
 	// post-increment - returns the value *this had before the call
-	template <typename T1> 
-	vectorConstIterator<T1> vectorConstIterator<T1>::operator++(int)	{ 
+	template <typename T1>
+	vectorConstIterator<T1> vectorConstIterator<T1>::operator++(int)	{
 		vectorConstIterator temp = *this;
 		node++;
 		return (temp);
 	}
 
 	// pre-decrement - перемещение итератора назад для обращения к предыдущему элементу
-	template <typename T1> 
-	vectorConstIterator<T1> &vectorConstIterator<T1>::operator--() { 
-		node--; 
-		return (*this); 
+	template <typename T1>
+	vectorConstIterator<T1> &vectorConstIterator<T1>::operator--() {
+		node--;
+		return (*this);
 	}
 
 	// post-decrement
-	template <typename T1> 
+	template <typename T1>
 	vectorConstIterator<T1>	vectorConstIterator<T1>::operator--(int) {
 		vectorConstIterator temp = *this;
 		node--;
@@ -291,19 +298,19 @@ namespace ft
 	}
 
 	// два итератора равны, если они указывают на один и тот же элемент
-	template <typename T1> 
-	bool vectorConstIterator<T1>::operator==(const vectorConstIterator & second) const { 
-		return (node == second.node); 
+	template <typename T1>
+	bool vectorConstIterator<T1>::operator==(const vectorConstIterator & second) const {
+		return (node == second.node);
 	}
 
 	// два итератора не равны, если они указывают на разные элементы
-	template <typename T1> 
-	bool vectorConstIterator<T1>::operator!=(const vectorConstIterator & second) const { 
-		return (node != second.node); 
+	template <typename T1>
+	bool vectorConstIterator<T1>::operator!=(const vectorConstIterator & second) const {
+		return (node != second.node);
 	}
 
 	// возвращает итератор, который смещен от итератора iter на n позиций вперед
-	template <typename T1> 
+	template <typename T1>
 	vectorConstIterator<T1> vectorConstIterator<T1>::operator+(int n) const {
 		vectorConstIterator temp = *this;
 		temp.node += n;
@@ -311,7 +318,7 @@ namespace ft
 	}
 
 	// возвращает итератор, который смещен от итератора iter на n позиций назад
-	template <typename T1> 
+	template <typename T1>
 	vectorConstIterator<T1>	vectorConstIterator<T1>::operator-(int n) const {
 		vectorConstIterator temp = *this;
 		temp.node -= n;
@@ -319,29 +326,29 @@ namespace ft
 	}
 
 	// перемещает итератор на n позиций вперед
-	template <typename T1> 
-	vectorConstIterator<T1> &vectorConstIterator<T1>::operator+=(int n) { 
-		node += n; 
-		return (*this); 
+	template <typename T1>
+	vectorConstIterator<T1> &vectorConstIterator<T1>::operator+=(int n) {
+		node += n;
+		return (*this);
 	}
 
 	// перемещает итератор на n позиций назад
-	template <typename T1> 
-	vectorConstIterator<T1> &vectorConstIterator<T1>::operator-=(int n) { 
-		node -= n; 
-		return (*this); 
+	template <typename T1>
+	vectorConstIterator<T1> &vectorConstIterator<T1>::operator-=(int n) {
+		node -= n;
+		return (*this);
 	}
 
 	// dereference iterator with offset accesses the element located n positions away from the element currently pointed to
-	template <typename T1> 
-	typename vectorConstIterator<T1>::reference vectorConstIterator<T1>::operator[](size_t n) { 
-		return (*(node + n)); 
+	template <typename T1>
+	typename vectorConstIterator<T1>::reference vectorConstIterator<T1>::operator[](size_t n) {
+		return (*(node + n));
 	}
 
 	// возвращает количество позиций между итераторами iter1 и iter2
-	template <typename T1> 
-	size_t vectorConstIterator<T1>::operator-(vectorConstIterator & iter2) const { 
-		return (node - iter2.node); 
+	template <typename T1>
+	size_t vectorConstIterator<T1>::operator-(vectorConstIterator & iter2) const {
+		return (node - iter2.node);
 	}
 
 // vectorRevIterator
@@ -447,22 +454,57 @@ namespace ft
 			}
 
 	template <typename T1>
-			vectorConstRevIterator<T1>& vectorConstRevIterator<T1>::operator-=(int n) {
-				node += n;
-				return (*this);
-			}
+	vectorConstRevIterator<T1>& vectorConstRevIterator<T1>::operator-=(int n) {
+		node += n;
+		return (*this);
+	}
 
 	template <typename T1>
-			vectorConstRevIterator<T1>	vectorConstRevIterator<T1>::operator+(int n) const {
-				vectorConstRevIterator<T1> it(*this);
-				return (it -= n);
-			}
+	vectorConstRevIterator<T1>	vectorConstRevIterator<T1>::operator+(int n) const {
+		vectorConstRevIterator<T1> it(*this);
+		return (it -= n);
+	}
 
 	template <typename T1>
-			vectorConstRevIterator<T1>	vectorConstRevIterator<T1>::operator-(int n) const {
-				vectorConstRevIterator<T1> it(*this);
-				return (it += n);
-			}
+	vectorConstRevIterator<T1>	vectorConstRevIterator<T1>::operator-(int n) const {
+		vectorConstRevIterator<T1> it(*this);
+		return (it += n);
+	}
 
+	template <typename T1>
+	bool operator>(vectorConstIterator<T1> &lhs, vectorIterator<T1> &rhs) { return( lhs.node > rhs.node );};
+
+	template <typename T1>
+	bool operator<(vectorConstIterator<T1> &lhs, vectorIterator<T1> &rhs) { return( lhs.node < rhs.node );};
+
+	template <typename T1>
+	bool operator>=(vectorConstIterator<T1> &lhs, vectorIterator<T1> &rhs) { return( lhs.node >= rhs.node );};
+
+	template <typename T1>
+	bool operator<=(vectorConstIterator<T1> &lhs, vectorIterator<T1> &rhs) { return( lhs.node <= rhs.node );};
+
+	template <typename T1>
+	bool operator==(vectorConstIterator<T1> &lhs, vectorIterator<T1> &rhs) { return( lhs.node == rhs.node );};
+
+	template <typename T1>
+	bool operator!=(vectorConstIterator<T1> &lhs, vectorIterator<T1> &rhs) { return( lhs.node != rhs.node );};
+
+	template <typename T1>
+	bool operator>(vectorIterator<T1> &lhs, vectorConstIterator<T1> &rhs) { return( lhs.node > rhs.node );};
+
+	template <typename T1>
+	bool operator<(vectorIterator<T1> &lhs, vectorConstIterator<T1> &rhs) { return( lhs.node < rhs.node );};
+
+	template <typename T1>
+	bool operator>=(vectorIterator<T1> &lhs, vectorConstIterator<T1> &rhs) { return( lhs.node >= rhs.node );};
+
+	template <typename T1>
+	bool operator<=(vectorIterator<T1> &lhs, vectorConstIterator<T1> &rhs) { return( lhs.node <= rhs.node );};
+
+	template <typename T1>
+	bool operator==(vectorIterator<T1> &lhs, vectorConstIterator<T1> &rhs) { return( lhs.node == rhs.node );};
+
+	template <typename T1>
+	bool operator!=(vectorIterator<T1> &lhs, vectorConstIterator<T1> &rhs) { return( lhs.node != rhs.node );};
 }
 #endif
